@@ -1,3 +1,5 @@
+"use client"
+
 import { Sparkles } from "lucide-react";
 import { Button } from "@/src/shared/ui/button";
 
