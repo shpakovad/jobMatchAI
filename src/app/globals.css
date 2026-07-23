@@ -143,9 +143,11 @@
   }
 
   body {
+    padding: 0 4rem;
 
   }
   html {
     @apply font-sans;
+    background-color: #0d1117;
   }
 }
