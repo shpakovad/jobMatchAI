@@ -1,9 +1,34 @@
-"use client"
+"use client";
 
 import { Sparkles } from "lucide-react";
 import { Button } from "@/src/shared/ui/button";
 
+import { useParams, usePathname, useRouter } from "next/navigation";
+
 const Header = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useParams();
+  const locale = params ? params.locale : "ru";
+
+  const onChangeLocale = (value: string) => {
+    if (!pathname) {
+      router.push(`/${value}`);
+      return;
+    }
+    const segments = pathname.split("/");
+
+    segments[1] = value;
+
+    const newPath = segments.join("/");
+
+    router.push(newPath);
+  };
+
+  const getLanguageLinkColor = (value: string) => {
+    return locale === value ? "text-slate-50" : "text-slate-500";
+  };
+
   return (
     <header className="flex flex-col items-center justify-between border-b border-transparent pb-4 pt-4 dark:border-[var(--chart-3)]">
       <div className="mb-4 flex w-full justify-end">
@@ -11,9 +36,19 @@ const Header = () => {
           className="flex h-9 items-center overflow-hidden p-1 text-xs font-semibold text-slate-300 shadow-sm"
           aria-label="Language switcher"
         >
-          <span className="px-1 py-1 text-slate-50 shadow-sm hover:cursor-pointer">EN</span>
+          <span
+            onClick={() => onChangeLocale("en")}
+            className={`px-1 py-1 ${getLanguageLinkColor("en")} hover:cursor-pointer`}
+          >
+            EN
+          </span>
           <span>/</span>
-          <span className="px-1 py-1 text-slate-400 hover:cursor-pointer">RU</span>
+          <span
+            onClick={() => onChangeLocale("ru")}
+            className={`px-1 py-1 ${getLanguageLinkColor("ru")} hover:cursor-pointer`}
+          >
+            RU
+          </span>
         </div>
       </div>
       <div className="flex w-full items-center justify-between">
