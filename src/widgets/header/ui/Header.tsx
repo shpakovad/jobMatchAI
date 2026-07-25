@@ -2,31 +2,32 @@
 
 import { Sparkles } from "lucide-react";
 import { Button } from "@/src/shared/ui/button";
-
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { usePathname, useRouter } from "@/src/navigation";
+import { useParams } from "next/navigation";
 
 const Header = () => {
+  const t = useTranslations("Header");
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
   const locale = params ? params.locale : "ru";
 
+  const isActiveLocale = (value: string) => locale === value;
+
+  const localeClassName = (value: string) =>
+    [
+      "px-1",
+      "py-1",
+      isActiveLocale(value)
+        ? "text-slate-50 hover:cursor-default"
+        : "text-slate-500 hover:cursor-pointer",
+    ]
+      .filter(Boolean)
+      .join(" ");
+
   const onChangeLocale = (value: string) => {
-    if (!pathname) {
-      router.push(`/${value}`);
-      return;
-    }
-    const segments = pathname.split("/");
-
-    segments[1] = value;
-
-    const newPath = segments.join("/");
-
-    router.push(newPath);
-  };
-
-  const getLanguageLinkColor = (value: string) => {
-    return locale === value ? "text-slate-50" : "text-slate-500";
+    router.replace(pathname, { locale: value as "en" | "ru" });
   };
 
   return (
@@ -36,17 +37,11 @@ const Header = () => {
           className="flex h-9 items-center overflow-hidden p-1 text-xs font-semibold text-slate-300 shadow-sm"
           aria-label="Language switcher"
         >
-          <span
-            onClick={() => onChangeLocale("en")}
-            className={`px-1 py-1 ${getLanguageLinkColor("en")} hover:cursor-pointer`}
-          >
+          <span onClick={() => onChangeLocale("en")} className={localeClassName("en")}>
             EN
           </span>
           <span>/</span>
-          <span
-            onClick={() => onChangeLocale("ru")}
-            className={`px-1 py-1 ${getLanguageLinkColor("ru")} hover:cursor-pointer`}
-          >
+          <span onClick={() => onChangeLocale("ru")} className={localeClassName("ru")}>
             RU
           </span>
         </div>
@@ -57,7 +52,7 @@ const Header = () => {
           <span className="pl-3 text-sm font-semibold text-slate-100">JobMatch AI</span>
         </div>
         <div className="ml-auto flex items-center gap-3">
-          <Button>Войти</Button>
+          <Button>{t("login")}</Button>
         </div>
       </div>
     </header>
