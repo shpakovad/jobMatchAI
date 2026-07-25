@@ -1,5 +1,10 @@
 {
   "Header": {
     "login": "LogIn"
+  },
+  "LandingPage": {
+    "MainSection": {
+      "title": "Get your dream job with AI"
+    }
   }
 }
