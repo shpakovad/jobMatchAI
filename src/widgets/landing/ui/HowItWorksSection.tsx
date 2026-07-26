@@ -8,7 +8,7 @@ export const HowItWorksSection = ({ translation }: TranslationProps) => {
       <h2 className="mb-2 text-center text-2xl font-bold text-slate-100">
         {translation("HowItWorksSection.title")}
       </h2>
-      <p className="mb-12 text-center text-sm text-slate-500">
+      <p className="mb-12 text-center text-base text-slate-500">
         {translation("HowItWorksSection.description")}
       </p>
       <div className="grid gap-6 md:grid-cols-2">

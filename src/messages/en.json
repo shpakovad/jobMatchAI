@@ -28,6 +28,10 @@
           }
         }
       }
+    },
+    "ExampleSection": {
+      "title": "Example result",
+      "description": "Real analysis of the vacancy"
     }
   }
 }
