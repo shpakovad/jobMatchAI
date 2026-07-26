@@ -13,16 +13,15 @@ import { ReactNode } from "react";
 interface StepResult {
   id: string;
   title: string;
-  img: ReactNode; // Для JSX иконок используем тип ReactNode
+  img: ReactNode;
 }
 
-// 3. Описываем интерфейс для основного шага
 interface HowItWorksStep {
   id: string;
   title: string;
   img: ReactNode;
-  description?: string; // Знак вопроса, так как у 3-го шага нет описания, только результаты
-  result?: StepResult[]; // Необязательный массив результатов
+  description?: string;
+  result?: StepResult[];
 }
 
 export const getHowItWorksSteps = (translation: TranslationType): HowItWorksStep[] => {
