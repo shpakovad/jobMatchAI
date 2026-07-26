@@ -5,6 +5,29 @@
   "LandingPage": {
     "MainSection": {
       "title": "Get your dream job with AI"
+    },
+    "HowItWorksSection": {
+      "title": "How it works",
+      "description": "Four steps to perfect work",
+      "steps": {
+        "step1": {
+          "title": "Upload your resume",
+          "description": "AI will extract your skills and experience automatically"
+        },
+        "step2": {
+          "title": "Add a vacancy",
+          "description": "Insert a link or job description"
+        },
+        "step3": {
+          "title": "Get a full AI analysis",
+          "result": {
+            "result1": "Match score",
+            "result2": "Missing skills",
+            "result3": "Interview questions",
+            "result4": "Cover letter"
+          }
+        }
+      }
     }
   }
 }

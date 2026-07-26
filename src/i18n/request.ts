@@ -1,7 +1,6 @@
 import { getRequestConfig } from "next-intl/server";
 import { routing } from "../navigation";
-
-type Locale = "en" | "ru";
+import { Locale } from "@/src/shared/types";
 
 export default getRequestConfig(async ({ requestLocale }) => {
   let locale = await requestLocale;

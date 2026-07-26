@@ -5,6 +5,8 @@ import { Button } from "@/src/shared/ui/button";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/src/navigation";
 import { useParams } from "next/navigation";
+import { divider } from "@/src/shared/styles";
+import { Locale } from "@/src/shared/types";
 
 const Header = () => {
   const t = useTranslations("Header");
@@ -27,11 +29,11 @@ const Header = () => {
       .join(" ");
 
   const onChangeLocale = (value: string) => {
-    router.replace(pathname, { locale: value as "en" | "ru" });
+    router.replace(pathname, { locale: value as Locale });
   };
 
   return (
-    <header className="flex flex-col items-center justify-between border-b border-transparent pb-4 pt-4 dark:border-[var(--chart-3)]">
+    <header className={`flex flex-col items-center justify-between pb-4 pt-4 ${divider}`}>
       <div className="mb-4 flex w-full justify-end">
         <div
           className="flex h-9 items-center overflow-hidden p-1 text-xs font-semibold text-slate-300 shadow-sm"
