@@ -1,6 +1,11 @@
 {
   "Header": {
-    "login": "Войти"
+    "Login": {
+      "title": "Войти",
+      "welcomeLabel": "Добро пожаловать",
+      "description": "Войдите или создайте аккаунт",
+      "cancelLabel": "Отменить"
+    }
   },
   "LandingPage": {
     "MainSection": {

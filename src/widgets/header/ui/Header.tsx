@@ -1,12 +1,12 @@
 "use client";
 
 import { Sparkles } from "lucide-react";
-import { Button } from "@/src/shared/ui/button";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/src/navigation";
 import { useParams } from "next/navigation";
 import { divider } from "@/src/shared/styles";
 import { Locale } from "@/src/shared/types";
+import { LoginModal } from "@/src/features/login/ui/LoginModal";
 
 const Header = () => {
   const t = useTranslations("Header");
@@ -53,9 +53,7 @@ const Header = () => {
           <Sparkles color="oklch(70.7% 0.165 254.624)" />
           <span className="pl-3 text-sm font-semibold text-slate-100">JobMatch AI</span>
         </div>
-        <div className="ml-auto flex items-center gap-3">
-          <Button>{t("login")}</Button>
-        </div>
+        <LoginModal translation={t} />
       </div>
     </header>
   );
