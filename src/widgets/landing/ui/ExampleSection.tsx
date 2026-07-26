@@ -1,5 +1,6 @@
 import { TranslationProps } from "@/src/shared/types";
 import { border, divider } from "@/src/shared/styles";
+import { Info } from "lucide-react";
 
 const missedItems: Array<string> = ["Docker", "AWS", "Kubernetes"];
 const matchedItems: Array<string> = ["React", "TypeScript", "Next.js", "Node.js", "GraphQL"];
@@ -19,25 +20,27 @@ export const ExampleSection = ({ translation }: TranslationProps) => {
           <div className="h-2 w-2 rounded-full bg-red-600" />
           <div className="h-2 w-2 rounded-full bg-amber-600" />
           <div className="h-2 w-2 rounded-full bg-emerald-600" />
-          <span className="ml-2 font-mono text-sm text-slate-500">AI Analysis Result</span>
+          <span className="ml-2 font-mono text-sm text-slate-500">
+            {translation("ExampleSection.card.title")}
+          </span>
         </div>
 
         <div className="grid gap-6 p-6 md:grid-cols-3">
           <div className="md:col-span-1">
             <p className="mb-2 font-mono text-sm uppercase tracking-wider text-slate-500">
-              Vacancy
+              {translation("ExampleSection.card.vacancyLabel")}
             </p>
             <p className="font-semibold text-slate-100">React Developer</p>
-            <p className="mt-0.5 text-sm text-slate-500">Stripe · San Francisco</p>
+            <p className="mt-0.5 text-sm text-slate-500">Stripe</p>
             <div className="mt-4">
               <p className="mb-1 font-mono text-sm uppercase tracking-wider text-slate-500">
-                Match
+                {translation("ExampleSection.card.matchLabel")}
               </p>
               <p className="font-mono text-4xl font-bold text-blue-400">82%</p>
             </div>
             <div className="mt-3">
               <p className="mb-1 font-mono text-sm uppercase tracking-wider text-slate-500">
-                Skills Matched
+                {translation("ExampleSection.card.skillsMatchedLabel")}
               </p>
               <p className="font-mono text-xl font-bold text-slate-100">
                 15
@@ -48,7 +51,7 @@ export const ExampleSection = ({ translation }: TranslationProps) => {
           <div className="space-y-4 md:col-span-2">
             <div>
               <p className="mb-2 font-mono text-sm uppercase tracking-wider text-slate-500">
-                Missing skills
+                {translation("ExampleSection.card.missingSkillsLabel")}
               </p>
               <div className="flex flex-wrap gap-2">
                 {missedItems.map((item, index) => (
@@ -63,7 +66,7 @@ export const ExampleSection = ({ translation }: TranslationProps) => {
             </div>
             <div>
               <p className="mb-2 font-mono text-sm uppercase tracking-wider text-slate-500">
-                Matched
+                {translation("ExampleSection.card.matchedSkillsLabel")}
               </p>
               <div className="flex flex-wrap gap-2">
                 {matchedItems.map((item, index) => (
@@ -71,17 +74,18 @@ export const ExampleSection = ({ translation }: TranslationProps) => {
                     key={index}
                     className="rounded-md border border-emerald-400/20 bg-emerald-400/10 px-2.5 py-1 font-mono text-xs text-emerald-400"
                   >
-                    React
+                    {item}
                   </span>
                 ))}
               </div>
             </div>
             <div className="bg-muted/30 border-border rounded-xl border p-4">
-              <p className="mb-1 flex items-center gap-1 text-sm text-slate-500">Recommendation</p>
+              <p className="mb-1 flex items-center gap-1 text-sm text-slate-500">
+                <Info size={18} />
+                {translation("ExampleSection.card.recommendationLabel")}
+              </p>
               <p className="text-sm leading-relaxed text-slate-100">
-                Improve backend knowledge — focus on cloud infrastructure (AWS/GCP) and
-                containerization. A portfolio project using Docker would significantly boost your
-                score.
+                {translation("ExampleSection.card.recommendationText")}
               </p>
             </div>
           </div>
