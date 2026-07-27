@@ -7,7 +7,7 @@ import type { AuthMode } from "../model/types";
 import { AuthFields } from "./AuthFields";
 import { ModalLayout } from "./ModalLayout";
 
-export const LoginModal = () => {
+export const AuthModal = () => {
   const [mode, setMode] = useState<AuthMode>("sign-in");
   const t = useTranslations("Header");
   const isSignUp = mode === "sign-up";

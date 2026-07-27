@@ -2,7 +2,7 @@
 
 import { Sparkles } from "lucide-react";
 import { useParams } from "next/navigation";
-import { LoginModal } from "@/src/features/login";
+import { AuthModal } from "@/src/features/auth";
 import { usePathname, useRouter } from "@/src/navigation";
 import { divider } from "@/src/shared/styles";
 import { Locale } from "@/src/shared/types";
@@ -51,7 +51,7 @@ export const Header = () => {
           <Sparkles color="oklch(70.7% 0.165 254.624)" />
           <span className="pl-3 text-sm font-semibold text-slate-100">JobMatch AI</span>
         </div>
-        <LoginModal />
+        <AuthModal />
       </div>
     </header>
   );

@@ -1,2 +1,2 @@
-export { LoginModal } from "./ui/LoginModal";
+export { AuthModal } from "./ui/AuthModal";
 export type { AuthMode } from "./model/types";
