@@ -1,14 +1,19 @@
 "use client";
 
+import { useState } from "react";
 import { Sparkles } from "lucide-react";
+import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/src/navigation";
-import { useParams } from "next/navigation";
 import { divider } from "@/src/shared/styles";
 import { Locale } from "@/src/shared/types";
+import { Button } from "@/src/shared/ui/button";
 import { SignInModal } from "@/src/features/login/ui/SignInModal";
+import { ModalLayout } from "@/src/features/login/ui/ModalLayout";
+import { SignUpModal } from "@/src/features/login/ui/SignUpModal";
 
 const Header = () => {
+  const [isSignUp, setIsSignUp] = useState(false);
   const t = useTranslations("Header");
   const router = useRouter();
   const pathname = usePathname();
@@ -23,7 +28,7 @@ const Header = () => {
       "py-1",
       isActiveLocale(value)
         ? "text-slate-50 hover:cursor-default"
-        : "text-slate-500 hover:cursor-pointer",
+        : "text-slate-500 hover:cursor-pointer hover:text-slate-50",
     ]
       .filter(Boolean)
       .join(" ");
@@ -53,7 +58,30 @@ const Header = () => {
           <Sparkles color="oklch(70.7% 0.165 254.624)" />
           <span className="pl-3 text-sm font-semibold text-slate-100">JobMatch AI</span>
         </div>
-        <SignInModal translation={t} />
+        <ModalLayout
+          description={
+            <>
+              {isSignUp ? t("Login.signUpDescription") : t("Login.description")}
+              <Button
+                type="button"
+                variant="ghost"
+                className="text-slate-100 hover:text-slate-500"
+                onClick={() => setIsSignUp((prev) => !prev)}
+              >
+                {isSignUp ? t("Login.title") : t("Login.description1")}
+              </Button>
+            </>
+          }
+          translation={t}
+          submitText={isSignUp ? t("Login.description1") : t("Login.title")}
+        >
+          <div
+            key={isSignUp ? "sign-up" : "sign-in"}
+            className="animate-in fade-in-0 slide-in-from-right-2 duration-150"
+          >
+            {isSignUp ? <SignUpModal /> : <SignInModal />}
+          </div>
+        </ModalLayout>
       </div>
     </header>
   );

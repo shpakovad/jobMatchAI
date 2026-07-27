@@ -5,6 +5,7 @@
       "welcomeLabel": "Welcome Back",
       "description": "Don't have an account?",
       "description1": "Create account",
+      "signUpDescription": "Already have an account?",
       "cancelLabel": "Cancel"
     }
   },

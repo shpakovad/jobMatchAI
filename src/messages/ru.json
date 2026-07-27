@@ -5,6 +5,7 @@
       "welcomeLabel": "Добро Пожаловать",
       "description": "Нет аккаунта?",
       "description1": "Создать аккаунт",
+      "signUpDescription": "Уже есть аккаунт?",
       "cancelLabel": "Отменить"
     }
   },
