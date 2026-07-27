@@ -3,15 +3,20 @@
     "Login": {
       "title": "Войти",
       "welcomeLabel": "Добро Пожаловать",
-      "description": "Нет аккаунта?",
-      "description1": "Создать аккаунт",
-      "signUpDescription": "Уже есть аккаунт?",
-      "cancelLabel": "Отменить"
+      "noAccountPrompt": "Нет аккаунта?",
+      "noAccountAction": "Создать аккаунт",
+      "hasAccountPrompt": "Уже есть аккаунт?",
+      "cancelLabel": "Отменить",
+      "passwordLabel": "Пароль",
+      "passwordPlaceholder": "Введите пароль",
+      "confirmPasswordLabel": "Подтвердите пароль",
+      "emailPlaceholder": "Введите email"
     }
   },
   "LandingPage": {
     "MainSection": {
-      "title": "Получи работу мечты с помощью AI"
+      "title": "Получи работу мечты с помощью AI",
+      "badge": "Умный AI-подбор"
     },
     "HowItWorksSection": {
       "title": "Как это работает",

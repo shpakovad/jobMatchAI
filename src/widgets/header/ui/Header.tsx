@@ -1,18 +1,13 @@
 "use client";
 
-import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { LoginModal } from "@/src/features/login";
 import { usePathname, useRouter } from "@/src/navigation";
 import { divider } from "@/src/shared/styles";
 import { Locale } from "@/src/shared/types";
-import { Button } from "@/src/shared/ui/button";
-import { SignInModal, ModalLayout, SignUpModal } from "@/src/features/login";
 
 export const Header = () => {
-  const [isSignUp, setIsSignUp] = useState(false);
-  const t = useTranslations("Header");
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
@@ -56,30 +51,7 @@ export const Header = () => {
           <Sparkles color="oklch(70.7% 0.165 254.624)" />
           <span className="pl-3 text-sm font-semibold text-slate-100">JobMatch AI</span>
         </div>
-        <ModalLayout
-          description={
-            <>
-              {isSignUp ? t("Login.signUpDescription") : t("Login.description")}
-              <Button
-                type="button"
-                variant="ghost"
-                className="text-slate-100 hover:text-slate-500"
-                onClick={() => setIsSignUp((prev) => !prev)}
-              >
-                {isSignUp ? t("Login.title") : t("Login.description1")}
-              </Button>
-            </>
-          }
-          translation={t}
-          submitText={isSignUp ? t("Login.description1") : t("Login.title")}
-        >
-          <div
-            key={isSignUp ? "sign-up" : "sign-in"}
-            className="animate-in fade-in-0 slide-in-from-right-2 duration-150"
-          >
-            {isSignUp ? <SignUpModal /> : <SignInModal />}
-          </div>
-        </ModalLayout>
+        <LoginModal />
       </div>
     </header>
   );

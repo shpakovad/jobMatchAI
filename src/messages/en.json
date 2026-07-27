@@ -3,15 +3,20 @@
     "Login": {
       "title": "Sign in",
       "welcomeLabel": "Welcome Back",
-      "description": "Don't have an account?",
-      "description1": "Create account",
-      "signUpDescription": "Already have an account?",
-      "cancelLabel": "Cancel"
+      "noAccountPrompt": "Don't have an account?",
+      "noAccountAction": "Create account",
+      "hasAccountPrompt": "Already have an account?",
+      "cancelLabel": "Cancel",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter password",
+      "confirmPasswordLabel": "Confirm password",
+      "emailPlaceholder": "Enter email"
     }
   },
   "LandingPage": {
     "MainSection": {
-      "title": "Get your dream job with AI"
+      "title": "Get your dream job with AI",
+      "badge": "AI-powered matching"
     },
     "HowItWorksSection": {
       "title": "How it works",
