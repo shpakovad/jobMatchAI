@@ -1,3 +1,5 @@
+"use client";
+
 import type { FormEvent, ReactNode } from "react";
 import {
   Dialog,
@@ -32,7 +34,7 @@ export const ModalLayout = ({
   return (
     <div>
       <Dialog>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <DialogTrigger render={<Button type="button">{translation("Login.title")}</Button>} />
           <DialogContent className="sm:max-w-sm">
             <DialogHeader>
