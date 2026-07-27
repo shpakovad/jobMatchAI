@@ -146,3 +146,10 @@
     background-color: #0d1117;
   }
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #f1f5f9 !important; /* text-slate-100 */
+  transition: background-color 5000s ease-in-out 0s;
+}

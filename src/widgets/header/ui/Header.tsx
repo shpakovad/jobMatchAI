@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "@/src/navigation";
 import { useParams } from "next/navigation";
 import { divider } from "@/src/shared/styles";
 import { Locale } from "@/src/shared/types";
-import { LoginModal } from "@/src/features/login/ui/LoginModal";
+import { SignInModal } from "@/src/features/login/ui/SignInModal";
 
 const Header = () => {
   const t = useTranslations("Header");
@@ -53,7 +53,7 @@ const Header = () => {
           <Sparkles color="oklch(70.7% 0.165 254.624)" />
           <span className="pl-3 text-sm font-semibold text-slate-100">JobMatch AI</span>
         </div>
-        <LoginModal translation={t} />
+        <SignInModal translation={t} />
       </div>
     </header>
   );

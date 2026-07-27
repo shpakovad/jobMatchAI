@@ -2,8 +2,9 @@
   "Header": {
     "Login": {
       "title": "Войти",
-      "welcomeLabel": "Добро пожаловать",
-      "description": "Войдите или создайте аккаунт",
+      "welcomeLabel": "Добро Пожаловать",
+      "description": "Нет аккаунта?",
+      "description1": "Создать аккаунт",
       "cancelLabel": "Отменить"
     }
   },

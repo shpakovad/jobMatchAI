@@ -1,9 +1,10 @@
 {
   "Header": {
     "Login": {
-      "title": "LogIn",
-      "welcomeLabel": "Welcome",
-      "description": "Log in or create an account",
+      "title": "Sign in",
+      "welcomeLabel": "Welcome Back",
+      "description": "Don't have an account?",
+      "description1": "Create account",
       "cancelLabel": "Cancel"
     }
   },
