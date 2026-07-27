@@ -8,11 +8,9 @@ import { usePathname, useRouter } from "@/src/navigation";
 import { divider } from "@/src/shared/styles";
 import { Locale } from "@/src/shared/types";
 import { Button } from "@/src/shared/ui/button";
-import { SignInModal } from "@/src/features/login/ui/SignInModal";
-import { ModalLayout } from "@/src/features/login/ui/ModalLayout";
-import { SignUpModal } from "@/src/features/login/ui/SignUpModal";
+import { SignInModal, ModalLayout, SignUpModal } from "@/src/features/login";
 
-const Header = () => {
+export const Header = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const t = useTranslations("Header");
   const router = useRouter();
@@ -86,5 +84,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;
