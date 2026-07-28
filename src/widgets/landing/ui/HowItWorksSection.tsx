@@ -1,18 +1,15 @@
-import { TranslationProps } from "@/src/shared/types";
-import { getHowItWorksSteps } from "@/src/widgets/landing/model/HowItWorksData";
 import { border, divider } from "@/src/shared/styles";
+import { useTranslations } from "next-intl";
+import { getHowItWorksSteps } from "@/src/widgets/landing/model/HowItWorksData";
 
-export const HowItWorksSection = ({ translation }: TranslationProps) => {
+export const HowItWorksSection = () => {
+  const t = useTranslations("LandingPage.HowItWorksSection");
   return (
     <div className={`pb-20 pt-20 ${divider}`}>
-      <h2 className="mb-2 text-center text-2xl font-bold text-slate-100">
-        {translation("HowItWorksSection.title")}
-      </h2>
-      <p className="mb-12 text-center text-base text-slate-500">
-        {translation("HowItWorksSection.description")}
-      </p>
+      <h2 className="mb-2 text-center text-2xl font-bold text-slate-100">{t("title")}</h2>
+      <p className="mb-12 text-center text-base text-slate-500">{t("description")}</p>
       <div className="grid gap-6 md:grid-cols-2">
-        {getHowItWorksSteps(translation).map((step) => {
+        {getHowItWorksSteps(t).map((step) => {
           const cardClassName = step.result
             ? `md:col-span-2 bg-card border border-border rounded-xl p-5 ${border}`
             : `bg-card border border-border rounded-xl p-5 flex items-start gap-4 ${border}`;

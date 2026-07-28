@@ -1,20 +1,19 @@
 import { Zap } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { divider } from "@/src/shared/styles";
-import { TranslationProps } from "@/src/shared/types";
 
-export const MainSection = ({ translation }: TranslationProps) => {
+export const MainSection = ({}) => {
+  const t = useTranslations("LandingPage.MainSection");
   return (
     <div className={`flex w-full flex-col items-center justify-center ${divider}`}>
       <div className="mb-6 inline-flex items-center gap-1.5 rounded-full border border-b border-blue-400/20 bg-blue-400/10 px-3 py-1 font-mono text-xs text-blue-400">
         <Zap color="oklch(70.7% 0.165 254.624)" size={14} />
-        <span>{translation("MainSection.badge")}</span>
+        <span>{t("badge")}</span>
       </div>
       <h1 className="mb-4 text-4xl font-bold leading-tight tracking-tight text-slate-100 md:text-5xl">
         JobMatch AI
       </h1>
-      <p className="text-xl font-semibold leading-relaxed text-slate-500">
-        {translation("MainSection.title")}
-      </p>
+      <p className="text-xl font-semibold leading-relaxed text-slate-500">{t("title")}</p>
     </div>
   );
 };
