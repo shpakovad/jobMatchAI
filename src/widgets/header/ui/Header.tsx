@@ -56,9 +56,15 @@ export const Header = () => {
           <Sparkles color="oklch(70.7% 0.165 254.624)" />
           <span className="pl-3 text-sm font-semibold text-primary">JobMatch AI</span>
         </div>
-        <Link href={isWorkSpacePage ? `/${locale}` : `/${locale}/workspace`}>
-          <Button type="button">{isWorkSpacePage ? t("backToMain") : t("startLabel")}</Button>
-        </Link>
+        {isWorkSpacePage ? (
+          <Link href={`/${locale}`}>
+            <Button variant="link">{t("backToMain")}</Button>
+          </Link>
+        ) : (
+          <Link href={`/${locale}/workspace`}>
+            <Button>{t("startLabel")}</Button>
+          </Link>
+        )}
       </div>
     </header>
   );
