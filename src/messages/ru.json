@@ -1,6 +1,7 @@
 {
   "Header": {
-    "startLogin": "Начать"
+    "startLabel": "Начать",
+    "backToMain": "На главную"
   },
   "LandingPage": {
     "MainSection": {

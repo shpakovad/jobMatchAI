@@ -1,6 +1,7 @@
 {
   "Header": {
-    "startLogin": "Start"
+    "startLabel": "Start",
+    "backToMain": "Back to main"
   },
   "LandingPage": {
     "MainSection": {

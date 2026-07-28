@@ -7,6 +7,7 @@ import { divider } from "@/src/shared/styles";
 import { Locale } from "@/src/shared/types";
 import { Button } from "@/src/shared/ui/button";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 export const Header = () => {
   const router = useRouter();
@@ -14,6 +15,8 @@ export const Header = () => {
   const params = useParams();
   const t = useTranslations("Header");
   const locale = params ? params.locale : "ru";
+
+  const isWorkSpacePage = pathname.includes("workspace");
 
   const isActiveLocale = (value: string) => locale === value;
 
@@ -53,7 +56,9 @@ export const Header = () => {
           <Sparkles color="oklch(70.7% 0.165 254.624)" />
           <span className="pl-3 text-sm font-semibold text-slate-100">JobMatch AI</span>
         </div>
-        <Button type="button">{t("startLogin")}</Button>
+        <Link href={isWorkSpacePage ? `/${locale}` : `/${locale}/workspace`}>
+          <Button type="button">{isWorkSpacePage ? t("backToMain") : t("startLabel")}</Button>
+        </Link>
       </div>
     </header>
   );
