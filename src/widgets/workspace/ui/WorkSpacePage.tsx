@@ -7,7 +7,7 @@ export const WorkSpacePage = () => {
 
   return (
     <div className="flex w-full flex-col items-center justify-center pt-14">
-      <p className="pb-10 text-slate-100">{t("title")}</p>
+      <p className="pb-10 text-primary">{t("title")}</p>
       <UploadResumeSection />
       <VacancyInputSection />
     </div>

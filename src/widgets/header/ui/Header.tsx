@@ -25,8 +25,8 @@ export const Header = () => {
       "px-1",
       "py-1",
       isActiveLocale(value)
-        ? "text-slate-50 hover:cursor-default"
-        : "text-slate-500 hover:cursor-pointer hover:text-slate-50",
+        ? "text-primary hover:cursor-default"
+        : "text-muted-foreground hover:cursor-pointer hover:text-slate-50",
     ]
       .filter(Boolean)
       .join(" ");
@@ -54,7 +54,7 @@ export const Header = () => {
       <div className="flex w-full items-center justify-between">
         <div className="flex items-end">
           <Sparkles color="oklch(70.7% 0.165 254.624)" />
-          <span className="pl-3 text-sm font-semibold text-slate-100">JobMatch AI</span>
+          <span className="pl-3 text-sm font-semibold text-primary">JobMatch AI</span>
         </div>
         <Link href={isWorkSpacePage ? `/${locale}` : `/${locale}/workspace`}>
           <Button type="button">{isWorkSpacePage ? t("backToMain") : t("startLabel")}</Button>

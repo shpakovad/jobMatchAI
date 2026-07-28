@@ -6,8 +6,8 @@ export const HowItWorksSection = () => {
   const t = useTranslations("LandingPage.HowItWorksSection");
   return (
     <div className={`pb-20 pt-20 ${divider}`}>
-      <h2 className="mb-2 text-center text-2xl font-bold text-slate-100">{t("title")}</h2>
-      <p className="mb-12 text-center text-base text-slate-500">{t("description")}</p>
+      <h2 className="mb-2 text-center text-2xl font-bold text-primary">{t("title")}</h2>
+      <p className="mb-12 text-center text-base text-muted-foreground">{t("description")}</p>
       <div className="grid gap-6 md:grid-cols-2">
         {getHowItWorksSteps(t).map((step) => {
           const cardClassName = step.result
@@ -29,10 +29,10 @@ export const HowItWorksSection = () => {
                   )}
 
                   {step.img}
-                  <p className="text-sm font-semibold text-slate-100">{step.title}</p>
+                  <p className="text-sm font-semibold text-primary">{step.title}</p>
                 </div>
                 {step.description ? (
-                  <p className="text-muted-foreground text-sm text-slate-500">{step.description}</p>
+                  <p className="text-sm text-muted-foreground">{step.description}</p>
                 ) : (
                   <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
                     {step.result?.map((result) => {
@@ -42,7 +42,7 @@ export const HowItWorksSection = () => {
                           className="flex items-center gap-2 rounded-lg border-b border-l border-r border-t border-white/20 bg-slate-950 p-20 px-3 py-2.5 text-sm text-blue-300"
                         >
                           {result.img}
-                          <span className="text-slate-100">{result.title}</span>
+                          <span className="text-primary">{result.title}</span>
                         </div>
                       );
                     })}
