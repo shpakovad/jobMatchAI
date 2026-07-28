@@ -52,6 +52,10 @@
       "step": "Шаг 1/2 · Загрузите резюме",
       "dragFileLabel": "Перетащите файл или нажмите",
       "format": "PDF, DOCX · до 10 MB"
+    },
+    "VacancyInputSection": {
+      "step": "Шаг 2/2 · Вставьте URL вакансии или описание",
+      "textareaPlaceholder": "URL вакансии или описание"
     }
   }
 }
