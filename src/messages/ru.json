@@ -1,17 +1,6 @@
 {
   "Header": {
-    "Login": {
-      "title": "Войти",
-      "welcomeLabel": "Добро Пожаловать",
-      "noAccountPrompt": "Нет аккаунта?",
-      "noAccountAction": "Создать аккаунт",
-      "hasAccountPrompt": "Уже есть аккаунт?",
-      "cancelLabel": "Отменить",
-      "passwordLabel": "Пароль",
-      "passwordPlaceholder": "Введите пароль",
-      "confirmPasswordLabel": "Подтвердите пароль",
-      "emailPlaceholder": "Введите email"
-    }
+    "startLogin": "Начать"
   },
   "LandingPage": {
     "MainSection": {

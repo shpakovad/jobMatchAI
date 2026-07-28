@@ -1,17 +1,6 @@
 {
   "Header": {
-    "Login": {
-      "title": "Sign in",
-      "welcomeLabel": "Welcome Back",
-      "noAccountPrompt": "Don't have an account?",
-      "noAccountAction": "Create account",
-      "hasAccountPrompt": "Already have an account?",
-      "cancelLabel": "Cancel",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Enter password",
-      "confirmPasswordLabel": "Confirm password",
-      "emailPlaceholder": "Enter email"
-    }
+    "startLogin": "Start"
   },
   "LandingPage": {
     "MainSection": {
