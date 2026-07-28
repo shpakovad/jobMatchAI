@@ -45,5 +45,13 @@
         "recommendationText": "Improve backend knowledge — focus on cloud infrastructure (AWS/GCP) and containerization. A portfolio project using Docker would significantly boost your score."
       }
     }
+  },
+  "WorkSpacePage": {
+    "title": "Let's build your career profile",
+    "UploadResumeSection": {
+      "step": "Step 1/2 · Upload your resume",
+      "dragFileLabel": "Drag and drop the file or click",
+      "format": "PDF, DOCX · before 10 MB"
+    }
   }
 }
