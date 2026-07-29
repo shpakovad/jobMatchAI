@@ -1,20 +1,17 @@
 "use client";
 
 import { Sparkles } from "lucide-react";
-import { useParams } from "next/navigation";
+import { useTranslations, useLocale } from "next-intl";
+import Link from "next/link";
 import { usePathname, useRouter } from "@/src/navigation";
 import { divider } from "@/src/shared/styles";
-import { Locale } from "@/src/shared/types";
 import { Button } from "@/src/shared/ui/button";
-import { useTranslations } from "next-intl";
-import Link from "next/link";
 
 export const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const params = useParams();
   const t = useTranslations("Header");
-  const locale = params ? params.locale : "ru";
+  const locale = useLocale();
 
   const isWorkSpacePage = pathname.includes("workspace");
 
@@ -32,7 +29,7 @@ export const Header = () => {
       .join(" ");
 
   const onChangeLocale = (value: string) => {
-    router.replace(pathname, { locale: value as Locale });
+    router.replace({ pathname }, { locale: value });
   };
 
   return (
@@ -57,11 +54,11 @@ export const Header = () => {
           <span className="pl-3 text-sm font-semibold text-primary">JobMatch AI</span>
         </div>
         {isWorkSpacePage ? (
-          <Link href={`/${locale}`}>
+          <Link href="/">
             <Button variant="link">{t("backToMain")}</Button>
           </Link>
         ) : (
-          <Link href={`/${locale}/workspace`}>
+          <Link href="/workspace">
             <Button>{t("startLabel")}</Button>
           </Link>
         )}
