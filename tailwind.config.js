@@ -8,6 +8,7 @@ module.exports = {
         primary: "var(--primary)",
         "muted-foreground": "var(--muted-foreground)",
         background: "var(--background)",
+        destructive: "var(--destructive)",
       },
     },
   },

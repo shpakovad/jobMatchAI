@@ -15,7 +15,7 @@ export const ExampleSection = () => {
 
       <div className={`bg-card ${border} overflow-hidden rounded-2xl`}>
         <div className={`px-5 py-3 ${divider} bg-muted/20 flex items-center gap-2`}>
-          <div className="bg-destructive h-2 w-2 rounded-full" />
+          <div className="h-2 w-2 rounded-full bg-destructive" />
           <div className="h-2 w-2 rounded-full bg-amber-600" />
           <div className="h-2 w-2 rounded-full bg-emerald-600" />
           <span className="ml-2 font-mono text-sm text-muted-foreground">{t("card.title")}</span>

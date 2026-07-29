@@ -51,7 +51,11 @@
     "UploadResumeSection": {
       "step": "Шаг 1/2 · Загрузите резюме",
       "dragFileLabel": "Перетащите файл или нажмите",
-      "format": "PDF, DOCX · до 10 MB"
+      "format": "PDF, DOCX · до 10 MB",
+      "loadingLabel": "Извлекаем текст из резюме...",
+      "successLabel": "Резюме успешно обработано!",
+      "errorLabel": "Ошибка обработки файла",
+      "errorAction": "Попробуйте загрузить другой PDF-файл"
     },
     "VacancyInputSection": {
       "step": "Шаг 2/2 · Вставьте URL вакансии или описание",
