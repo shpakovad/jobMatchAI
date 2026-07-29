@@ -16,10 +16,11 @@ export const parsePdfToText = async (file: File): Promise<string> => {
     const page = await pdf.getPage(i);
     const textContent = await page.getTextContent();
     const items = textContent.items as PDFTextItem[];
-    const pageText = items.map((item) =>
-    {
-      return item.str
-    }).join(" ");
+    const pageText = items
+      .map((item) => {
+        return item.str;
+      })
+      .join(" ");
     fullText += pageText + "\n";
   }
 
