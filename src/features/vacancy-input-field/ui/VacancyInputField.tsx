@@ -4,7 +4,7 @@ import { Textarea } from "@/src/shared/ui/textarea";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-export const VacancyInputSection = () => {
+export const VacancyInputField = () => {
   const t = useTranslations("WorkSpacePage.VacancyInputSection");
   const [text, setText] = useState("");
 

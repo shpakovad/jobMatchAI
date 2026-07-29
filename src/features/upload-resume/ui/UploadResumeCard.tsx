@@ -3,9 +3,9 @@
 import { ChangeEvent, useState } from "react";
 import { CheckCircle2, FileText, Loader2, Upload } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { parsePdfToText } from "../lib/parsePdf";
+import { parsePdfToText } from "@/src/features/upload-resume/lib/parsePdf";
 
-export const UploadResumeSection = () => {
+export const UploadResumeCard = () => {
   const [fileName, setFileName] = useState<string | null>(null);
   const [resumeText, setResumeText] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "parsing" | "success" | "error">("idle");
@@ -46,9 +46,9 @@ export const UploadResumeSection = () => {
         <div className="mt-2">
           <label
             htmlFor="resume-file-input"
-            className={`hover:border-primary/40 hover:bg-primary/5 flex cursor-pointer flex-col items-center gap-3 rounded-xl border-2 border-dashed border-white/10 bg-card p-12 transition-all ${
+            className={`hover:border-primary/40 hover:bg-primary/5 flex cursor-pointer flex-col items-center gap-3 rounded-xl border-2 border-dashed border-white/10 bg-card transition-all ${
               status === "parsing" ? "pointer-events-none opacity-50" : ""
-            }`}
+            } flex h-[250px] w-[400px] items-center justify-center`}
           >
             <input
               id="resume-file-input"
