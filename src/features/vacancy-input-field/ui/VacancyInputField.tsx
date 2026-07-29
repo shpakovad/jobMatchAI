@@ -2,11 +2,12 @@
 
 import { Textarea } from "@/src/shared/ui/textarea";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useAnalysisStore } from "@/src/entities/analysis";
 
 export const VacancyInputField = () => {
   const t = useTranslations("WorkSpacePage.VacancyInputSection");
-  const [text, setText] = useState("");
+
+  const { setVacancyText, vacancyText } = useAnalysisStore();
 
   return (
     <div className="mb-14">
@@ -14,8 +15,8 @@ export const VacancyInputField = () => {
       <Textarea
         className="min-h-[300px] min-w-[500px]"
         placeholder={`${t("textareaPlaceholder")}`}
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+        value={vacancyText}
+        onChange={(e) => setVacancyText(e.target.value)}
       />
     </div>
   );

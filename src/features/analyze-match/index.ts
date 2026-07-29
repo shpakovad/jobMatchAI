@@ -1,1 +1,1 @@
-export { AnalyzeMatch } from "./ui/AnalyzeMatch";
+export { AnalyzeButton } from "./ui/AnalyzeButton";

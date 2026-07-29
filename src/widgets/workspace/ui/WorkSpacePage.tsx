@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import { UploadResumeCard } from "@/src/features/upload-resume";
 import { VacancyInputField } from "@/src/features/vacancy-input-field";
-import { AnalyzeMatch } from "@/src/features/analyze-match";
+import { AnalyzeButton } from "@/src/features/analyze-match";
 
 export const WorkSpacePage = () => {
   const t = useTranslations("WorkSpacePage");
@@ -11,7 +11,7 @@ export const WorkSpacePage = () => {
       <p className="pb-10 text-primary">{t("title")}</p>
       <UploadResumeCard />
       <VacancyInputField />
-      <AnalyzeMatch />
+      <AnalyzeButton />
     </div>
   );
 };

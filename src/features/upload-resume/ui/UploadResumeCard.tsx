@@ -4,13 +4,15 @@ import { ChangeEvent, useState } from "react";
 import { CheckCircle2, FileText, Loader2, Upload } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { parsePdfToText } from "@/src/features/upload-resume/lib/parsePdf";
+import { useAnalysisStore } from "@/src/entities/analysis";
 
 export const UploadResumeCard = () => {
   const [fileName, setFileName] = useState<string | null>(null);
-  const [resumeText, setResumeText] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "parsing" | "success" | "error">("idle");
 
   const t = useTranslations("WorkSpacePage.UploadResumeSection");
+
+  const { setResumeText } = useAnalysisStore();
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -42,7 +44,7 @@ export const UploadResumeCard = () => {
   return (
     <div className="mb-14">
       <div>
-        <p className="font-mono text-sm text-slate-400">{t("step")}</p>
+        <p className="font-mono text-sm text-slate-400 text-center">{t("step")}</p>
         <div className="mt-2">
           <label
             htmlFor="resume-file-input"
