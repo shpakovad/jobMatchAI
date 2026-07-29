@@ -48,6 +48,7 @@
   },
   "WorkSpacePage": {
     "title": "Давайте создадим ваш карьерный профиль",
+    "analyzeButtonLabel": "Анализировать",
     "UploadResumeSection": {
       "step": "Шаг 1/2 · Загрузите резюме",
       "dragFileLabel": "Перетащите файл или нажмите",
