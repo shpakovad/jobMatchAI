@@ -60,7 +60,8 @@
     },
     "VacancyInputSection": {
       "step": "Step 2/2 · Paste a job URL or description",
-      "textareaPlaceholder": "Job URL or description"
+      "textareaPlaceholder": "Job URL or description",
+      "textareaLimitInfo": "{currentLength}/{maxLength} characters (max {maxLength})"
     }
   }
 }

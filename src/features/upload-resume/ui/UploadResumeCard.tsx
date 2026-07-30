@@ -6,6 +6,8 @@ import { useTranslations } from "next-intl";
 import { parsePdfToText } from "@/src/features/upload-resume/lib/parsePdf";
 import { useAnalysisStore } from "@/src/entities/analysis";
 
+const MAX_RESUME_FILE_SIZE_BYTES = 4 * 1024 * 1024;
+
 export const UploadResumeCard = () => {
   const [fileName, setFileName] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "parsing" | "success" | "error">("idle");
@@ -19,6 +21,11 @@ export const UploadResumeCard = () => {
     if (!file) return;
 
     if (file.type !== "application/pdf") {
+      setStatus("error");
+      return;
+    }
+
+    if (file.size > MAX_RESUME_FILE_SIZE_BYTES) {
       setStatus("error");
       return;
     }

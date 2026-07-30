@@ -60,7 +60,8 @@
     },
     "VacancyInputSection": {
       "step": "Шаг 2/2 · Вставьте URL вакансии или описание",
-      "textareaPlaceholder": "URL вакансии или описание"
+      "textareaPlaceholder": "URL вакансии или описание",
+      "textareaLimitInfo": "{currentLength}/{maxLength} символов (максимум {maxLength})"
     }
   }
 }

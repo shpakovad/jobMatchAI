@@ -4,6 +4,8 @@ import { Textarea } from "@/src/shared/ui/textarea";
 import { useTranslations } from "next-intl";
 import { useAnalysisStore } from "@/src/entities/analysis";
 
+const MAX_VACANCY_TEXT_LENGTH = 5000;
+
 export const VacancyInputField = () => {
   const t = useTranslations("WorkSpacePage.VacancyInputSection");
 
@@ -16,8 +18,15 @@ export const VacancyInputField = () => {
         className="min-h-[300px] min-w-[500px]"
         placeholder={`${t("textareaPlaceholder")}`}
         value={vacancyText}
-        onChange={(e) => setVacancyText(e.target.value)}
+        maxLength={MAX_VACANCY_TEXT_LENGTH}
+        onChange={(e) => setVacancyText(e.target.value.slice(0, MAX_VACANCY_TEXT_LENGTH))}
       />
+      <p className="pt-2 text-right text-xs text-muted-foreground">
+        {t("textareaLimitInfo", {
+          currentLength: vacancyText.length,
+          maxLength: MAX_VACANCY_TEXT_LENGTH,
+        })}
+      </p>
     </div>
   );
 };
