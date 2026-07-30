@@ -1,6 +1,4 @@
-import { SVGProps } from "react";
-
-export const ErrorIcon = (props: SVGProps<SVGSVGElement>) => {
+export const ErrorIcon = () => {
   return (
     <svg
       baseProfile="full"
