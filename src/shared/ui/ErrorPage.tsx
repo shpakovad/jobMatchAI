@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { Button } from "./button";
 import { ErrorIcon } from "@/src/shared/icons/ErrorIcon";
+import { ReactNode } from "react";
 
 interface ErrorPageProps {
   message: string;
-  resetError: () => void;
+  children: ReactNode;
 }
 
-export const ErrorPage = ({ message, resetError }: ErrorPageProps) => {
+export const ErrorPage = ({ message, children }: ErrorPageProps) => {
   const t = useTranslations("ErrorPage");
   return (
     <div className="absolute flex h-full w-full flex-col items-center justify-center bg-background p-4">
@@ -16,14 +16,9 @@ export const ErrorPage = ({ message, resetError }: ErrorPageProps) => {
         <div className="mb-4 flex h-16 w-16 items-center justify-center">
           <ErrorIcon />
         </div>
-
         <h2 className="mb-2 text-xl font-bold text-slate-100">{t("title")}</h2>
         <p className="mb-6 text-sm leading-relaxed text-slate-400">{message}</p>
-        <Link href="/">
-          <Button onClick={resetError} variant="secondary">
-            {t("goToMainLabel")}
-          </Button>
-        </Link>
+        {children}
       </div>
     </div>
   );

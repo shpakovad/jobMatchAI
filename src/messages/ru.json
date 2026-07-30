@@ -49,7 +49,8 @@
   "WorkSpacePage": {
     "title": "Давайте создадим ваш карьерный профиль",
     "analyzeButtonLabel": "Анализировать",
-    "errorAnalyzeMessage": "Произошла неизвестная ошибка. Пожалуйста, попробуйте позже.",
+    "errorAnalyzeMessage": "Произошла ошибка. Пожалуйста, попробуйте позже.",
+    "errorResetActionLabel": "Попробовать снова",
     "UploadResumeSection": {
       "step": "Шаг 1/2 · Загрузите резюме",
       "dragFileLabel": "Перетащите файл или нажмите",
@@ -66,7 +67,6 @@
     }
   },
   "ErrorPage": {
-    "title": "Упс...",
-    "goToMainLabel": "Вернуться на главную"
+    "title": "Упс..."
   }
 }

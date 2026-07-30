@@ -50,6 +50,7 @@
     "title": "Let's build your career profile",
     "analyzeButtonLabel": "Analyze",
     "errorAnalyzeMessage": "Unknown error occurred. Please try again later.",
+    "errorResetActionLabel": "Try again",
     "UploadResumeSection": {
       "step": "Step 1/2 · Upload your resume",
       "dragFileLabel": "Drag and drop the file or click",
@@ -66,7 +67,6 @@
     }
   },
   "ErrorPage": {
-    "title": "Oops...",
-    "goToMainLabel": "Back to main"
+    "title": "Oops..."
   }
 }
