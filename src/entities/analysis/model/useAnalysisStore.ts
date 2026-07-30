@@ -26,7 +26,6 @@ export const useAnalysisStore = create<AnalysisStore>((set, get) => ({
 
   getIsReady: () => {
     const { resumeText, vacancyText, isLoading, error } = get();
-    console.log({ resumeText, vacancyText, isLoading, error });
 
     return resumeText.length > 0 && vacancyText.length > 0 && !isLoading && !error;
   },
