@@ -49,6 +49,7 @@
   "WorkSpacePage": {
     "title": "Let's build your career profile",
     "analyzeButtonLabel": "Analyze",
+    "errorAnalyzeMessage": "Unknown error occurred. Please try again later.",
     "UploadResumeSection": {
       "step": "Step 1/2 · Upload your resume",
       "dragFileLabel": "Drag and drop the file or click",
@@ -63,5 +64,9 @@
       "textareaPlaceholder": "Job URL or description",
       "textareaLimitInfo": "{currentLength}/{maxLength} characters (max {maxLength})"
     }
+  },
+  "ErrorPage": {
+    "title": "Something went wrong...",
+    "goToMainLabel": "Back to main"
   }
 }

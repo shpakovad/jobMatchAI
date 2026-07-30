@@ -8,6 +8,7 @@ interface AnalysisStore {
 
   isLoading: boolean;
   error: string | null;
+  setError: (error: string | null) => void;
 
   getIsReady: () => boolean;
 }
@@ -21,10 +22,12 @@ export const useAnalysisStore = create<AnalysisStore>((set, get) => ({
 
   isLoading: false,
   error: null,
+  setError: (error) => set({ error }),
 
   getIsReady: () => {
     const { resumeText, vacancyText, isLoading, error } = get();
+    console.log({ resumeText, vacancyText, isLoading, error });
 
-    return resumeText.length > 0 && vacancyText.length > 0 && !isLoading && error === null;
+    return resumeText.length > 0 && vacancyText.length > 0 && !isLoading && !error;
   },
 }));

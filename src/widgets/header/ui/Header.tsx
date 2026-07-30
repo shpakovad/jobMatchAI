@@ -55,7 +55,7 @@ export const Header = () => {
         </div>
         {isWorkSpacePage ? (
           <Link href="/">
-            <Button variant="link">{t("backToMain")}</Button>
+            <Button variant="secondary">{t("backToMain")}</Button>
           </Link>
         ) : (
           <Link href="/workspace">

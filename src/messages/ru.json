@@ -1,7 +1,7 @@
 {
   "Header": {
     "startLabel": "Начать",
-    "backToMain": "На главную"
+    "backToMain": "Вернуться на главную"
   },
   "LandingPage": {
     "MainSection": {
@@ -49,6 +49,7 @@
   "WorkSpacePage": {
     "title": "Давайте создадим ваш карьерный профиль",
     "analyzeButtonLabel": "Анализировать",
+    "errorAnalyzeMessage": "Произошла неизвестная ошибка. Пожалуйста, попробуйте позже.",
     "UploadResumeSection": {
       "step": "Шаг 1/2 · Загрузите резюме",
       "dragFileLabel": "Перетащите файл или нажмите",
@@ -63,5 +64,9 @@
       "textareaPlaceholder": "URL вакансии или описание",
       "textareaLimitInfo": "{currentLength}/{maxLength} символов (максимум {maxLength})"
     }
+  },
+  "ErrorPage": {
+    "title": "Что-то пошло не так...",
+    "goToMainLabel": "Вернуться на главную"
   }
 }
