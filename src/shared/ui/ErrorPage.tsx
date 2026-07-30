@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { AlertCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "./button";
+import { ErrorIcon } from "@/src/shared/icons/ErrorIcon";
 
 interface ErrorPageProps {
   message: string;
@@ -13,8 +13,8 @@ export const ErrorPage = ({ message, resetError }: ErrorPageProps) => {
   return (
     <div className="absolute flex h-full w-full flex-col items-center justify-center bg-background p-4">
       <div className="flex max-w-md flex-col items-center rounded-2xl border border-red-500/20 bg-slate-900/50 p-8 text-center shadow-xl shadow-red-500/5">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-500/10">
-          <AlertCircle className="h-6 w-6 text-destructive" />
+        <div className="mb-4 flex h-16 w-16 items-center justify-center">
+          <ErrorIcon />
         </div>
 
         <h2 className="mb-2 text-xl font-bold text-slate-100">{t("title")}</h2>
