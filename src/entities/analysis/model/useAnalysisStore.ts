@@ -2,31 +2,39 @@ import { create } from "zustand";
 
 interface AnalysisStore {
   resumeText: string;
-  setResumeText: (text: string) => void;
   vacancyText: string;
-  setVacancyText: (text: string) => void;
-
   isLoading: boolean;
   error: string | null;
-  setError: (error: string | null) => void;
-
   getIsReady: () => boolean;
+
+  actions: {
+    setResumeText: (text: string) => void;
+    setError: (error: string | null) => void;
+    setVacancyText: (text: string) => void;
+    reset: () => void;
+  };
 }
 
-export const useAnalysisStore = create<AnalysisStore>((set, get) => ({
+const initialState: Omit<AnalysisStore, "actions"> = {
   resumeText: "",
-  setResumeText: (text) => set({ resumeText: text }),
-
   vacancyText: "",
-  setVacancyText: (text) => set({ vacancyText: text }),
-
   isLoading: false,
   error: null,
-  setError: (error) => set({ error }),
+  getIsReady: () => false,
+};
 
+export const useAnalysisStore = create<AnalysisStore>((set, get) => ({
+  ...initialState,
   getIsReady: () => {
     const { resumeText, vacancyText, isLoading, error } = get();
-
     return resumeText.length > 0 && vacancyText.length > 0 && !isLoading && !error;
   },
+  actions: {
+    setResumeText: (text) => set({ resumeText: text }),
+    setVacancyText: (text) => set({ vacancyText: text }),
+    setError: (error) => set({ error }),
+    reset: () => set({ ...initialState }),
+  },
 }));
+
+export const useAnalysisActions = () => useAnalysisStore((state) => state.actions);

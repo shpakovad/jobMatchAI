@@ -8,21 +8,17 @@ import { useAnalysisStore } from "@/src/entities/analysis";
 import { ErrorPage } from "@/src/shared/ui/ErrorPage";
 import { Button } from "@/src/shared/ui/button";
 import Link from "next/link";
+import { useAnalysisActions } from "@/src/entities/analysis";
 
 export const WorkSpacePage = () => {
   const t = useTranslations("WorkSpacePage");
-  const { error, setError, setResumeText, setVacancyText } = useAnalysisStore();
-
-  const resetError = () => {
-    setError(null);
-    setResumeText("");
-    setVacancyText("");
-  };
+  const error = useAnalysisStore((state) => state.error);
+  const { reset } = useAnalysisActions();
 
   return error ? (
     <ErrorPage message={error}>
       <Link href="/workspace">
-        <Button onClick={resetError} variant="secondary">
+        <Button onClick={reset} variant="secondary">
           {t("errorResetActionLabel")}
         </Button>
       </Link>

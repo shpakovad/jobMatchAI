@@ -4,7 +4,7 @@ import { ChangeEvent, useState } from "react";
 import { CheckCircle2, FileText, Loader2, Upload } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { parsePdfToText } from "@/src/features/upload-resume/lib/parsePdf";
-import { useAnalysisStore } from "@/src/entities/analysis";
+import { useAnalysisActions } from "@/src/entities/analysis";
 
 const MAX_RESUME_FILE_SIZE_BYTES = 4 * 1024 * 1024;
 
@@ -14,7 +14,7 @@ export const UploadResumeCard = () => {
 
   const t = useTranslations("WorkSpacePage.UploadResumeSection");
 
-  const { setResumeText } = useAnalysisStore();
+  const { setResumeText } = useAnalysisActions();
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

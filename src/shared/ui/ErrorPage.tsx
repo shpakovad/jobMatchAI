@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { ErrorIcon } from "@/src/shared/icons/ErrorIcon";
 import { ReactNode } from "react";

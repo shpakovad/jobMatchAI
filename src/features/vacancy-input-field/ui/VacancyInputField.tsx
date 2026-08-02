@@ -2,14 +2,15 @@
 
 import { Textarea } from "@/src/shared/ui/textarea";
 import { useTranslations } from "next-intl";
-import { useAnalysisStore } from "@/src/entities/analysis";
+import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
 
 const MAX_VACANCY_TEXT_LENGTH = 5000;
 
 export const VacancyInputField = () => {
   const t = useTranslations("WorkSpacePage.VacancyInputSection");
 
-  const { setVacancyText, vacancyText } = useAnalysisStore();
+  const vacancyText = useAnalysisStore((state) => state.vacancyText);
+  const { setVacancyText } = useAnalysisActions();
 
   return (
     <div className="mb-14">

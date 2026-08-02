@@ -1,1 +1,1 @@
-export { useAnalysisStore } from "./model/useAnalysisStore";
+export { useAnalysisStore, useAnalysisActions } from "./model/useAnalysisStore";

@@ -3,15 +3,16 @@
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/src/shared/ui/button";
-import { useAnalysisStore } from "@/src/entities/analysis";
+import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
 import { handleAIAnalysis } from "@/src/features/analyze-match";
 import { FullScreenLoader } from "@/src/shared/ui/FullScreenLoader";
 
 export const AnalyzeButton = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const isReady = useAnalysisStore((state) => state.getIsReady());
-  const { resumeText, vacancyText, setError } = useAnalysisStore();
+  const { resumeText, vacancyText, getIsReady } = useAnalysisStore();
+  const { setError } = useAnalysisActions();
+  const isReady = getIsReady();
 
   const t = useTranslations("WorkSpacePage");
   const locale = useLocale();
