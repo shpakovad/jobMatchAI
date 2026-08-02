@@ -27,7 +27,6 @@ export const ExampleSection = () => {
               {t("card.vacancyLabel")}
             </p>
             <p className="font-semibold text-primary">React Developer</p>
-            <p className="mt-0.5 text-sm text-muted-foreground">Stripe</p>
             <div className="mt-4">
               <p className="mb-1 font-mono text-sm uppercase tracking-wider text-muted-foreground">
                 {t("card.matchLabel")}

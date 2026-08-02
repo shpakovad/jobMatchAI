@@ -66,6 +66,20 @@
       "textareaLimitInfo": "{currentLength}/{maxLength} characters (max {maxLength})"
     }
   },
+  "AnalysisPage": {
+    "title": "Analysis result",
+    "description": "AI comparison of your resume and the vacancy",
+    "card": {
+      "title": "AI Analysis Result",
+      "vacancyLabel": "Vacancy",
+      "matchLabel": "Match",
+      "skillsMatchedLabel": "Skills matched",
+      "missingSkillsLabel": "Missing skills",
+      "matchedSkillsLabel": "Matched",
+      "recommendationLabel": "Recommendation",
+      "recommendationText": "Improve backend knowledge — focus on cloud infrastructure (AWS/GCP) and containerization. A portfolio project using Docker would significantly boost your score."
+    }
+  },
   "ErrorPage": {
     "title": "Oops..."
   }
