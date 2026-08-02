@@ -10,9 +10,10 @@ import { useRouter } from "@/src/navigation";
 export const AnalyzeButton = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const { resumeText, vacancyText, getIsReady } = useAnalysisStore();
+  const isReady = useAnalysisStore((state) => state.getIsReady());
+  const resumeText = useAnalysisStore((state) => state.resumeText);
+  const vacancyText = useAnalysisStore((state) => state.vacancyText);
   const { setError } = useAnalysisActions();
-  const isReady = getIsReady();
 
   const t = useTranslations("WorkSpacePage");
   const locale = useLocale();
@@ -25,8 +26,8 @@ export const AnalyzeButton = () => {
     try {
       const result = await handleAIAnalysis({ resumeText, vacancyText, locale });
 
-      if (!result.success) {
-        setError(result.error || t("errorAnalyzeMessage"));
+      if (!result?.success) {
+        setError(result?.error || t("errorAnalyzeMessage"));
         setIsLoading(false);
       }
       route.push("/workspace/analysis");

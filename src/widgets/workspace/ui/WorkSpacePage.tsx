@@ -22,9 +22,7 @@ export const WorkSpacePage = () => {
   return error ? (
     <ErrorPage message={error}>
       <Link href="/workspace">
-        <Button onClick={reset} variant="secondary">
-          {t("errorResetActionLabel")}
-        </Button>
+        <Button variant="secondary">{t("errorResetActionLabel")}</Button>
       </Link>
     </ErrorPage>
   ) : (

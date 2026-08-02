@@ -2,6 +2,9 @@
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import * as cheerio from "cheerio";
+import { randomUUID } from "crypto";
+import { db } from "@/src/shared/api/prisma";
+import { cookies } from "next/headers";
 
 interface AnalyzePayload {
   resumeText: string;
@@ -106,12 +109,32 @@ export async function handleAIAnalysis(payload: AnalyzePayload) {
     });
 
     const rawText = response.response.text();
-    if (!rawText)
+    if (!rawText) {
       throw new Error(isRussianLang ? "AI вернул пустой ответ" : "AI returned empty response.");
+    }
 
     const aiParsedResult = JSON.parse(rawText);
 
-    return { success: true, data: aiParsedResult };
+    const guestSessionId = randomUUID();
+
+    await db.anonymousAnalysis.create({
+      data: {
+        id: guestSessionId,
+        ...aiParsedResult,
+        matchPercentage: Number(aiParsedResult.matchPercentage) || 0,
+      },
+    });
+
+    const cookieStore = await cookies();
+    cookieStore.set({
+      name: "guest_session_id",
+      value: guestSessionId,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+    });
+
+    // return { success: true, data: aiParsedResult };
   } catch (error) {
     const isRussianLang = payload.locale === "ru";
     const errorMessage =

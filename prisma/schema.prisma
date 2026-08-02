@@ -11,3 +11,13 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model AnonymousAnalysis {
+  id              String   @id
+  vacancyName     String
+  matchPercentage Int
+  matchedSkills   Json
+  missingSkills   Json
+  recommendation  String   @db.Text
+  createdAt       DateTime @default(now())
+}

@@ -59,6 +59,9 @@
   "AnalysisPage": {
     "title": "Результат анализа",
     "description": "AI-сравнение вашего резюме и вакансии",
+    "noSessionMessage": "Страница Анализа не найдена",
+    "tryAnotherSessionLabel": "Попробовать снова",
+    "noDataFoundMessage": "Данные анализа не найдены в базе данных или срок действия временной сессии истек",
     "card": {
       "title": "Результат AI-анализа",
       "vacancyLabel": "Вакансия",
