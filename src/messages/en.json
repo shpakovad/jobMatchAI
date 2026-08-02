@@ -33,17 +33,7 @@
     },
     "ExampleSection": {
       "title": "Example result",
-      "description": "Real analysis of the vacancy",
-      "card": {
-        "title": "AI Analysis Result",
-        "vacancyLabel": "Vacancy",
-        "matchLabel": "Match",
-        "skillsMatchedLabel": "Skills matched",
-        "missingSkillsLabel": "Missing skills",
-        "matchedSkillsLabel": "Matched",
-        "recommendationLabel": "Recommendation",
-        "recommendationText": "Improve backend knowledge — focus on cloud infrastructure (AWS/GCP) and containerization. A portfolio project using Docker would significantly boost your score."
-      }
+      "description": "Real analysis of the vacancy"
     }
   },
   "WorkSpacePage": {

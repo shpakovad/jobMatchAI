@@ -33,17 +33,7 @@
     },
     "ExampleSection": {
       "title": "Пример результата",
-      "description": "Реальный анализ вакансии",
-      "card": {
-        "title": "Результат AI-анализа",
-        "vacancyLabel": "Вакансия",
-        "matchLabel": "Совпадение",
-        "skillsMatchedLabel": "Совпавшие навыки",
-        "missingSkillsLabel": "Недостающие навыки",
-        "matchedSkillsLabel": "Совпали",
-        "recommendationLabel": "Рекомендация",
-        "recommendationText": "Улучшите знания бэкенда — сфокусируйтесь на облачной инфраструктуре (AWS/GCP) и контейнеризации. Пет-проект с использованием Docker существенно повысит ваши шансы."
-      }
+      "description": "Реальный анализ вакансии"
     }
   },
   "WorkSpacePage": {
