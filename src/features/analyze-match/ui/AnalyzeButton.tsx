@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Button } from "@/src/shared/ui/button";
+import { Button, FullScreenLoader } from "@/src/shared/ui";
 import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
 import { handleAIAnalysis } from "@/src/features/analyze-match";
-import { FullScreenLoader } from "@/src/shared/ui/FullScreenLoader";
 import { useRouter } from "@/src/navigation";
 
 export const AnalyzeButton = () => {

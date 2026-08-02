@@ -1,6 +1,6 @@
 "use client";
 
-import { Textarea } from "@/src/shared/ui/textarea";
+import { Textarea } from "@/src/shared/ui";
 import { useTranslations } from "next-intl";
 import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
 

@@ -5,7 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
 import { usePathname, useRouter } from "@/src/navigation";
 import { divider } from "@/src/shared/styles";
-import { Button } from "@/src/shared/ui/button";
+import { Button } from "@/src/shared/ui";
 
 export const Header = () => {
   const router = useRouter();
