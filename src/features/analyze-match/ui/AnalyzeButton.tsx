@@ -6,6 +6,7 @@ import { Button } from "@/src/shared/ui/button";
 import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
 import { handleAIAnalysis } from "@/src/features/analyze-match";
 import { FullScreenLoader } from "@/src/shared/ui/FullScreenLoader";
+import { useRouter } from "@/src/navigation";
 
 export const AnalyzeButton = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +18,8 @@ export const AnalyzeButton = () => {
   const t = useTranslations("WorkSpacePage");
   const locale = useLocale();
 
+  const route = useRouter();
+
   const handleAnalyze = async () => {
     setIsLoading(true);
 
@@ -27,6 +30,8 @@ export const AnalyzeButton = () => {
         setError(result.error || t("errorAnalyzeMessage"));
         setIsLoading(false);
       }
+      route.push("/workspace/analysis");
+      setIsLoading(false);
     } catch (error) {
       const networkErrorMsg = error instanceof Error ? error.message : t("errorAnalyzeMessage");
       setError(networkErrorMsg);

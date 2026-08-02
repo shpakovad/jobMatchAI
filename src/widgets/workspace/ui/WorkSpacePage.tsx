@@ -9,11 +9,16 @@ import { ErrorPage } from "@/src/shared/ui/ErrorPage";
 import { Button } from "@/src/shared/ui/button";
 import Link from "next/link";
 import { useAnalysisActions } from "@/src/entities/analysis";
+import { useEffect } from "react";
 
 export const WorkSpacePage = () => {
   const t = useTranslations("WorkSpacePage");
   const error = useAnalysisStore((state) => state.error);
   const { reset } = useAnalysisActions();
+
+  useEffect(() => {
+    return () => reset();
+  }, [reset]);
 
   return error ? (
     <ErrorPage message={error}>

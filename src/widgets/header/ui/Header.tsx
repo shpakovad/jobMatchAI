@@ -13,7 +13,7 @@ export const Header = () => {
   const t = useTranslations("Header");
   const locale = useLocale();
 
-  const isWorkSpacePage = pathname.includes("workspace");
+  const isExactRootPath = pathname === "/";
 
   const isActiveLocale = (value: string) => locale === value;
 
@@ -53,7 +53,7 @@ export const Header = () => {
           <Sparkles color="oklch(70.7% 0.165 254.624)" />
           <span className="pl-3 text-sm font-semibold text-primary">JobMatch AI</span>
         </div>
-        {isWorkSpacePage ? (
+        {!isExactRootPath ? (
           <Link href="/">
             <Button variant="secondary">{t("backToMain")}</Button>
           </Link>
