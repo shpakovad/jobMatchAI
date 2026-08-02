@@ -5,7 +5,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { Button, FullScreenLoader } from "@/src/shared/ui";
 import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
 import { handleAIAnalysis } from "@/src/features/analyze-match";
-import { useRouter } from "@/src/navigation";
 
 export const AnalyzeButton = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,10 +17,9 @@ export const AnalyzeButton = () => {
   const t = useTranslations("WorkSpacePage");
   const locale = useLocale();
 
-  const route = useRouter();
-
   const handleAnalyze = async () => {
     setIsLoading(true);
+    setError(null);
 
     try {
       const result = await handleAIAnalysis({ resumeText, vacancyText, locale });
@@ -29,11 +27,15 @@ export const AnalyzeButton = () => {
       if (!result?.success) {
         setError(result?.error || t("errorAnalyzeMessage"));
         setIsLoading(false);
+        return;
       }
-      route.push("/analysis");
+
       setIsLoading(false);
     } catch (error) {
       const networkErrorMsg = error instanceof Error ? error.message : t("errorAnalyzeMessage");
+      if (networkErrorMsg === "NEXT_REDIRECT") {
+        return;
+      }
       setError(networkErrorMsg);
       setIsLoading(false);
     }

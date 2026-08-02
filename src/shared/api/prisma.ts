@@ -1,4 +1,3 @@
-
 import { PrismaClient } from "../../generated/prisma/client"; // импорт из вашей папки
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };

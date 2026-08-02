@@ -4,5 +4,8 @@ import { cookies } from "next/headers";
 
 export const deleteGuestSession = async () => {
   const cookieStore = await cookies();
-  cookieStore.delete("guest_session_id");
+  if (cookieStore.has("guest_session_id")) {
+    cookieStore.delete("guest_session_id");
+  }
+  return;
 };

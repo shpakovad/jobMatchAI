@@ -3,7 +3,6 @@
 import { Button, ErrorPage } from "@/src/shared/ui";
 import { useTranslations } from "next-intl";
 import { useAnalysisActions } from "@/src/entities/analysis";
-import { deleteGuestSession } from "@/src/features/reset-analysis/model/actions";
 import { Link } from "@/src/navigation";
 
 export const ResetAnalysisButton = ({ reason }: { reason: string }) => {
@@ -12,8 +11,7 @@ export const ResetAnalysisButton = ({ reason }: { reason: string }) => {
 
   const errorMessage = reason === "noData" ? t("noDataFoundMessage") : t("noSessionMessage");
 
-  const resetAnalyze = async () => {
-    await deleteGuestSession();
+  const resetAnalyze = () => {
     reset();
   };
 

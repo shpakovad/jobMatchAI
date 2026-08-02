@@ -1,10 +1,11 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import * as cheerio from "cheerio";
 import { randomUUID } from "crypto";
 import { db } from "@/src/shared/api/prisma";
-import { cookies } from "next/headers";
+import { redirect } from "@/src/navigation";
 
 interface AnalyzePayload {
   resumeText: string;
@@ -157,13 +158,16 @@ export async function handleAIAnalysis(payload: AnalyzePayload) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
+      maxAge: 60 * 40,
     });
-
-    // return { success: true, data: aiParsedResult };
   } catch (error) {
     const isRussianLang = payload.locale === "ru";
     const errorMessage =
       (error as Error).message || (isRussianLang ? "Неизвестная ошибка" : "Unknown error");
     return { success: false, error: errorMessage };
   }
+  redirect({
+    href: "/analysis",
+    locale: payload.locale,
+  });
 }

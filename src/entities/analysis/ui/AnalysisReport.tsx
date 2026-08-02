@@ -19,8 +19,8 @@ export const AnalysisReport = ({ data, children }: AnalysisReportProps) => {
 
   const { vacancyName, matchPercentage, matchedSkills, missingSkills, recommendation } = data;
 
-  const matchedCount = data.matchedSkills.length;
-  const totalCount = matchedCount + data.missingSkills.length;
+  const matchedCount = matchedSkills.length;
+  const totalCount = matchedCount + missingSkills.length;
 
   return (
     <div className={`pb-20 pt-20`}>
@@ -58,14 +58,18 @@ export const AnalysisReport = ({ data, children }: AnalysisReportProps) => {
                 {t("card.missingSkillsLabel")}
               </p>
               <div className="flex flex-wrap gap-2">
-                {missingSkills.map((item, index) => (
-                  <span
-                    key={index}
-                    className="rounded-md border border-red-500/20 bg-red-500/10 px-2.5 py-1 font-mono text-xs text-red-500"
-                  >
-                    {item}
-                  </span>
-                ))}
+                {Boolean(missingSkills.length) ? (
+                  missingSkills.map((item, index) => (
+                    <span
+                      key={index}
+                      className="rounded-md border border-red-500/20 bg-red-500/10 px-2.5 py-1 font-mono text-xs text-red-500"
+                    >
+                      {item}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-sm font-normal text-muted-foreground">0</span>
+                )}
               </div>
             </div>
             <div>
@@ -73,14 +77,18 @@ export const AnalysisReport = ({ data, children }: AnalysisReportProps) => {
                 {t("card.matchedSkillsLabel")}
               </p>
               <div className="flex flex-wrap gap-2">
-                {matchedSkills.map((item, index) => (
-                  <span
-                    key={index}
-                    className="rounded-md border border-emerald-400/20 bg-emerald-400/10 px-2.5 py-1 font-mono text-xs text-emerald-400"
-                  >
-                    {item}
-                  </span>
-                ))}
+                {Boolean(matchedSkills.length) ? (
+                  matchedSkills.map((item, index) => (
+                    <span
+                      key={index}
+                      className="rounded-md border border-emerald-400/20 bg-emerald-400/10 px-2.5 py-1 font-mono text-xs text-emerald-400"
+                    >
+                      {item}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-sm font-normal text-muted-foreground">0</span>
+                )}
               </div>
             </div>
             <div className="bg-muted/30 border-border rounded-xl border p-4">

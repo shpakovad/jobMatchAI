@@ -53,7 +53,8 @@
     "VacancyInputSection": {
       "step": "Шаг 2/2 · Вставьте URL вакансии или описание",
       "textareaPlaceholder": "URL вакансии или описание",
-      "textareaLimitInfo": "{currentLength}/{maxLength} символов (максимум {maxLength})"
+      "textareaLimitInfo": "{currentLength}/{maxLength} символов (максимум {maxLength})",
+      "textareaWarning": "Некоторые сайты защищены от автоматического чтения ботами. Если ИИ вернет ошибку, пожалуйста, скопируйте текст вакансии руками и вставьте сюда."
     }
   },
   "AnalysisPage": {
@@ -74,6 +75,6 @@
     }
   },
   "ErrorPage": {
-    "title": "Упс..."
+    "title": "Уyпс..."
   }
 }

@@ -1,8 +1,9 @@
 "use client";
 
-import { Textarea } from "@/src/shared/ui";
 import { useTranslations } from "next-intl";
+import { HelpCircle } from "lucide-react";
 import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
+import { Textarea } from "@/src/shared/ui";
 
 const MAX_VACANCY_TEXT_LENGTH = 5000;
 
@@ -28,6 +29,10 @@ export const VacancyInputField = () => {
           maxLength: MAX_VACANCY_TEXT_LENGTH,
         })}
       </p>
+      <div className="mt-1.5 flex select-none items-center gap-2 text-xs">
+        <HelpCircle size={14} className="position-relative bottom-0.5 shrink-0 text-red-300" />
+        <p className="leading-normal text-red-300">{t("textareaWarning")}</p>
+      </div>
     </div>
   );
 };
