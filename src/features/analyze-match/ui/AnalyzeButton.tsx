@@ -30,7 +30,7 @@ export const AnalyzeButton = () => {
         setError(result?.error || t("errorAnalyzeMessage"));
         setIsLoading(false);
       }
-      route.push("/workspace/analysis");
+      route.push("/analysis");
       setIsLoading(false);
     } catch (error) {
       const networkErrorMsg = error instanceof Error ? error.message : t("errorAnalyzeMessage");

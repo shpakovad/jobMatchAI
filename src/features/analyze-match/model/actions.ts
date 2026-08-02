@@ -77,6 +77,7 @@ export async function handleAIAnalysis(payload: AnalyzePayload) {
 
       Структура JSON:
       {
+      "vacancyName": "Здесь напиши точное название должности из текста вакансии. Если названия должности в тексте нет, напиши 'Позиция из описания'",
         "matchPercentage": number (процент соответствия от 0 до 100),
         "matchedSkills": ["React", "TypeScript"], (навыки, которые совпали)
         "missingSkills": ["Docker", "Kubernetes"], (критичные навыки из вакансии, которых нет в резюме)
@@ -116,23 +117,61 @@ export async function handleAIAnalysis(payload: AnalyzePayload) {
     const aiParsedResult = JSON.parse(rawText);
 
     const guestSessionId = randomUUID();
+    console.log("=== ШАГ 1: Сгенерирован UUID сессии на сервере ->", guestSessionId);
 
-    await db.anonymousAnalysis.create({
-      data: {
-        id: guestSessionId,
-        ...aiParsedResult,
-        matchPercentage: Number(aiParsedResult.matchPercentage) || 0,
-      },
+    console.log("=== ШАГ 2: Данные от ИИ распарсены успешно:", {
+      vacancyName: aiParsedResult.vacancyName,
+      matchPercentage: aiParsedResult.matchPercentage,
     });
 
+    console.log("=== ШАГ 3: Начинаем запись в Prisma БД...");
+
+    try {
+      await db.anonymousAnalysis.create({
+        data: {
+          id: guestSessionId,
+          vacancyName:
+            aiParsedResult.vacancyName && aiParsedResult.vacancyName !== "undefined"
+              ? String(aiParsedResult.vacancyName)
+              : isRussianLang
+                ? "Неизвестная вакансия"
+                : "Unknown vacancy",
+          matchPercentage: Number(aiParsedResult.matchPercentage) || 0,
+          matchedSkills: Array.isArray(aiParsedResult.matchedSkills)
+            ? aiParsedResult.matchedSkills
+            : [],
+          missingSkills: Array.isArray(aiParsedResult.missingSkills)
+            ? aiParsedResult.missingSkills
+            : [],
+          recommendation: String(
+            aiParsedResult.recommendation ||
+              (isRussianLang ? "Рекомендация отсутствует" : "No recommendation"),
+          ),
+        },
+      });
+    } catch (prismaError) {
+      const errorMessage = isRussianLang
+        ? "Критическая ошибка внутри PRISMA:"
+        : "Critical PRISMA error:";
+      console.error(errorMessage, prismaError);
+      throw prismaError;
+    }
+
+    console.log("=== ШАГ 4: Запись в Prisma БД прошла УСПЕШНО!");
+
     const cookieStore = await cookies();
+
+    console.log("=== ШАГ 5: Записываем куку в браузер с UUID ->", guestSessionId);
+
     cookieStore.set({
       name: "guest_session_id",
-      value: guestSessionId,
+      value: String(guestSessionId),
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
     });
+
+    console.log("=== ШАГ 6: Кука успешно зафиксирована в ответе сервера!");
 
     // return { success: true, data: aiParsedResult };
   } catch (error) {

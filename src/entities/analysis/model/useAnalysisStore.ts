@@ -33,7 +33,7 @@ export const useAnalysisStore = create<AnalysisStore>((set, get) => ({
     setResumeText: (text) => set({ resumeText: text }),
     setVacancyText: (text) => set({ vacancyText: text }),
     setError: (error) => set({ error }),
-    reset: () => set({ ...initialState }),
+    reset: () => set({ resumeText: "", vacancyText: "", isLoading: false, error: null }),
   },
 }));
 
