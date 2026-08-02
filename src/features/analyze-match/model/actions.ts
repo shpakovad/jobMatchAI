@@ -117,14 +117,6 @@ export async function handleAIAnalysis(payload: AnalyzePayload) {
     const aiParsedResult = JSON.parse(rawText);
 
     const guestSessionId = randomUUID();
-    console.log("=== ШАГ 1: Сгенерирован UUID сессии на сервере ->", guestSessionId);
-
-    console.log("=== ШАГ 2: Данные от ИИ распарсены успешно:", {
-      vacancyName: aiParsedResult.vacancyName,
-      matchPercentage: aiParsedResult.matchPercentage,
-    });
-
-    console.log("=== ШАГ 3: Начинаем запись в Prisma БД...");
 
     try {
       await db.anonymousAnalysis.create({
@@ -157,11 +149,7 @@ export async function handleAIAnalysis(payload: AnalyzePayload) {
       throw prismaError;
     }
 
-    console.log("=== ШАГ 4: Запись в Prisma БД прошла УСПЕШНО!");
-
     const cookieStore = await cookies();
-
-    console.log("=== ШАГ 5: Записываем куку в браузер с UUID ->", guestSessionId);
 
     cookieStore.set({
       name: "guest_session_id",
@@ -170,8 +158,6 @@ export async function handleAIAnalysis(payload: AnalyzePayload) {
       secure: process.env.NODE_ENV === "production",
       path: "/",
     });
-
-    console.log("=== ШАГ 6: Кука успешно зафиксирована в ответе сервера!");
 
     // return { success: true, data: aiParsedResult };
   } catch (error) {
