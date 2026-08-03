@@ -1,16 +1,11 @@
+import { ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import { Info } from "lucide-react";
 import { border } from "@/src/shared/styles";
-import { ReactNode } from "react";
+import { IAnalyzeResponse } from "@/src/entities/analysis";
 
 interface AnalysisReportProps {
-  data: {
-    vacancyName: string;
-    matchPercentage: number;
-    matchedSkills: string[];
-    missingSkills: string[];
-    recommendation: string;
-  };
+  data: IAnalyzeResponse;
   children?: ReactNode;
 }
 

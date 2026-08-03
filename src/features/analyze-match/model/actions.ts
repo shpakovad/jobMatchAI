@@ -6,12 +6,15 @@ import * as cheerio from "cheerio";
 import { randomUUID } from "crypto";
 import { db } from "@/src/shared/api/prisma";
 import { redirect } from "@/src/navigation";
+import { IAnalyzeResponse } from "@/src/entities/analysis";
 
 interface AnalyzePayload {
   resumeText: string;
   vacancyText: string;
   locale: string;
 }
+
+type AIAnalysisResponse = { success: false; error: string } | never;
 
 async function scrapeVacancyText(url: string): Promise<string> {
   try {
@@ -43,7 +46,7 @@ async function scrapeVacancyText(url: string): Promise<string> {
   }
 }
 
-export async function handleAIAnalysis(payload: AnalyzePayload) {
+export const handleAIAnalysis = async (payload: AnalyzePayload): Promise<AIAnalysisResponse> => {
   try {
     const targetLanguage = payload.locale === "ru" ? "русском языке" : "английском языке (English)";
     const isRussianLang = payload.locale === "ru";
@@ -115,7 +118,7 @@ export async function handleAIAnalysis(payload: AnalyzePayload) {
       throw new Error(isRussianLang ? "AI вернул пустой ответ" : "AI returned empty response.");
     }
 
-    const aiParsedResult = JSON.parse(rawText);
+    const aiParsedResult: IAnalyzeResponse = JSON.parse(rawText);
 
     const guestSessionId = randomUUID();
 
@@ -163,11 +166,16 @@ export async function handleAIAnalysis(payload: AnalyzePayload) {
   } catch (error) {
     const isRussianLang = payload.locale === "ru";
     const errorMessage =
-      (error as Error).message || (isRussianLang ? "Неизвестная ошибка" : "Unknown error");
+      error instanceof Error
+        ? error.message
+        : isRussianLang
+          ? "Неизвестная ошибка"
+          : "Unknown error";
     return { success: false, error: errorMessage };
   }
   redirect({
     href: "/analysis",
     locale: payload.locale,
   });
-}
+  return undefined as never;
+};

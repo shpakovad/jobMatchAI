@@ -24,7 +24,7 @@ export const AnalyzeButton = () => {
     try {
       const result = await handleAIAnalysis({ resumeText, vacancyText, locale });
 
-      if (!result?.success) {
+      if (result && !result.success) {
         setError(result?.error || t("errorAnalyzeMessage"));
         setIsLoading(false);
         return;
