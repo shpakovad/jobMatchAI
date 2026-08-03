@@ -4,6 +4,7 @@ import { Button, ErrorPage } from "@/src/shared/ui";
 import { useTranslations } from "next-intl";
 import { useAnalysisActions } from "@/src/entities/analysis";
 import { Link } from "@/src/navigation";
+import { deleteGuestSession } from "@/src/features/reset-analysis";
 
 interface ResetAnalysisButtonProps {
   errorReason?: string;
@@ -14,7 +15,8 @@ export const ResetAnalysisButton = ({ errorReason, isError }: ResetAnalysisButto
   const t = useTranslations("AnalysisPage");
   const { reset } = useAnalysisActions();
 
-  const resetAnalyze = () => {
+  const resetAnalyze = async () => {
+    await deleteGuestSession();
     reset();
   };
 

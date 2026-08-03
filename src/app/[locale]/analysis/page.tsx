@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { cookies } from "next/headers";
 import { db } from "@/src/shared/api/prisma";
 import { ResetAnalysisButton } from "@/src/features/reset-analysis";
