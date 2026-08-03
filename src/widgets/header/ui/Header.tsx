@@ -1,17 +1,25 @@
 "use client";
 
-import { Sparkles } from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
+import { Sparkles } from "lucide-react";
 import { usePathname, useRouter } from "@/src/navigation";
 import { divider } from "@/src/shared/styles";
 import { Button } from "@/src/shared/ui";
+import { useAnalysisActions } from "@/src/entities/analysis";
+import { deleteGuestSession } from "@/src/features/reset-analysis";
 
 export const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("Header");
   const locale = useLocale();
+  const { reset } = useAnalysisActions();
+
+  const resetAnalyzeInfo = async () => {
+    await deleteGuestSession();
+    reset();
+  };
 
   const isExactRootPath = pathname === "/";
 
@@ -55,7 +63,9 @@ export const Header = () => {
         </div>
         {!isExactRootPath ? (
           <Link href="/">
-            <Button variant="secondary">{t("backToMain")}</Button>
+            <Button onClick={resetAnalyzeInfo} variant="secondary">
+              {t("backToMain")}
+            </Button>
           </Link>
         ) : (
           <Link href="/workspace">
