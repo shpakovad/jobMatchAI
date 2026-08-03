@@ -63,6 +63,7 @@
     "noSessionMessage": "Страница Анализа не найдена",
     "tryAnotherSessionLabel": "Попробовать снова",
     "noDataFoundMessage": "Данные анализа не найдены в базе данных или срок действия временной сессии истек",
+    "analyzeAnotherVacancyLabel": "Анализировать другую вакансию",
     "card": {
       "title": "Результат AI-анализа",
       "vacancyLabel": "Вакансия",

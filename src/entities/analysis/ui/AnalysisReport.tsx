@@ -18,7 +18,7 @@ export const AnalysisReport = ({ data, children }: AnalysisReportProps) => {
   const totalCount = matchedCount + missingSkills.length;
 
   return (
-    <div className={`pb-20 pt-20`}>
+    <div className={`pb-10 pt-20`}>
       <h2 className="mb-2 text-center text-2xl font-bold text-primary">{t("title")}</h2>
       <p className="mb-12 text-center text-base text-muted-foreground">{t("description")}</p>
 

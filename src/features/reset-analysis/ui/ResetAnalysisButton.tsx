@@ -5,15 +5,30 @@ import { useTranslations } from "next-intl";
 import { useAnalysisActions } from "@/src/entities/analysis";
 import { Link } from "@/src/navigation";
 
-export const ResetAnalysisButton = ({ reason }: { reason: string }) => {
+interface ResetAnalysisButtonProps {
+  errorReason?: string;
+  isError?: boolean;
+}
+
+export const ResetAnalysisButton = ({ errorReason, isError }: ResetAnalysisButtonProps) => {
   const t = useTranslations("AnalysisPage");
   const { reset } = useAnalysisActions();
-
-  const errorMessage = reason === "noData" ? t("noDataFoundMessage") : t("noSessionMessage");
 
   const resetAnalyze = () => {
     reset();
   };
+
+  if (!isError) {
+    return (
+      <div className="mb-10 flex w-full justify-center">
+        <Link href="/workspace">
+          <Button onClick={resetAnalyze}>{t("analyzeAnotherVacancyLabel")}</Button>
+        </Link>
+      </div>
+    );
+  }
+
+  const errorMessage = errorReason === "noData" ? t("noDataFoundMessage") : t("noSessionMessage");
 
   return (
     <ErrorPage message={errorMessage}>

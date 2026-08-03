@@ -8,7 +8,7 @@ const Analysis = async () => {
   const guestSessionId = cookieStore.get("guest_session_id")?.value;
 
   if (!guestSessionId) {
-    return <ResetAnalysisButton reason={"noSession"} />;
+    return <ResetAnalysisButton errorReason={"noSession"} isError />;
   }
 
   const analysisData = await db.anonymousAnalysis.findUnique({
@@ -16,7 +16,7 @@ const Analysis = async () => {
   });
 
   if (!analysisData) {
-    return <ResetAnalysisButton reason="noData" />;
+    return <ResetAnalysisButton errorReason="noData" isError />;
   }
 
   const data = {
@@ -27,7 +27,12 @@ const Analysis = async () => {
     recommendation: analysisData.recommendation,
   };
 
-  return <AnalysisReport data={data} />;
+  return (
+    <>
+      <AnalysisReport data={data} />
+      <ResetAnalysisButton />
+    </>
+  );
 };
 
 export default Analysis;

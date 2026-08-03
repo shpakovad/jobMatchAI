@@ -63,6 +63,7 @@
     "noSessionMessage": "Analysis page not found",
     "tryAnotherSessionLabel": "Try again",
     "noDataFoundMessage": "The analysis data was not found in the database or the temporary session has expired.",
+    "analyzeAnotherVacancyLabel": "Analyze another vacancy",
     "card": {
       "title": "AI Analysis Result",
       "vacancyLabel": "Vacancy",
