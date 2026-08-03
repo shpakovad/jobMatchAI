@@ -160,7 +160,7 @@ export const handleAIAnalysis = async (payload: AnalyzePayload): Promise<AIAnaly
       value: String(guestSessionId),
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      path: "/"
+      path: "/",
     });
   } catch (error) {
     const isRussianLang = payload.locale === "ru";
