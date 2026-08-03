@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { cookies } from "next/headers";
 import { db } from "@/src/shared/api/prisma";
-import { ResetAnalysisButton } from "@/src/features/reset-analysis";
+import { AnalysisStatusGuard } from "@/src/features/analysis-status-guard";
 import { AnalysisReport } from "@/src/entities/analysis";
 
 export const AnalysisPage = async () => {
@@ -10,7 +10,7 @@ export const AnalysisPage = async () => {
   const guestSessionId = cookieStore.get("guest_session_id")?.value;
 
   if (!guestSessionId) {
-    return <ResetAnalysisButton errorReason={"noSession"} isError />;
+    return <AnalysisStatusGuard errorReason={"noSession"} isError />;
   }
   console.log("Analysis");
   const analysisData = await db.anonymousAnalysis.findUnique({
@@ -18,7 +18,7 @@ export const AnalysisPage = async () => {
   });
 
   if (!analysisData) {
-    return <ResetAnalysisButton errorReason="noData" isError />;
+    return <AnalysisStatusGuard errorReason="noData" isError />;
   }
 
   const data = {
@@ -32,7 +32,7 @@ export const AnalysisPage = async () => {
   return (
     <>
       <AnalysisReport data={data} />
-      <ResetAnalysisButton />
+      <AnalysisStatusGuard />
     </>
   );
 };

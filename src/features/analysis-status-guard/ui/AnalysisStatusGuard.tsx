@@ -4,14 +4,14 @@ import { Button, ErrorPage } from "@/src/shared/ui";
 import { useTranslations } from "next-intl";
 import { useAnalysisActions } from "@/src/entities/analysis";
 import { Link } from "@/src/navigation";
-import { deleteGuestSession } from "@/src/features/reset-analysis";
+import { deleteGuestSession } from "@/src/features/analysis-status-guard";
 
-interface ResetAnalysisButtonProps {
+interface AnalysisStatusGuardProps {
   errorReason?: string;
   isError?: boolean;
 }
 
-export const ResetAnalysisButton = ({ errorReason, isError }: ResetAnalysisButtonProps) => {
+export const AnalysisStatusGuard = ({ errorReason, isError }: AnalysisStatusGuardProps) => {
   const t = useTranslations("AnalysisPage");
   const { reset } = useAnalysisActions();
 

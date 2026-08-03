@@ -20,7 +20,7 @@ export const AnalyzeButton = () => {
   const handleAnalyze = async () => {
     setIsLoading(true);
     setError(null);
-
+    sessionStorage.setItem("is_analysis_session_active", "true");
     try {
       const result = await handleAIAnalysis({ resumeText, vacancyText, locale });
 

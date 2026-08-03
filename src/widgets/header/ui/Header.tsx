@@ -7,7 +7,7 @@ import { usePathname, useRouter } from "@/src/navigation";
 import { divider } from "@/src/shared/styles";
 import { Button } from "@/src/shared/ui";
 import { useAnalysisActions } from "@/src/entities/analysis";
-import { deleteGuestSession } from "@/src/features/reset-analysis";
+import { deleteGuestSession } from "@/src/features/analysis-status-guard";
 
 export const Header = () => {
   const router = useRouter();
