@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import {
   Crosshair,
   FileChartColumnIncreasing,
@@ -7,6 +6,8 @@ import {
   Sparkles,
   Upload,
 } from "lucide-react";
+import { ReactNode } from "react";
+
 import { TranslationType } from "@/src/shared/types";
 
 interface StepResult {

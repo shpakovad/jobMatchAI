@@ -1,10 +1,11 @@
 "use client";
 
-import { ReactNode } from "react";
-import { useTranslations } from "next-intl";
 import { Info } from "lucide-react";
-import { border } from "@/src/shared/styles";
+import { useTranslations } from "next-intl";
+import { ReactNode } from "react";
+
 import { IAnalyzeResponse } from "@/src/entities/analysis";
+import { border } from "@/src/shared/styles";
 
 interface AnalysisReportProps {
   data: IAnalyzeResponse;

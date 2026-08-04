@@ -1,11 +1,12 @@
 "use client";
 
-import { useTranslations, useLocale } from "next-intl";
 import { Sparkles } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+
+import { useResetAnalysisFlow } from "@/src/features/analysis-status-guard";
 import { Link, usePathname, useRouter } from "@/src/navigation";
 import { divider } from "@/src/shared/styles";
 import { Button } from "@/src/shared/ui";
-import { useResetAnalysisFlow } from "@/src/features/analysis-status-guard";
 
 export const Header = () => {
   const router = useRouter();

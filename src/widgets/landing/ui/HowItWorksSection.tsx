@@ -1,5 +1,6 @@
-import { border, divider } from "@/src/shared/styles";
 import { useTranslations } from "next-intl";
+
+import { border, divider } from "@/src/shared/styles";
 import { getHowItWorksSteps } from "@/src/widgets/landing/model/HowItWorksData";
 
 export const HowItWorksSection = () => {

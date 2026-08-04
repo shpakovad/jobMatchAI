@@ -1,12 +1,13 @@
 "use server";
 
-import { cookies } from "next/headers";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import * as cheerio from "cheerio";
 import { randomUUID } from "crypto";
-import { db } from "@/src/shared/api/prisma";
-import { redirect } from "@/src/navigation";
+import { cookies } from "next/headers";
+
 import { IAnalyzeResponse } from "@/src/entities/analysis";
+import { redirect } from "@/src/navigation";
+import { db } from "@/src/shared/api/prisma";
 
 interface AnalyzePayload {
   resumeText: string;

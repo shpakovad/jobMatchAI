@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
-import { divider } from "@/src/shared/styles";
+
 import { AnalysisReport } from "@/src/entities/analysis";
+import { divider } from "@/src/shared/styles";
 
 const MOCK_DATA = {
   vacancyName: "React Developer",

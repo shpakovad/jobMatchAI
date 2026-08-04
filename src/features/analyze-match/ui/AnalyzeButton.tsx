@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Button, FullScreenLoader } from "@/src/shared/ui";
+import { useState } from "react";
+
 import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
-import { handleAIAnalysis } from "@/src/features/analyze-match";
 import { activateAnalysisSession } from "@/src/features/analysis-status-guard/model/session";
+import { handleAIAnalysis } from "@/src/features/analyze-match";
+import { Button, FullScreenLoader } from "@/src/shared/ui";
 
 export const AnalyzeButton = () => {
   const [isLoading, setIsLoading] = useState(false);

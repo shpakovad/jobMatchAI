@@ -1,7 +1,8 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { AlertTriangle, Info } from "lucide-react";
+import { useTranslations } from "next-intl";
+
 import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
 import { Textarea } from "@/src/shared/ui";
 

@@ -1,11 +1,13 @@
 "use client";
 
-import { ReactNode, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { useResetAnalysisFlow } from "../model/useResetAnalysisFlow";
-import { Button, ErrorPage } from "@/src/shared/ui";
-import { Link } from "@/src/navigation";
+import { ReactNode, useEffect, useRef } from "react";
+
 import { isAnalysisSessionActive } from "@/src/features/analysis-status-guard/model/session";
+import { Link } from "@/src/navigation";
+import { Button, ErrorPage } from "@/src/shared/ui";
+
+import { useResetAnalysisFlow } from "../model/useResetAnalysisFlow";
 
 interface AnalysisStatusGuardProps {
   errorReason?: string;

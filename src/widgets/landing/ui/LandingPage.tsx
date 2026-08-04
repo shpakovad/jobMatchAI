@@ -1,6 +1,6 @@
-import { MainSection } from "./MainSection";
-import { HowItWorksSection } from "./HowItWorksSection";
 import { ExampleSection } from "./ExampleSection";
+import { HowItWorksSection } from "./HowItWorksSection";
+import { MainSection } from "./MainSection";
 
 export const LandingPage = () => {
   return (

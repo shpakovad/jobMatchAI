@@ -1,5 +1,6 @@
 import { Zap } from "lucide-react";
 import { useTranslations } from "next-intl";
+
 import { divider } from "@/src/shared/styles";
 
 export const MainSection = () => {

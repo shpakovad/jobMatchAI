@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { UploadResumeCard } from "@/src/features/upload-resume";
-import { VacancyInputField } from "@/src/features/vacancy-input-field";
-import { AnalyzeButton } from "@/src/features/analyze-match";
+import { useEffect } from "react";
+
 import { useAnalysisStore } from "@/src/entities/analysis";
-import { ErrorPage, Button } from "@/src/shared/ui";
 import { useAnalysisActions } from "@/src/entities/analysis";
 import { useResetAnalysisFlow } from "@/src/features/analysis-status-guard";
+import { AnalyzeButton } from "@/src/features/analyze-match";
+import { UploadResumeCard } from "@/src/features/upload-resume";
+import { VacancyInputField } from "@/src/features/vacancy-input-field";
+import { Button, ErrorPage } from "@/src/shared/ui";
 
 export const WorkSpacePage = () => {
   const t = useTranslations("WorkSpacePage");

@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
-import { ErrorIcon } from "@/src/shared/icons/ErrorIcon";
 import { ReactNode } from "react";
+
+import { ErrorIcon } from "@/src/shared/icons/ErrorIcon";
 
 interface ErrorPageProps {
   message: string;

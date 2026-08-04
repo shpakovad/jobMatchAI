@@ -1,10 +1,11 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
 import { CheckCircle2, FileText, Loader2, Upload } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { parsePdfToText } from "@/src/features/upload-resume/lib/parsePdf";
+import { ChangeEvent, useState } from "react";
+
 import { useAnalysisActions } from "@/src/entities/analysis";
+import { parsePdfToText } from "@/src/features/upload-resume/lib/parsePdf";
 
 const MAX_RESUME_FILE_SIZE_BYTES = 4 * 1024 * 1024;
 

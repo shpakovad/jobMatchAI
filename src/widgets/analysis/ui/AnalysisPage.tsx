@@ -1,7 +1,8 @@
 import { cookies } from "next/headers";
-import { db } from "@/src/shared/api/prisma";
-import { AnalysisStatusGuard } from "@/src/features/analysis-status-guard";
+
 import { AnalysisReport } from "@/src/entities/analysis";
+import { AnalysisStatusGuard } from "@/src/features/analysis-status-guard";
+import { db } from "@/src/shared/api/prisma";
 
 export const AnalysisPage = async () => {
   const cookieStore = await cookies();

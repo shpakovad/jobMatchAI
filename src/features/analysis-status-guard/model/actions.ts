@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+
 import { db } from "@/src/shared/api/prisma";
 
 export const deleteGuestSession = async () => {
