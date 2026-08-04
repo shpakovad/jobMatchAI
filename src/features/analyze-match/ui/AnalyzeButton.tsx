@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
-import { activateAnalysisSession } from "@/src/features/analysis-status-guard/model/session";
+import { activateAnalysisSession } from "@/src/entities/analysis";
 import { handleAIAnalysis } from "@/src/features/analyze-match";
 import { Button, FullScreenLoader } from "@/src/shared/ui";
 

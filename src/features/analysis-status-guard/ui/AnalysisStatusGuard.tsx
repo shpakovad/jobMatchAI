@@ -3,11 +3,10 @@
 import { useTranslations } from "next-intl";
 import { ReactNode, useEffect, useRef } from "react";
 
-import { isAnalysisSessionActive } from "@/src/features/analysis-status-guard/model/session";
+import { isAnalysisSessionActive } from "@/src/entities/analysis";
+import { useResetAnalysisFlow } from "@/src/features/analysis-status-guard";
 import { Link } from "@/src/navigation";
 import { Button, ErrorPage } from "@/src/shared/ui";
-
-import { useResetAnalysisFlow } from "../model/useResetAnalysisFlow";
 
 interface AnalysisStatusGuardProps {
   errorReason?: string;
