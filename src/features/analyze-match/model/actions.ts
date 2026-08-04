@@ -170,7 +170,12 @@ export const handleAIAnalysis = async (payload: AnalyzePayload): Promise<AIAnaly
         : isRussianLang
           ? "Неизвестная ошибка"
           : "Unknown error";
-    return { success: false, error: errorMessage };
+    const resultMessage = errorMessage.includes("User location is not supported")
+      ? isRussianLang
+        ? "Сервисы Gemini недоступны в вашем регионе. Пожалуйста, смените страну в вашем VPN."
+        : "User location is not supported for the API use. Please check your VPN region."
+      : errorMessage;
+    return { success: false, error: resultMessage };
   }
   redirect({
     href: "/analysis",
