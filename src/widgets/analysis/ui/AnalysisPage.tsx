@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 
 import { AnalysisReport } from "@/src/entities/analysis";
+import { fetchAnalysisById } from "@/src/entities/analysis/api/analysisApi";
 import { AnalysisStatusGuard } from "@/src/features/analysis-status-guard";
-import { db } from "@/src/shared/api/prisma";
 
 export const AnalysisPage = async () => {
   const cookieStore = await cookies();
@@ -12,25 +12,15 @@ export const AnalysisPage = async () => {
     return <AnalysisStatusGuard errorReason={"noSession"} isError />;
   }
 
-  const analysisData = await db.anonymousAnalysis.findUnique({
-    where: { id: guestSessionId },
-  });
+  const analysisData = await fetchAnalysisById(guestSessionId);
 
   if (!analysisData) {
     return <AnalysisStatusGuard errorReason="noData" isError />;
   }
 
-  const data = {
-    vacancyName: analysisData.vacancyName,
-    matchPercentage: analysisData.matchPercentage,
-    matchedSkills: (analysisData.matchedSkills as string[]) || [],
-    missingSkills: (analysisData.missingSkills as string[]) || [],
-    recommendation: analysisData.recommendation,
-  };
-
   return (
     <AnalysisStatusGuard>
-      <AnalysisReport data={data} />
+      <AnalysisReport data={analysisData} />
     </AnalysisStatusGuard>
   );
 };
