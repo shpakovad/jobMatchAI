@@ -1,14 +1,13 @@
-import { TranslationType } from "@/src/shared/types";
+import { ReactNode } from "react";
 import {
   Crosshair,
   FileChartColumnIncreasing,
   FileInput,
-  Mail,
-  MessageCircleMore,
+  List,
   Sparkles,
   Upload,
 } from "lucide-react";
-import { ReactNode } from "react";
+import { TranslationType } from "@/src/shared/types";
 
 interface StepResult {
   id: string;
@@ -56,12 +55,7 @@ export const getHowItWorksSteps = (translation: TranslationType): HowItWorksStep
         {
           id: "3-3",
           title: translation("steps.step3.result.result3"),
-          img: <MessageCircleMore />,
-        },
-        {
-          id: "3-4",
-          title: translation("steps.step3.result.result4"),
-          img: <Mail />,
+          img: <List />,
         },
       ],
     },

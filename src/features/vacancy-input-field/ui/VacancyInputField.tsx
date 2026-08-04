@@ -15,7 +15,7 @@ export const VacancyInputField = () => {
 
   return (
     <div className="mb-14">
-      <p className="pb-2 text-center font-mono text-sm text-slate-400">{t("step")}</p>
+      <p className="pb-2 text-center text-sm text-slate-400">{t("step")}</p>
       <Textarea
         className="min-h-[300px] min-w-[500px]"
         placeholder={`${t("textareaPlaceholder")}`}
@@ -23,7 +23,7 @@ export const VacancyInputField = () => {
         maxLength={MAX_VACANCY_TEXT_LENGTH}
         onChange={(e) => setVacancyText(e.target.value.slice(0, MAX_VACANCY_TEXT_LENGTH))}
       />
-      <p className="pt-2 text-right text-xs text-muted-foreground">
+      <p className="pb-3 pt-2 text-right text-xs text-muted-foreground">
         {t("textareaLimitInfo", {
           currentLength: vacancyText.length,
           maxLength: MAX_VACANCY_TEXT_LENGTH,

@@ -34,7 +34,7 @@ export const HowItWorksSection = () => {
                 {step.description ? (
                   <p className="text-sm text-muted-foreground">{step.description}</p>
                 ) : (
-                  <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
+                  <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
                     {step.result?.map((result) => {
                       return (
                         <div

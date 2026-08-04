@@ -51,7 +51,7 @@ export const UploadResumeCard = () => {
   return (
     <div className="mb-14">
       <div>
-        <p className="text-center font-mono text-sm text-slate-400">{t("step")}</p>
+        <p className="text-center text-sm text-slate-400">{t("step")}</p>
         <div className="mt-2">
           <label
             htmlFor="resume-file-input"
