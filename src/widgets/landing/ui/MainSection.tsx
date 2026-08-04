@@ -2,7 +2,7 @@ import { Zap } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { divider } from "@/src/shared/styles";
 
-export const MainSection = ({}) => {
+export const MainSection = () => {
   const t = useTranslations("LandingPage.MainSection");
   return (
     <div className={`flex w-full flex-col items-center justify-center ${divider}`}>
