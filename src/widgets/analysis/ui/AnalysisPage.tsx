@@ -28,8 +28,8 @@ export const AnalysisPage = async () => {
   };
 
   return (
-    <>
+    <AnalysisStatusGuard>
       <AnalysisReport data={data} />
-    </>
+    </AnalysisStatusGuard>
   );
 };

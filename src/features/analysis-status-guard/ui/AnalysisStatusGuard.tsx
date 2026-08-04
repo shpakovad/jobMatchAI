@@ -1,26 +1,54 @@
 "use client";
 
-import { Button, ErrorPage } from "@/src/shared/ui";
+import { ReactNode, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/src/navigation";
 import { useResetAnalysisFlow } from "../model/useResetAnalysisFlow";
+import { Button, ErrorPage } from "@/src/shared/ui";
+import { Link } from "@/src/navigation";
+import { isAnalysisSessionActive } from "@/src/features/analysis-status-guard/model/session";
 
 interface AnalysisStatusGuardProps {
   errorReason?: string;
   isError?: boolean;
+  children?: ReactNode;
 }
 
-export const AnalysisStatusGuard = ({ errorReason, isError }: AnalysisStatusGuardProps) => {
+export const AnalysisStatusGuard = ({
+  errorReason,
+  isError,
+  children,
+}: AnalysisStatusGuardProps) => {
   const t = useTranslations("AnalysisPage");
   const { resetAnalysisFlow } = useResetAnalysisFlow();
+  const mounted = useRef(false);
 
-  if (!isError) {
+  useEffect(() => {
+    mounted.current = true;
+
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (mounted.current) {
+      const isActiveIdSession = isAnalysisSessionActive();
+      if (!isActiveIdSession) {
+        resetAnalysisFlow();
+      }
+    }
+  }, [mounted, resetAnalysisFlow]);
+
+  if (children && !isError) {
     return (
-      <div className="mb-10 flex w-full justify-center">
-        <Link href="/workspace">
-          <Button onClick={resetAnalysisFlow}>{t("analyzeAnotherVacancyLabel")}</Button>
-        </Link>
-      </div>
+      <>
+        {children}
+        <div className="mb-10 flex w-full justify-center">
+          <Link href="/workspace">
+            <Button onClick={resetAnalysisFlow}>{t("analyzeAnotherVacancyLabel")}</Button>
+          </Link>
+        </div>
+      </>
     );
   }
 
