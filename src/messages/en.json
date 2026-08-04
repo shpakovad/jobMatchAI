@@ -54,7 +54,8 @@
       "step": "Step 2/2 · Paste a job URL or description",
       "textareaPlaceholder": "Job URL or description",
       "textareaLimitInfo": "{currentLength}/{maxLength} characters (max {maxLength})",
-      "textareaWarning": "Some websites are protected from automated bot reading.If the AI returns an error, please copy the job posting text manually and paste it here."
+      "textareaWarning": "Some websites are protected from automated bot reading.If the AI returns an error, please copy the job posting text manually and paste it here.",
+      "regionWarning": "AI analysis is powered by Google Gemini. Google Gemini may be unavailable in some regions."
     }
   },
   "AnalysisPage": {

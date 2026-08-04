@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { HelpCircle } from "lucide-react";
+import { AlertTriangle, Info } from "lucide-react";
 import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
 import { Textarea } from "@/src/shared/ui";
 
@@ -29,9 +29,13 @@ export const VacancyInputField = () => {
           maxLength: MAX_VACANCY_TEXT_LENGTH,
         })}
       </p>
-      <div className="mt-1.5 flex select-none items-center gap-2 text-xs">
-        <HelpCircle size={14} className="position-relative bottom-0.5 shrink-0 text-red-300" />
-        <p className="leading-normal text-red-300">{t("textareaWarning")}</p>
+      <div className="flex items-start gap-3 text-xs text-slate-400/90">
+        <Info size={15} className="mt-0.5 shrink-0 text-slate-500" />
+        <p className="leading-relaxed">{t("textareaWarning")}</p>
+      </div>
+      <div className="flex items-start gap-3 text-xs text-amber-400/90">
+        <AlertTriangle size={15} className="mt-0.5 shrink-0 text-amber-500/70" />
+        <p className="font-medium leading-relaxed">{t("regionWarning")}</p>
       </div>
     </div>
   );
