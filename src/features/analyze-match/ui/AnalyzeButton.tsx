@@ -1,7 +1,6 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
 
 import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
 import { activateAnalysisSession } from "@/src/entities/analysis";
@@ -9,12 +8,12 @@ import { handleAIAnalysis } from "@/src/features/analyze-match";
 import { Button, FullScreenLoader } from "@/src/shared/ui";
 
 export const AnalyzeButton = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
   const isReady = useAnalysisStore((state) => state.getIsReady());
   const resumeText = useAnalysisStore((state) => state.resumeText);
   const vacancyText = useAnalysisStore((state) => state.vacancyText);
-  const { setError } = useAnalysisActions();
+  const isLoading = useAnalysisStore((state) => state.isLoading);
+
+  const { setError, setIsLoading } = useAnalysisActions();
 
   const t = useTranslations("WorkSpacePage");
   const locale = useLocale();

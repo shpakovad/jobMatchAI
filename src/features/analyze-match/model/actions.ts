@@ -30,6 +30,7 @@ export const handleAIAnalysis = async (payload: IAnalyzePayload): Promise<AIAnal
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
+      maxAge: 60 * 40,
     });
   } catch (error) {
     const isRussianLang = payload.locale === "ru";

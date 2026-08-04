@@ -42,8 +42,8 @@
     "errorResetActionLabel": "Попробовать снова",
     "UploadResumeSection": {
       "step": "Шаг 1/2 · Загрузите резюме",
-      "dragFileLabel": "Перетащите файл или нажмите",
-      "format": "PDF, DOCX · до 4 MB",
+      "dragFileLabel": "Нажмите, что бы загрузить файл",
+      "format": "PDF · до 4 MB",
       "loadingLabel": "Извлекаем текст из резюме...",
       "successLabel": "Резюме успешно обработано!",
       "errorLabel": "Ошибка обработки файла",

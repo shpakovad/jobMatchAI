@@ -10,6 +10,7 @@ interface AnalysisStore {
   actions: {
     setResumeText: (text: string) => void;
     setError: (error: string | null) => void;
+    setIsLoading: (isLoading: boolean) => void;
     setVacancyText: (text: string) => void;
     reset: () => void;
   };
@@ -33,6 +34,7 @@ export const useAnalysisStore = create<AnalysisStore>((set, get) => ({
     setResumeText: (text) => set({ resumeText: text }),
     setVacancyText: (text) => set({ vacancyText: text }),
     setError: (error) => set({ error }),
+    setIsLoading: (isLoading) => set({ isLoading }),
     reset: () => set({ resumeText: "", vacancyText: "", isLoading: false, error: null }),
   },
 }));

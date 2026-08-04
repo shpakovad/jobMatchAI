@@ -42,8 +42,8 @@
     "errorResetActionLabel": "Try again",
     "UploadResumeSection": {
       "step": "Step 1/2 · Upload your resume",
-      "dragFileLabel": "Drag and drop the file or click",
-      "format": "PDF, DOCX · before 4 MB",
+      "dragFileLabel": "Click here to upload",
+      "format": "PDF · before 4 MB",
       "loadingLabel": "Extracting text from a resume...",
       "successLabel": "Resume successfully processed!",
       "errorLabel": "File processing error",
