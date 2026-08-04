@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import { cookies } from "next/headers";
 import { db } from "@/src/shared/api/prisma";
 import { AnalysisStatusGuard } from "@/src/features/analysis-status-guard";
@@ -12,7 +10,7 @@ export const AnalysisPage = async () => {
   if (!guestSessionId) {
     return <AnalysisStatusGuard errorReason={"noSession"} isError />;
   }
-  console.log("Analysis");
+
   const analysisData = await db.anonymousAnalysis.findUnique({
     where: { id: guestSessionId },
   });
@@ -32,7 +30,6 @@ export const AnalysisPage = async () => {
   return (
     <>
       <AnalysisReport data={data} />
-      <AnalysisStatusGuard />
     </>
   );
 };

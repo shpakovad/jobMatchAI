@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Button, FullScreenLoader } from "@/src/shared/ui";
 import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
 import { handleAIAnalysis } from "@/src/features/analyze-match";
+import { activateAnalysisSession } from "@/src/features/analysis-status-guard/model/session";
 
 export const AnalyzeButton = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +21,7 @@ export const AnalyzeButton = () => {
   const handleAnalyze = async () => {
     setIsLoading(true);
     setError(null);
-    sessionStorage.setItem("is_analysis_session_active", "true");
+    activateAnalysisSession();
     try {
       const result = await handleAIAnalysis({ resumeText, vacancyText, locale });
 

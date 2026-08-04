@@ -2,9 +2,8 @@
 
 import { Button, ErrorPage } from "@/src/shared/ui";
 import { useTranslations } from "next-intl";
-import { useAnalysisActions } from "@/src/entities/analysis";
 import { Link } from "@/src/navigation";
-import { deleteGuestSession } from "@/src/features/analysis-status-guard";
+import { useResetAnalysisFlow } from "../model/useResetAnalysisFlow";
 
 interface AnalysisStatusGuardProps {
   errorReason?: string;
@@ -13,18 +12,13 @@ interface AnalysisStatusGuardProps {
 
 export const AnalysisStatusGuard = ({ errorReason, isError }: AnalysisStatusGuardProps) => {
   const t = useTranslations("AnalysisPage");
-  const { reset } = useAnalysisActions();
-
-  const resetAnalyze = async () => {
-    await deleteGuestSession();
-    reset();
-  };
+  const { resetAnalysisFlow } = useResetAnalysisFlow();
 
   if (!isError) {
     return (
       <div className="mb-10 flex w-full justify-center">
         <Link href="/workspace">
-          <Button onClick={resetAnalyze}>{t("analyzeAnotherVacancyLabel")}</Button>
+          <Button onClick={resetAnalysisFlow}>{t("analyzeAnotherVacancyLabel")}</Button>
         </Link>
       </div>
     );
@@ -35,7 +29,7 @@ export const AnalysisStatusGuard = ({ errorReason, isError }: AnalysisStatusGuar
   return (
     <ErrorPage message={errorMessage}>
       <Link href="/workspace">
-        <Button onClick={resetAnalyze} variant="secondary">
+        <Button onClick={resetAnalysisFlow} variant="secondary">
           {t("tryAnotherSessionLabel")}
         </Button>
       </Link>

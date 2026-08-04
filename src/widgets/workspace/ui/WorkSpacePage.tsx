@@ -8,11 +8,13 @@ import { AnalyzeButton } from "@/src/features/analyze-match";
 import { useAnalysisStore } from "@/src/entities/analysis";
 import { ErrorPage, Button } from "@/src/shared/ui";
 import { useAnalysisActions } from "@/src/entities/analysis";
+import { useResetAnalysisFlow } from "@/src/features/analysis-status-guard";
 
 export const WorkSpacePage = () => {
   const t = useTranslations("WorkSpacePage");
   const error = useAnalysisStore((state) => state.error);
   const { reset } = useAnalysisActions();
+  const { resetAnalysisFlow } = useResetAnalysisFlow();
 
   useEffect(() => {
     return () => reset();
@@ -20,7 +22,7 @@ export const WorkSpacePage = () => {
 
   return error ? (
     <ErrorPage message={error}>
-      <Button onClick={reset} variant="secondary">
+      <Button onClick={resetAnalysisFlow} variant="secondary">
         {t("errorResetActionLabel")}
       </Button>
     </ErrorPage>

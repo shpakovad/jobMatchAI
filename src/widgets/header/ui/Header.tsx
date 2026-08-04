@@ -6,20 +6,14 @@ import { Sparkles } from "lucide-react";
 import { usePathname, useRouter } from "@/src/navigation";
 import { divider } from "@/src/shared/styles";
 import { Button } from "@/src/shared/ui";
-import { useAnalysisActions } from "@/src/entities/analysis";
-import { deleteGuestSession } from "@/src/features/analysis-status-guard";
+import { useResetAnalysisFlow } from "@/src/features/analysis-status-guard";
 
 export const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("Header");
   const locale = useLocale();
-  const { reset } = useAnalysisActions();
-
-  const resetAnalyzeInfo = async () => {
-    await deleteGuestSession();
-    reset();
-  };
+  const { resetAnalysisFlow } = useResetAnalysisFlow();
 
   const isExactRootPath = pathname === "/";
 
@@ -63,7 +57,7 @@ export const Header = () => {
         </div>
         {!isExactRootPath ? (
           <Link href="/">
-            <Button onClick={resetAnalyzeInfo} variant="secondary">
+            <Button onClick={resetAnalysisFlow} variant="secondary">
               {t("backToMain")}
             </Button>
           </Link>
