@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
 import { UploadResumeCard } from "@/src/features/upload-resume";
 import { VacancyInputField } from "@/src/features/vacancy-input-field";
 import { AnalyzeButton } from "@/src/features/analyze-match";
@@ -21,9 +20,9 @@ export const WorkSpacePage = () => {
 
   return error ? (
     <ErrorPage message={error}>
-      <Link href="/workspace">
-        <Button variant="secondary">{t("errorResetActionLabel")}</Button>
-      </Link>
+      <Button onClick={reset} variant="secondary">
+        {t("errorResetActionLabel")}
+      </Button>
     </ErrorPage>
   ) : (
     <div className="flex w-full flex-col items-center justify-center pb-14 pt-14">
