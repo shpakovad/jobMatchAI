@@ -1,18 +1,19 @@
 "use server";
 
 import { randomUUID } from "crypto";
+import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { cookies } from "next/headers";
 
 import {
+  AnalyzePayload,
   generateMatchAnalysis,
-  IAnalyzePayload,
   saveAnonymousAnalysis,
 } from "@/src/features/analyze-match";
 import { redirect } from "@/src/navigation";
 
-type AIAnalysisResponse = { success: false; error: string } | never;
+type AnalysisResponse = { success: boolean; error?: string };
 
-export const handleAIAnalysis = async (payload: IAnalyzePayload): Promise<AIAnalysisResponse> => {
+export const handleAIAnalysis = async (payload: AnalyzePayload): Promise<AnalysisResponse> => {
   try {
     const isRussianLang = payload.locale === "ru";
 
@@ -33,7 +34,18 @@ export const handleAIAnalysis = async (payload: IAnalyzePayload): Promise<AIAnal
       maxAge: 60 * 40,
       sameSite: "lax",
     });
+
+    redirect({
+      href: "/analysis",
+      locale: payload.locale,
+    });
+
+    return { success: true };
   } catch (error) {
+    if (isRedirectError(error)) {
+      throw error;
+    }
+
     const isRussianLang = payload.locale === "ru";
     const errorMessage =
       error instanceof Error
@@ -48,9 +60,4 @@ export const handleAIAnalysis = async (payload: IAnalyzePayload): Promise<AIAnal
       : errorMessage;
     return { success: false, error: resultMessage };
   }
-  redirect({
-    href: "/analysis",
-    locale: payload.locale,
-  });
-  return undefined as never;
 };

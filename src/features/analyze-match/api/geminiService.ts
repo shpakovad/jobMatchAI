@@ -6,10 +6,10 @@ import {
   aiAnalysisSchema,
   ValidatedAnalysisResult,
 } from "@/src/entities/analysis/model/validation";
-import { IAnalyzePayload, scrapeVacancyText } from "@/src/features/analyze-match";
+import { AnalyzePayload, scrapeVacancyText } from "@/src/features/analyze-match";
 
 export const generateMatchAnalysis = async (
-  payload: IAnalyzePayload,
+  payload: AnalyzePayload,
 ): Promise<ValidatedAnalysisResult> => {
   const targetLanguage = payload.locale === "ru" ? "русском языке" : "английском языке (English)";
   const isRussianLang = payload.locale === "ru";

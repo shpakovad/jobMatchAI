@@ -10,14 +10,14 @@ The application is engineered following the strict principles of **Feature-Slice
 
 The project leverages a hybrid architecture powered by Next.js App Router, where each layer performs a strictly isolated role with zero cross-contaminations:
 
-*   **Framework:** `Next.js 15+` (App Router) with full support for React 19 features.
-*   **Artificial Intelligence:** `Google Gemini API` (`gemini-3.6-flash`) utilizing `zod` at the AI → Domain boundary for rigid runtime validation of heterogeneous LLM JSON responses.
-*   **Database:** `PostgreSQL` (Cloud serverless provider `Neon.tech`) + `Prisma ORM` as a type-safe data access layer.
-*   **State Management:** `Zustand` (Isolated actions and slices confined strictly to the `entities` layer).
-*   **Architectural Methodology:** `Feature-Sliced Design (FSD)` with full isolation of end-to-end features and zero cross-feature dependencies.
-*   **Internationalization:** `Next-intl` (Comprehensive `ru` / `en` locale routing, including robust Server Components support).
-*   **Styling & UI:** `Tailwind CSS` + `Shadcn UI` (Radix primitives finely tuned and optimized for premium Dark Mode aesthetics).
-*   **Code Quality:** `ESLint 8+` (Flat Config) + `eslint-plugin-simple-import-sort` for enforced automatic hygiene of the import hierarchy on save.
+- **Framework:** `Next.js 15+` (App Router) with full support for React 19 features.
+- **Artificial Intelligence:** `Google Gemini API` (`gemini-3.6-flash`) utilizing `zod` at the AI → Domain boundary for rigid runtime validation of heterogeneous LLM JSON responses.
+- **Database:** `PostgreSQL` (Cloud serverless provider `Neon.tech`) + `Prisma ORM` as a type-safe data access layer.
+- **State Management:** `Zustand` (Isolated actions and slices confined strictly to the `entities` layer).
+- **Architectural Methodology:** `Feature-Sliced Design (FSD)` with full isolation of end-to-end features and zero cross-feature dependencies.
+- **Internationalization:** `Next-intl` (Comprehensive `ru` / `en` locale routing, including robust Server Components support).
+- **Styling & UI:** `Tailwind CSS` + `Shadcn UI` (Radix primitives finely tuned and optimized for premium Dark Mode aesthetics).
+- **Code Quality:** `ESLint 8+` (Flat Config) + `eslint-plugin-simple-import-sort` for enforced automatic hygiene of the import hierarchy on save.
 
 ---
 
@@ -36,6 +36,6 @@ The development process successfully addressed critical fullstack bottlenecks fr
 
 The project is architected for massive horizontal growth. The structural flexibility of FSD allows for seamless introduction of large modules scheduled for the upcoming sprints:
 
-*   **🔒 Full Authentication & User Dashboard:** Integration of NextAuth.js / Auth.js for user onboarding. Upon registration, existing guest report entries will seamlessly migrate from temporary tables into the user's relational DB history.
-*   **🎯 AI Interview Simulator (Targeted Q&A Generator):** An advanced AI sub-module that leverages the extracted `Missing Skills` gap analysis to generate a personalized list of technical questions the candidate is highly likely to encounter during the interview, paired with perfect model answers.
-*   **✍️ Smart AI Cover Letter Generator:** An automated service that composes tailored, high-converting cover letters for specific vacancies. The AI dynamically emphasizes the resume's `Matched Skills` while safely framing or smoothing out missing areas to maximize response rates.
+- **🔒 Full Authentication & User Dashboard:** Integration of NextAuth.js / Auth.js for user onboarding. Upon registration, existing guest report entries will seamlessly migrate from temporary tables into the user's relational DB history.
+- **🎯 AI Interview Simulator (Targeted Q&A Generator):** An advanced AI sub-module that leverages the extracted `Missing Skills` gap analysis to generate a personalized list of technical questions the candidate is highly likely to encounter during the interview, paired with perfect model answers.
+- **✍️ Smart AI Cover Letter Generator:** An automated service that composes tailored, high-converting cover letters for specific vacancies. The AI dynamically emphasizes the resume's `Matched Skills` while safely framing or smoothing out missing areas to maximize response rates.

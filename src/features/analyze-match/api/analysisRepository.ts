@@ -1,11 +1,11 @@
 "use server";
 
-import { IAnalyzeResponse } from "@/src/entities/analysis";
+import { ValidatedAnalysisResult } from "@/src/entities/analysis/model/validation";
 import { db } from "@/src/shared/api/prisma";
 
 interface SaveAnalysisParams {
   id: string;
-  analysis: IAnalyzeResponse;
+  analysis: ValidatedAnalysisResult;
   isRussianLang: boolean;
 }
 
@@ -25,8 +25,8 @@ export const saveAnonymousAnalysis = async ({
               ? "Неизвестная вакансия"
               : "Unknown vacancy",
         matchPercentage: Number(analysis.matchPercentage) || 0,
-        matchedSkills: Array.isArray(analysis.matchedSkills) ? analysis.matchedSkills : [],
-        missingSkills: Array.isArray(analysis.missingSkills) ? analysis.missingSkills : [],
+        matchedSkills: analysis.matchedSkills,
+        missingSkills: analysis.missingSkills,
         recommendation: String(
           analysis.recommendation ||
             (isRussianLang ? "Рекомендация отсутствует" : "No recommendation"),

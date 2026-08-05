@@ -4,11 +4,11 @@ import { Info } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ReactNode } from "react";
 
-import { IAnalyzeResponse } from "@/src/entities/analysis";
+import { ValidatedAnalysisResult } from "@/src/entities/analysis/model/validation";
 import { border } from "@/src/shared/styles";
 
 interface AnalysisReportProps {
-  data: IAnalyzeResponse;
+  data: ValidatedAnalysisResult;
   children?: ReactNode;
 }
 

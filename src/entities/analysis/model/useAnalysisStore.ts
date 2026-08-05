@@ -5,7 +5,6 @@ interface AnalysisStore {
   vacancyText: string;
   isLoading: boolean;
   error: string | null;
-  getIsReady: () => boolean;
 
   actions: {
     setResumeText: (text: string) => void;
@@ -21,15 +20,10 @@ const initialState: Omit<AnalysisStore, "actions"> = {
   vacancyText: "",
   isLoading: false,
   error: null,
-  getIsReady: () => false,
 };
 
-export const useAnalysisStore = create<AnalysisStore>((set, get) => ({
+export const useAnalysisStore = create<AnalysisStore>((set) => ({
   ...initialState,
-  getIsReady: () => {
-    const { resumeText, vacancyText, isLoading, error } = get();
-    return resumeText.length > 0 && vacancyText.length > 0 && !isLoading && !error;
-  },
   actions: {
     setResumeText: (text) => set({ resumeText: text }),
     setVacancyText: (text) => set({ vacancyText: text }),
@@ -40,3 +34,7 @@ export const useAnalysisStore = create<AnalysisStore>((set, get) => ({
 }));
 
 export const useAnalysisActions = () => useAnalysisStore((state) => state.actions);
+
+export const useIsAnalysisReady = () => {
+  return useAnalysisStore((state) => !!state.resumeText.trim() && !!state.vacancyText.trim());
+};

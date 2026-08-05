@@ -1,3 +1,5 @@
+"use server";
+
 import * as cheerio from "cheerio";
 
 export const scrapeVacancyText = async (url: string): Promise<string> => {

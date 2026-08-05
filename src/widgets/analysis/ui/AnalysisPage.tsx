@@ -8,10 +8,6 @@ export const AnalysisPage = async () => {
   const cookieStore = await cookies();
   const guestSessionId = cookieStore.get("guest_session_id")?.value;
 
-  if (!guestSessionId) {
-    return <AnalysisStatusGuard errorReason={"noSession"} isError />;
-  }
-
   const analysisData = await fetchAnalysisById(guestSessionId);
 
   if (!analysisData) {
