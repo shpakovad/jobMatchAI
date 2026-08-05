@@ -32,11 +32,11 @@ export const AnalyzeButton = () => {
         setIsLoading(false);
         return;
       }
+
       router.push("/analysis");
     } catch (error) {
       const networkErrorMsg = error instanceof Error ? error.message : t("errorAnalyzeMessage");
       setError(networkErrorMsg);
-    } finally {
       setIsLoading(false);
     }
   };
