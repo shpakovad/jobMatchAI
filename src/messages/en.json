@@ -43,7 +43,7 @@
     "UploadResumeSection": {
       "step": "Step 1/2 · Upload your resume",
       "dragFileLabel": "Click here to upload",
-      "format": "PDF · before 4 MB",
+      "format": "PDF · up to 4 MB",
       "loadingLabel": "Extracting text from a resume...",
       "successLabel": "Resume successfully processed!",
       "errorLabel": "File processing error",

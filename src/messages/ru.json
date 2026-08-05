@@ -42,7 +42,7 @@
     "errorResetActionLabel": "Попробовать снова",
     "UploadResumeSection": {
       "step": "Шаг 1/2 · Загрузите резюме",
-      "dragFileLabel": "Нажмите, что бы загрузить файл",
+      "dragFileLabel": "Нажмите, чтобы загрузить файл",
       "format": "PDF · до 4 MB",
       "loadingLabel": "Извлекаем текст из резюме...",
       "successLabel": "Резюме успешно обработано!",

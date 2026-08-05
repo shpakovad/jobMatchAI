@@ -34,10 +34,8 @@ export const AnalyzeButton = () => {
       setIsLoading(false);
     } catch (error) {
       const networkErrorMsg = error instanceof Error ? error.message : t("errorAnalyzeMessage");
-      if (networkErrorMsg === "NEXT_REDIRECT") {
-        return;
-      }
       setError(networkErrorMsg);
+    } finally {
       setIsLoading(false);
     }
   };

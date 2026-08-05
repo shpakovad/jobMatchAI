@@ -1,42 +1,16 @@
 "use server";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import * as cheerio from "cheerio";
 
-import { IAnalyzeResponse } from "@/src/entities/analysis";
-import { IAnalyzePayload } from "@/src/features/analyze-match";
+import {
+  aiAnalysisSchema,
+  ValidatedAnalysisResult,
+} from "@/src/entities/analysis/model/validation";
+import { IAnalyzePayload, scrapeVacancyText } from "@/src/features/analyze-match";
 
-const scrapeVacancyText = async (url: string): Promise<string> => {
-  try {
-    const response = await fetch(url, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to open link. Status: ${response.status}`);
-    }
-
-    const html = await response.text();
-
-    const $ = cheerio.load(html);
-
-    $("script, style, nav, footer, header").remove();
-
-    const pageText = $("body").text();
-
-    return pageText.replace(/\s+/g, " ").trim();
-  } catch (error) {
-    console.error("Error parsing job posting link:", error);
-    throw new Error(
-      "The text at the provided link could not be read. Please copy the job description as text.",
-    );
-  }
-};
-
-export const generateMatchAnalysis = async (payload: IAnalyzePayload) => {
+export const generateMatchAnalysis = async (
+  payload: IAnalyzePayload,
+): Promise<ValidatedAnalysisResult> => {
   const targetLanguage = payload.locale === "ru" ? "русском языке" : "английском языке (English)";
   const isRussianLang = payload.locale === "ru";
 
@@ -107,7 +81,7 @@ export const generateMatchAnalysis = async (payload: IAnalyzePayload) => {
     throw new Error(isRussianLang ? "AI вернул пустой ответ" : "AI returned empty response.");
   }
 
-  const aiParsedResult: IAnalyzeResponse = JSON.parse(rawText);
+  const rawJson = JSON.parse(rawText);
 
-  return aiParsedResult;
+  return aiAnalysisSchema.parse(rawJson);
 };
