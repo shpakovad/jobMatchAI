@@ -10,6 +10,9 @@ describe("aiAnalysisSchema - zod validation", () => {
       matchedSkills: ["React", "TypeScript", "Tailwind"],
       missingSkills: ["Vitest", "Docker"],
       recommendation: "Excellent candidate, the stack matches 85%.",
+      resumeImprovementSuggestions: ["Add Canvas experient"],
+      suggestedResumeBullets: [],
+      interviewPreparationQuestions: ["What is SSR"],
     };
 
     const result = aiAnalysisSchema.parse(mockValidJson);
@@ -26,6 +29,9 @@ describe("aiAnalysisSchema - zod validation", () => {
       matchedSkills: [],
       missingSkills: [],
       recommendation: "it's ok",
+      resumeImprovementSuggestions: [],
+      suggestedResumeBullets: [],
+      interviewPreparationQuestions: [],
     };
 
     const result = aiAnalysisSchema.parse(mockJsonWithParsedString);
@@ -55,6 +61,9 @@ describe("aiAnalysisSchema - zod validation", () => {
       matchedSkills: [],
       missingSkills: [],
       recommendation: "",
+      resumeImprovementSuggestions: [],
+      suggestedResumeBullets: [],
+      interviewPreparationQuestions: [],
     };
     expect(() => aiAnalysisSchema.parse(brokenJson)).toThrow();
   });

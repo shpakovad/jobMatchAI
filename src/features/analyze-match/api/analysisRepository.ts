@@ -31,6 +31,9 @@ export const saveAnonymousAnalysis = async ({
           analysis.recommendation ||
             (isRussianLang ? "Рекомендация отсутствует" : "No recommendation"),
         ),
+        resumeImprovementSuggestions: analysis.resumeImprovementSuggestions,
+        suggestedResumeBullets: analysis.suggestedResumeBullets,
+        interviewPreparationQuestions: analysis.interviewPreparationQuestions,
       },
     });
   } catch (prismaError) {

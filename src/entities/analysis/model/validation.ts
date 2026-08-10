@@ -6,6 +6,9 @@ export const aiAnalysisSchema = z.object({
   matchedSkills: z.array(z.string()).default([]),
   missingSkills: z.array(z.string()).default([]),
   recommendation: z.string().min(1, "Recommendation cannot be empty"),
+  resumeImprovementSuggestions: z.array(z.string()).default([]),
+  suggestedResumeBullets: z.array(z.string()).default([]),
+  interviewPreparationQuestions: z.array(z.string()).default([]),
 });
 
 export type ValidatedAnalysisResult = z.infer<typeof aiAnalysisSchema>;

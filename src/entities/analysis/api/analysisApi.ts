@@ -16,6 +16,9 @@ export const fetchAnalysisById = async (id: string | undefined) => {
       matchedSkills: (analysisData.matchedSkills as string[]) || [],
       missingSkills: (analysisData.missingSkills as string[]) || [],
       recommendation: analysisData.recommendation,
+      resumeImprovementSuggestions: (analysisData.resumeImprovementSuggestions as string[]) || [],
+      suggestedResumeBullets: (analysisData.suggestedResumeBullets as string[]) || [],
+      interviewPreparationQuestions: (analysisData.interviewPreparationQuestions as string[]) || [],
     };
   } catch (error) {
     console.error(error);

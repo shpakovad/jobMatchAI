@@ -31,11 +31,3 @@ The development process successfully addressed critical fullstack bottlenecks fr
 4.  **SOLID & Ultra-Thin Controllers:** Server Actions are heavily deconstructed. Web scraping, Google Gemini configurations, and Prisma data mutations are moved to completely isolated API services. The core Action acts exclusively as a thin runtime orchestrator.
 
 ---
-
-## 🔮 Roadmap: Upcoming Sprints & Scalability
-
-The project is architected for massive horizontal growth. The structural flexibility of FSD allows for seamless introduction of large modules scheduled for the upcoming sprints:
-
-- **🔒 Full Authentication & User Dashboard:** Integration of NextAuth.js / Auth.js for user onboarding. Upon registration, existing guest report entries will seamlessly migrate from temporary tables into the user's relational DB history.
-- **🎯 AI Interview Simulator (Targeted Q&A Generator):** An advanced AI sub-module that leverages the extracted `Missing Skills` gap analysis to generate a personalized list of technical questions the candidate is highly likely to encounter during the interview, paired with perfect model answers.
-- **✍️ Smart AI Cover Letter Generator:** An automated service that composes tailored, high-converting cover letters for specific vacancies. The AI dynamically emphasizes the resume's `Matched Skills` while safely framing or smoothing out missing areas to maximize response rates.
