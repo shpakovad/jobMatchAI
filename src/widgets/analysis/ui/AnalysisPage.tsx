@@ -13,7 +13,7 @@ export const AnalysisPage = async () => {
   if (!analysisData) {
     return <AnalysisStatusGuard errorReason="noData" isError />;
   }
-  console.log(analysisData);
+
   return (
     <AnalysisStatusGuard>
       <AnalysisReport data={analysisData} />
