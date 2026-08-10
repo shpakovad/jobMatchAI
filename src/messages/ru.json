@@ -25,7 +25,9 @@
           "result": {
             "result1": "Совпадение",
             "result2": "Недостающие навыки",
-            "result3": "Рекомендация"
+            "result3": "Рекомендация",
+            "result4": "Советы по улучшению резюме",
+            "result5": "Вопросы для подготовки"
           }
         }
       }
@@ -72,6 +74,11 @@
       "missingSkillsLabel": "Недостающие навыки",
       "matchedSkillsLabel": "Совпали",
       "recommendationLabel": "Рекомендация",
+      "resumeImprovementSuggestionsLabel": "Как улучшить резюме",
+      "suggestedResumeBulletsLabel": "Готовые пункты для резюме",
+      "interviewPreparationQuestionsLabel": "Вопросы для подготовки",
+      "nextStepsLabel": "Используйте рекомендации, затем обновите резюме и подготовьте ответы по недостающим навыкам.",
+      "emptyListLabel": "Нет дополнительных пунктов",
       "recommendationText": "Улучшите знания бэкенда — сфокусируйтесь на облачной инфраструктуре (AWS/GCP) и контейнеризации. Пет-проект с использованием Docker существенно повысит ваши шансы."
     }
   },

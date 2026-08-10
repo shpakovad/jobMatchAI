@@ -25,7 +25,9 @@
           "result": {
             "result1": "Match score",
             "result2": "Missing skills",
-            "result3": "Recommendation"
+            "result3": "Recommendation",
+            "result4": "Tips for Improving your CV",
+            "result5": "Questions for preparation"
           }
         }
       }
@@ -72,6 +74,11 @@
       "missingSkillsLabel": "Missing skills",
       "matchedSkillsLabel": "Matched",
       "recommendationLabel": "Recommendation",
+      "resumeImprovementSuggestionsLabel": "Resume improvements",
+      "suggestedResumeBulletsLabel": "Suggested resume bullets",
+      "interviewPreparationQuestionsLabel": "Interview prep questions",
+      "nextStepsLabel": "Use the recommendations, update your resume, and prepare answers around the missing skills.",
+      "emptyListLabel": "No additional items",
       "recommendationText": "Improve backend knowledge — focus on cloud infrastructure (AWS/GCP) and containerization. A portfolio project using Docker would significantly boost your score."
     }
   },

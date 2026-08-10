@@ -8,6 +8,18 @@ const MOCK_DATA = {
   matchPercentage: 82,
   matchedSkills: ["React", "TypeScript", "Next.js", "Node.js", "GraphQL"],
   missingSkills: ["Docker", "AWS", "Kubernetes"],
+  resumeImprovementSuggestions: [
+    "Add measurable product impact for recent frontend work.",
+    "Show practical backend collaboration with API and data examples.",
+  ],
+  suggestedResumeBullets: [
+    "Built Next.js interfaces with TypeScript and reusable component patterns.",
+    "Integrated GraphQL APIs and improved page delivery for production users.",
+  ],
+  interviewPreparationQuestions: [
+    "How would you containerize and deploy this application?",
+    "Which AWS services would you choose for a Next.js production setup?",
+  ],
 };
 
 export const ExampleSection = () => {

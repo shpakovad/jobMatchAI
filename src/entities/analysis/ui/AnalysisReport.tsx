@@ -1,6 +1,6 @@
 "use client";
 
-import { Info } from "lucide-react";
+import { CheckCircle2, CircleHelp, FilePenLine, Info, ListChecks, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ReactNode } from "react";
 
@@ -12,10 +12,59 @@ interface AnalysisReportProps {
   children?: ReactNode;
 }
 
+interface ReportListSectionProps {
+  title: string;
+  items: string[];
+  icon: ReactNode;
+  markerClassName: string;
+}
+
+const ReportListSection = ({ title, items, icon, markerClassName }: ReportListSectionProps) => {
+  const t = useTranslations("AnalysisPage");
+
+  return (
+    <section className="p-4">
+      <div className="mb-3 flex items-center gap-2">
+        <span className="border-border bg-background/60 flex size-8 shrink-0 items-center justify-center rounded-lg border text-blue-400">
+          {icon}
+        </span>
+        <h3 className="font-mono text-sm uppercase tracking-wider text-muted-foreground">
+          {title}
+        </h3>
+      </div>
+      {Boolean(items.length) ? (
+        <ol className="space-y-2">
+          {items.map((item, index) => (
+            <li key={index} className="flex gap-3 text-sm leading-relaxed text-primary">
+              <span
+                className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md font-mono text-xs ${markerClassName}`}
+              >
+                {index + 1}
+              </span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <p className="text-sm text-muted-foreground">{t("card.emptyListLabel")}</p>
+      )}
+    </section>
+  );
+};
+
 export const AnalysisReport = ({ data, children }: AnalysisReportProps) => {
   const t = useTranslations("AnalysisPage");
 
-  const { vacancyName, matchPercentage, matchedSkills, missingSkills, recommendation } = data;
+  const {
+    vacancyName,
+    matchPercentage,
+    matchedSkills,
+    missingSkills,
+    recommendation,
+    resumeImprovementSuggestions,
+    suggestedResumeBullets,
+    interviewPreparationQuestions,
+  } = data;
 
   const matchedCount = matchedSkills.length;
   const totalCount = matchedCount + missingSkills.length;
@@ -96,7 +145,31 @@ export const AnalysisReport = ({ data, children }: AnalysisReportProps) => {
               </p>
               <p className="text-sm leading-relaxed text-primary">{recommendation}</p>
             </div>
+
+            <ReportListSection
+              title={t("card.resumeImprovementSuggestionsLabel")}
+              items={resumeImprovementSuggestions}
+              icon={<FilePenLine size={18} />}
+              markerClassName="border border-amber-400/20 bg-amber-400/10 text-amber-300"
+            />
+            <ReportListSection
+              title={t("card.suggestedResumeBulletsLabel")}
+              items={suggestedResumeBullets}
+              icon={<ListChecks size={18} />}
+              markerClassName="border border-blue-400/20 bg-blue-400/10 text-blue-300"
+            />
+            <ReportListSection
+              title={t("card.interviewPreparationQuestionsLabel")}
+              items={interviewPreparationQuestions}
+              icon={<CircleHelp size={18} />}
+              markerClassName="border border-emerald-400/20 bg-emerald-400/10 text-emerald-300"
+            />
           </div>
+        </div>
+        <div className="border-border flex items-center gap-2 border-t pb-4 pl-6 pt-4 text-sm text-muted-foreground">
+          <CheckCircle2 size={18} className="text-emerald-400" />
+          <span>{t("card.nextStepsLabel")}</span>
+          <Sparkles size={16} className="text-blue-400" />
         </div>
       </div>
     </div>

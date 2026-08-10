@@ -1,7 +1,9 @@
 import {
+  CircleQuestionMark,
   Crosshair,
   FileChartColumnIncreasing,
   FileInput,
+  FilePenLine,
   List,
   Sparkles,
   Upload,
@@ -57,6 +59,16 @@ export const getHowItWorksSteps = (translation: TranslationType): HowItWorksStep
           id: "3-3",
           title: translation("steps.step3.result.result3"),
           img: <List />,
+        },
+        {
+          id: "3-4",
+          title: translation("steps.step3.result.result4"),
+          img: <FilePenLine />,
+        },
+        {
+          id: "3-5",
+          title: translation("steps.step3.result.result5"),
+          img: <CircleQuestionMark />,
         },
       ],
     },
