@@ -4,7 +4,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { useAnalysisActions, useAnalysisStore, useIsAnalysisReady } from "@/src/entities/analysis";
-import { activateAnalysisSession } from "@/src/entities/analysis";
 import { handleAIAnalysis } from "@/src/features/analyze-match";
 import { useRouter } from "@/src/navigation";
 import { Button, FullScreenLoader } from "@/src/shared/ui";
@@ -27,7 +26,6 @@ export const AnalyzeButton = () => {
     setIsLoading(true);
     setError(null);
     setCurrentStep(t("currentStepLabel"));
-    activateAnalysisSession();
 
     try {
       const stream = await handleAIAnalysis({ resumeText, vacancyText, locale });

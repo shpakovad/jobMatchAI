@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { ReactNode, useEffect, useRef } from "react";
 
-import { isAnalysisSessionActive } from "@/src/entities/analysis";
 import { useResetAnalysisFlow } from "@/src/features/analysis-status-guard";
 import { Link } from "@/src/navigation";
 import { Button, ErrorPage } from "@/src/shared/ui";
@@ -31,14 +30,14 @@ export const AnalysisStatusGuard = ({
     };
   }, []);
 
-  useEffect(() => {
-    if (mounted.current) {
-      const isActiveIdSession = isAnalysisSessionActive();
-      if (!isActiveIdSession) {
-        resetAnalysisFlow();
-      }
-    }
-  }, [mounted, resetAnalysisFlow]);
+  // useEffect(() => {
+  //   if (mounted.current) {
+  //     const isActiveIdSession = isAnalysisSessionActive();
+  //     if (!isActiveIdSession) {
+  //       resetAnalysisFlow();
+  //     }
+  //   }
+  // }, [mounted, resetAnalysisFlow]);
 
   if (children && !isError) {
     return (

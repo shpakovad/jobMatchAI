@@ -1,6 +1,5 @@
 "use server";
 
-import { randomUUID } from "crypto";
 import { cookies } from "next/headers";
 
 import {
@@ -10,21 +9,16 @@ import {
 } from "@/src/features/analyze-match";
 
 export const handleAIAnalysis = async (payload: AnalyzePayload): Promise<ReadableStream> => {
-  const guestSessionId = randomUUID();
-
   const cookieStore = await cookies();
-  cookieStore.set({
-    name: "guest_session_id",
-    value: String(guestSessionId),
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: 60 * 40,
-    sameSite: "lax",
-  });
+  const guestSessionId = cookieStore.get("guest_session_id")?.value;
+
+  const isRussianLang = payload.locale === "ru";
+
+  if (!guestSessionId) {
+    throw new Error(isRussianLang ? "Страница Анализа не найдена" : "Analysis page not found");
+  }
 
   const encoder = new TextEncoder();
-  const isRussianLang = payload.locale === "ru";
 
   return new ReadableStream({
     async start(controller) {
@@ -42,8 +36,6 @@ export const handleAIAnalysis = async (payload: AnalyzePayload): Promise<Readabl
           analysis: aiParsedResult,
           isRussianLang,
         });
-
-        console.log("cookieStore");
 
         sendStep(isRussianLang ? "Успешно" : "Success");
         controller.close();

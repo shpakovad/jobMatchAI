@@ -7,3 +7,4 @@ export * from "./input-group";
 export * from "./label";
 export * from "./separator";
 export * from "./textarea";
+export * from "./toast";
