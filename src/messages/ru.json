@@ -42,6 +42,7 @@
     "analyzeButtonLabel": "Анализировать",
     "errorAnalyzeMessage": "Произошла ошибка. Пожалуйста, попробуйте позже.",
     "errorResetActionLabel": "Попробовать снова",
+    "currentStepLabel": "Начинаем",
     "UploadResumeSection": {
       "step": "Шаг 1/2 · Загрузите резюме",
       "dragFileLabel": "Нажмите, чтобы загрузить файл",

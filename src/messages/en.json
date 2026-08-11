@@ -42,6 +42,7 @@
     "analyzeButtonLabel": "Analyze",
     "errorAnalyzeMessage": "Unknown error occurred. Please try again later.",
     "errorResetActionLabel": "Try again",
+    "currentStepLabel": "Starting",
     "UploadResumeSection": {
       "step": "Step 1/2 · Upload your resume",
       "dragFileLabel": "Click here to upload",

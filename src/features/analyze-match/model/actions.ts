@@ -9,44 +9,56 @@ import {
   saveAnonymousAnalysis,
 } from "@/src/features/analyze-match";
 
-type AnalysisResponse = { success: boolean; error?: string };
+export const handleAIAnalysis = async (payload: AnalyzePayload): Promise<ReadableStream> => {
+  const guestSessionId = randomUUID();
 
-export const handleAIAnalysis = async (payload: AnalyzePayload): Promise<AnalysisResponse> => {
-  try {
-    const isRussianLang = payload.locale === "ru";
+  const cookieStore = await cookies();
+  cookieStore.set({
+    name: "guest_session_id",
+    value: String(guestSessionId),
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+    maxAge: 60 * 40,
+    sameSite: "lax",
+  });
 
-    const aiParsedResult = await generateMatchAnalysis(payload);
+  const encoder = new TextEncoder();
+  const isRussianLang = payload.locale === "ru";
 
-    const guestSessionId = randomUUID();
+  return new ReadableStream({
+    async start(controller) {
+      const sendStep = (step: string) => controller.enqueue(encoder.encode(step));
 
-    await saveAnonymousAnalysis({ id: guestSessionId, analysis: aiParsedResult, isRussianLang });
+      sendStep(isRussianLang ? "Извлечение данных" : "Extracting data");
 
-    const cookieStore = await cookies();
+      try {
+        sendStep(isRussianLang ? "Выполнение анализа ИИ" : "Running AI analysis");
+        const aiParsedResult = await generateMatchAnalysis(payload);
 
-    cookieStore.set({
-      name: "guest_session_id",
-      value: String(guestSessionId),
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      maxAge: 60 * 40,
-      sameSite: "lax",
-    });
+        sendStep(isRussianLang ? "Сохранение результата" : "Saving result");
+        await saveAnonymousAnalysis({
+          id: guestSessionId,
+          analysis: aiParsedResult,
+          isRussianLang,
+        });
 
-    return { success: true };
-  } catch (error) {
-    const isRussianLang = payload.locale === "ru";
-    const errorMessage =
-      error instanceof Error
-        ? error.message
-        : isRussianLang
-          ? "Неизвестная ошибка"
-          : "Unknown error";
-    const resultMessage = errorMessage.includes("User location is not supported")
-      ? isRussianLang
-        ? "Сервисы Gemini недоступны в вашем регионе. Пожалуйста, смените страну в вашем VPN."
-        : "User location is not supported for the API use. Please check your VPN region."
-      : errorMessage;
-    return { success: false, error: resultMessage };
-  }
+        console.log("cookieStore");
+
+        sendStep(isRussianLang ? "Успешно" : "Success");
+        controller.close();
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+
+        const resultMessage = errorMessage.includes("User location is not supported")
+          ? isRussianLang
+            ? "Сервисы Gemini недоступны в вашем регионе. Пожалуйста, смените страну в вашем VPN."
+            : "User location is not supported for the API use. Please check your VPN region."
+          : errorMessage;
+
+        controller.enqueue(encoder.encode(`ERROR:${resultMessage}`));
+        controller.close();
+      }
+    },
+  });
 };
