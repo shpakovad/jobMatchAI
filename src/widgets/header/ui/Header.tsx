@@ -62,7 +62,7 @@ export const Header = () => {
             </Button>
           </Link>
         ) : (
-          <Link href="/workspace">
+          <Link href="/access">
             <Button>{t("startLabel")}</Button>
           </Link>
         )}

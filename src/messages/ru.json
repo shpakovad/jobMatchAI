@@ -37,6 +37,12 @@
       "description": "Реальный анализ вакансии"
     }
   },
+  "DemoAccessPage": {
+    "title": "Закрытый демо-доступ",
+    "description": "Введите демо-код, чтобы перейти к анализу резюме.",
+    "codeLabel": "Демо-код",
+    "continueLabel": "Продолжить"
+  },
   "WorkSpacePage": {
     "title": "Давайте создадим ваш карьерный профиль",
     "analyzeButtonLabel": "Анализировать",

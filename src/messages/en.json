@@ -37,6 +37,12 @@
       "description": "Real analysis of the vacancy"
     }
   },
+  "DemoAccessPage": {
+    "title": "Private demo access",
+    "description": "This demo is available by access code.",
+    "codeLabel": "Demo code",
+    "continueLabel": "Continue"
+  },
   "WorkSpacePage": {
     "title": "Let's build your career profile",
     "analyzeButtonLabel": "Analyze",
