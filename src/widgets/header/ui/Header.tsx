@@ -3,7 +3,8 @@
 import { Sparkles } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 
-import { useResetAnalysisFlow } from "@/src/features/analysis-status-guard";
+import { useAnalysisActions } from "@/src/entities/analysis";
+import { checkActiveSession } from "@/src/entities/session-guard";
 import { Link, usePathname, useRouter } from "@/src/navigation";
 import { divider } from "@/src/shared/styles";
 import { Button } from "@/src/shared/ui";
@@ -13,7 +14,7 @@ export const Header = () => {
   const pathname = usePathname();
   const t = useTranslations("Header");
   const locale = useLocale();
-  const { resetAnalysisFlow } = useResetAnalysisFlow();
+  const { reset } = useAnalysisActions();
 
   const isExactRootPath = pathname === "/";
 
@@ -32,6 +33,16 @@ export const Header = () => {
 
   const onChangeLocale = (value: string) => {
     router.replace({ pathname }, { locale: value });
+  };
+
+  const handleStartRedirect = async () => {
+    const hasActiveSession = await checkActiveSession();
+
+    if (hasActiveSession) {
+      router.push("/workspace");
+    } else {
+      router.push("/access");
+    }
   };
 
   return (
@@ -57,14 +68,12 @@ export const Header = () => {
         </div>
         {!isExactRootPath ? (
           <Link href="/">
-            <Button onClick={resetAnalysisFlow} variant="secondary">
+            <Button onClick={reset} variant="secondary">
               {t("backToMain")}
             </Button>
           </Link>
         ) : (
-          <Link href="/access">
-            <Button>{t("startLabel")}</Button>
-          </Link>
+          <Button onClick={handleStartRedirect}>{t("startLabel")}</Button>
         )}
       </div>
     </header>

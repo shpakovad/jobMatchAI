@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { ReactNode, useEffect, useRef } from "react";
 
-import { useResetAnalysisFlow } from "@/src/features/analysis-status-guard";
 import { Link } from "@/src/navigation";
 import { Button, ErrorPage } from "@/src/shared/ui";
 
@@ -14,7 +13,6 @@ interface AnalysisStatusGuardProps {
 
 export const AnalysisStatusGuard = ({ isError, children }: AnalysisStatusGuardProps) => {
   const t = useTranslations("AnalysisPage");
-  const { resetAnalysisFlow } = useResetAnalysisFlow();
   const mounted = useRef(false);
 
   useEffect(() => {
@@ -31,7 +29,7 @@ export const AnalysisStatusGuard = ({ isError, children }: AnalysisStatusGuardPr
         {children}
         <div className="mb-10 flex w-full justify-center">
           <Link href="/workspace">
-            <Button onClick={resetAnalysisFlow}>{t("analyzeAnotherVacancyLabel")}</Button>
+            <Button>{t("analyzeAnotherVacancyLabel")}</Button>
           </Link>
         </div>
       </>
@@ -43,9 +41,7 @@ export const AnalysisStatusGuard = ({ isError, children }: AnalysisStatusGuardPr
   return (
     <ErrorPage message={errorMessage}>
       <Link href="/workspace">
-        <Button onClick={resetAnalysisFlow} variant="secondary">
-          {t("tryAnotherSessionLabel")}
-        </Button>
+        <Button variant="secondary">{t("tryAnotherSessionLabel")}</Button>
       </Link>
     </ErrorPage>
   );
