@@ -6,7 +6,7 @@ import { Link } from "@/src/navigation";
 import { Button, ErrorPage } from "@/src/shared/ui";
 
 export function withServerAccess<P extends object>(Component: ComponentType<P>) {
-  return async function AccessedComponent(props: P) {
+  return async (props: P) => {
     const cookieStore = await cookies();
     const guestSessionId = cookieStore.get("guest_session_id")?.value;
 
