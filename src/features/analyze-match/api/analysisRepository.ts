@@ -14,26 +14,56 @@ export const saveAnonymousAnalysis = async ({
   analysis,
   isRussianLang,
 }: SaveAnalysisParams) => {
+  const vacancyName =
+    analysis.vacancyName && analysis.vacancyName !== "undefined"
+      ? String(analysis.vacancyName)
+      : isRussianLang
+        ? "Неизвестная вакансия"
+        : "Unknown vacancy";
+
+  const matchPercentage = Number(analysis.matchPercentage) || 0;
+
+  const recommendation = String(
+    analysis.recommendation || (isRussianLang ? "Рекомендация отсутствует" : "No recommendation"),
+  );
+
+  const matchedSkills = Array.isArray(analysis.matchedSkills) ? analysis.matchedSkills : [];
+  const missingSkills = Array.isArray(analysis.missingSkills) ? analysis.missingSkills : [];
+  const resumeImprovementSuggestions = Array.isArray(analysis.resumeImprovementSuggestions)
+    ? analysis.resumeImprovementSuggestions
+    : [];
+  const suggestedResumeBullets = Array.isArray(analysis.suggestedResumeBullets)
+    ? analysis.suggestedResumeBullets
+    : [];
+  const interviewPreparationQuestions = Array.isArray(analysis.interviewPreparationQuestions)
+    ? analysis.interviewPreparationQuestions
+    : [];
+
   try {
-    await db.anonymousAnalysis.create({
-      data: {
+    await db.anonymousAnalysis.upsert({
+      where: { id },
+
+      update: {
+        vacancyName,
+        matchPercentage,
+        matchedSkills,
+        missingSkills,
+        recommendation,
+        resumeImprovementSuggestions,
+        suggestedResumeBullets,
+        interviewPreparationQuestions,
+      },
+
+      create: {
         id,
-        vacancyName:
-          analysis.vacancyName && analysis.vacancyName !== "undefined"
-            ? String(analysis.vacancyName)
-            : isRussianLang
-              ? "Неизвестная вакансия"
-              : "Unknown vacancy",
-        matchPercentage: Number(analysis.matchPercentage) || 0,
-        matchedSkills: analysis.matchedSkills,
-        missingSkills: analysis.missingSkills,
-        recommendation: String(
-          analysis.recommendation ||
-            (isRussianLang ? "Рекомендация отсутствует" : "No recommendation"),
-        ),
-        resumeImprovementSuggestions: analysis.resumeImprovementSuggestions,
-        suggestedResumeBullets: analysis.suggestedResumeBullets,
-        interviewPreparationQuestions: analysis.interviewPreparationQuestions,
+        vacancyName,
+        matchPercentage,
+        matchedSkills,
+        missingSkills,
+        recommendation,
+        resumeImprovementSuggestions,
+        suggestedResumeBullets,
+        interviewPreparationQuestions,
       },
     });
   } catch (prismaError) {

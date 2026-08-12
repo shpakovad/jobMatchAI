@@ -42,11 +42,32 @@ export const handleAIAnalysis = async (payload: AnalyzePayload): Promise<Readabl
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : String(error);
 
-        const resultMessage = errorMessage.includes("User location is not supported")
-          ? isRussianLang
+        const errorObj = error as Record<string, unknown>;
+        const rawErrorStatus = Number(errorObj?.status || errorObj?.code || 0);
+
+        let resultMessage = errorMessage;
+        if (
+          errorMessage.includes("Prisma") ||
+          errorMessage.includes("prisma") ||
+          errorMessage.includes("database")
+        ) {
+          resultMessage = isRussianLang
+            ? "Не удалось сохранить отчет в базу данных из-за внутренней ошибки сервера. Пожалуйста, попробуйте отправить запрос еще раз."
+            : "Failed to save the report to the database due to an internal server error. Please try submitting your request again.";
+        } else if (
+          rawErrorStatus === 503 ||
+          errorMessage.includes("503") ||
+          errorMessage.includes("high demand") ||
+          errorMessage.includes("Service Unavailable")
+        ) {
+          resultMessage = isRussianLang
+            ? "Серверы ИИ сейчас перегружены из-за высокого количества запросов. Пожалуйста, подождите пару минут и попробуйте отправить резюме еще раз."
+            : "AI servers are currently overloaded due to high demand. Please wait a couple of minutes and try submitting your resume again.";
+        } else if (errorMessage.includes("User location is not supported")) {
+          resultMessage = isRussianLang
             ? "Сервисы Gemini недоступны в вашем регионе. Пожалуйста, смените страну в вашем VPN."
-            : "User location is not supported for the API use. Please check your VPN region."
-          : errorMessage;
+            : "User location is not supported for the API use. Please check your VPN region.";
+        }
 
         controller.enqueue(encoder.encode(`ERROR:${resultMessage}`));
         controller.close();
