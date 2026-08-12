@@ -1,17 +1,13 @@
-import { cookies } from "next/headers";
-
 import { AnalysisReport } from "@/src/entities/analysis";
 import { fetchAnalysisById } from "@/src/entities/analysis/api/analysisApi";
 import { AnalysisStatusGuard } from "@/src/features/analysis-status-guard";
+import { withServerAccess } from "@/src/shared/hoc/withServerAccess";
 
-export const AnalysisPage = async () => {
-  const cookieStore = await cookies();
-  const guestSessionId = cookieStore.get("guest_session_id")?.value;
-
-  const analysisData = await fetchAnalysisById(guestSessionId);
+export const AnalysisPage = withServerAccess(async ({ sessionId }: { sessionId: string }) => {
+  const analysisData = await fetchAnalysisById(sessionId);
 
   if (!analysisData) {
-    return <AnalysisStatusGuard errorReason="noData" isError />;
+    return <AnalysisStatusGuard isError />;
   }
 
   return (
@@ -19,4 +15,4 @@ export const AnalysisPage = async () => {
       <AnalysisReport data={analysisData} />
     </AnalysisStatusGuard>
   );
-};
+});

@@ -8,16 +8,11 @@ import { Link } from "@/src/navigation";
 import { Button, ErrorPage } from "@/src/shared/ui";
 
 interface AnalysisStatusGuardProps {
-  errorReason?: string;
   isError?: boolean;
   children?: ReactNode;
 }
 
-export const AnalysisStatusGuard = ({
-  errorReason,
-  isError,
-  children,
-}: AnalysisStatusGuardProps) => {
+export const AnalysisStatusGuard = ({ isError, children }: AnalysisStatusGuardProps) => {
   const t = useTranslations("AnalysisPage");
   const { resetAnalysisFlow } = useResetAnalysisFlow();
   const mounted = useRef(false);
@@ -29,15 +24,6 @@ export const AnalysisStatusGuard = ({
       mounted.current = false;
     };
   }, []);
-
-  // useEffect(() => {
-  //   if (mounted.current) {
-  //     const isActiveIdSession = isAnalysisSessionActive();
-  //     if (!isActiveIdSession) {
-  //       resetAnalysisFlow();
-  //     }
-  //   }
-  // }, [mounted, resetAnalysisFlow]);
 
   if (children && !isError) {
     return (
@@ -52,7 +38,7 @@ export const AnalysisStatusGuard = ({
     );
   }
 
-  const errorMessage = errorReason === "noData" ? t("noDataFoundMessage") : t("noSessionMessage");
+  const errorMessage = t("noDataFoundMessage");
 
   return (
     <ErrorPage message={errorMessage}>
