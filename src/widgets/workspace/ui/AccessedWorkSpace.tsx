@@ -21,7 +21,9 @@ export const AccessedWorkSpacePage = () => {
 
   return error ? (
     <ErrorPage message={error}>
-      <Button onClick={reset} variant="secondary">{t("errorResetActionLabel")}</Button>
+      <Button onClick={reset} variant="secondary">
+        {t("errorResetActionLabel")}
+      </Button>
     </ErrorPage>
   ) : (
     <div className="flex w-full flex-col items-center justify-center pb-14 pt-14">
