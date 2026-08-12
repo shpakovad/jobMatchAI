@@ -4,9 +4,9 @@ import { CheckCircle2, FileText, Loader2, Upload, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ChangeEvent, useRef, useState } from "react";
 
-import { useAnalysisActions } from "@/src/entities/analysis";
+import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
 import { parsePdfToText } from "@/src/features/upload-resume/lib/parsePdf";
-import { Button, Field, FieldLabel, Input } from "@/src/shared/ui";
+import { Button, Field, FieldLabel, Input, Textarea } from "@/src/shared/ui";
 
 const MAX_RESUME_FILE_SIZE_BYTES = 4 * 1024 * 1024;
 
@@ -17,6 +17,7 @@ export const UploadResumeCard = () => {
 
   const t = useTranslations("WorkSpacePage.UploadResumeSection");
 
+  const resumeText = useAnalysisStore((state) => state.resumeText);
   const { setResumeText } = useAnalysisActions();
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,16 +25,19 @@ export const UploadResumeCard = () => {
     if (!file) return;
 
     if (file.type !== "application/pdf") {
+      setResumeText("");
       setStatus("error");
       return;
     }
 
     if (file.size > MAX_RESUME_FILE_SIZE_BYTES) {
+      setResumeText("");
       setStatus("error");
       return;
     }
 
     setFileName(file.name);
+    setResumeText("");
     setStatus("parsing");
 
     try {
@@ -47,6 +51,7 @@ export const UploadResumeCard = () => {
       setStatus("success");
     } catch (error) {
       console.error(error);
+      setResumeText("");
       setStatus("error");
     }
   };
@@ -54,10 +59,19 @@ export const UploadResumeCard = () => {
   const handleResetFile = () => {
     setFileName(null);
     setStatus("idle");
+    setResumeText("");
 
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
+  };
+
+  const handleResumeTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const text = e.target.value;
+    if (text.length === 0) {
+      handleResetFile();
+    }
+    setResumeText(text);
   };
 
   return (
@@ -71,7 +85,11 @@ export const UploadResumeCard = () => {
             } flex h-[250px] w-[400px] items-center justify-center`}
           >
             <div className="flex w-full items-end justify-end">
-              <Button variant="secondary" onClick={handleResetFile}>
+              <Button
+                variant="secondary"
+                onClick={handleResetFile}
+                disabled={status === "idle" || status === "parsing"}
+              >
                 <X />
               </Button>
             </div>
@@ -135,6 +153,17 @@ export const UploadResumeCard = () => {
           </Field>
         </div>
       </div>
+      {status === "success" && (
+        <div className="mt-4 w-[400px] max-w-full">
+          <Textarea
+            className="min-h-[260px]"
+            aria-label={t("resumeTextAriaLabel")}
+            placeholder={t("resumeTextPlaceholder")}
+            value={resumeText}
+            onChange={handleResumeTextChange}
+          />
+        </div>
+      )}
     </div>
   );
 };

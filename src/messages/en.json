@@ -51,12 +51,14 @@
     "currentStepLabel": "Starting",
     "UploadResumeSection": {
       "step": "Step 1/2 · Upload your resume",
-      "dragFileLabel": "Click here to upload",
+      "dragFileLabel": "Click or drag to upload",
       "format": "PDF · up to 4 MB",
       "loadingLabel": "Extracting text from a resume...",
       "successLabel": "Resume successfully processed!",
       "errorLabel": "File processing error",
-      "errorAction": "Try to download another PDF"
+      "errorAction": "Try to download another PDF",
+      "resumeTextPlaceholder": "Resume text",
+      "resumeTextAriaLabel": "Editable resume text"
     },
     "VacancyInputSection": {
       "step": "Step 2/2 · Paste a job URL or description",

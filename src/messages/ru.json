@@ -51,12 +51,14 @@
     "currentStepLabel": "Начинаем",
     "UploadResumeSection": {
       "step": "Шаг 1/2 · Загрузите резюме",
-      "dragFileLabel": "Нажмите, чтобы загрузить файл",
+      "dragFileLabel": "Нажмите или перетащите, чтобы загрузить файл",
       "format": "PDF · до 4 MB",
       "loadingLabel": "Извлекаем текст из резюме...",
       "successLabel": "Резюме успешно обработано!",
       "errorLabel": "Ошибка обработки файла",
-      "errorAction": "Попробуйте загрузить другой PDF-файл"
+      "errorAction": "Попробуйте загрузить другой PDF-файл",
+      "resumeTextPlaceholder": "Текст резюме",
+      "resumeTextAriaLabel": "Редактируемый текст резюме"
     },
     "VacancyInputSection": {
       "step": "Шаг 2/2 · Вставьте URL вакансии или описание",
