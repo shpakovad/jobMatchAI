@@ -7,7 +7,7 @@ import { db } from "@/src/shared/api/prisma";
 import { Button, ErrorPage } from "@/src/shared/ui";
 
 interface AccessProps {
-  isAnalysis?: boolean;
+  path?: "workspace" | "access" | "analysis";
 }
 
 export function withServerAccess<P extends object>(Component: ComponentType<P & AccessProps>) {
@@ -17,7 +17,7 @@ export function withServerAccess<P extends object>(Component: ComponentType<P & 
     const locale = await getLocale();
     const isRussianLang = locale === "ru";
 
-    if (!guestSessionId) {
+    if (props.path !== "access" && !guestSessionId) {
       const errorMessage = isRussianLang
         ? "Для просмотра этой страницы необходим демо-код доступа"
         : "A demo access code is required to view this page";
@@ -34,7 +34,7 @@ export function withServerAccess<P extends object>(Component: ComponentType<P & 
       );
     }
 
-    if (!props.isAnalysis) {
+    if (props.path !== "analysis" && guestSessionId) {
       const existingAnalysis = await db.anonymousAnalysis.findUnique({
         where: { id: guestSessionId },
       });
