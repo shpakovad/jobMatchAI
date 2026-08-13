@@ -1,4 +1,4 @@
-name: CI Pipeline — Проверка качества кода 🚀
+name: CI Pipeline — Code quality check
 
 on:
   push:
