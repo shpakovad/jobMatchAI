@@ -4,7 +4,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { useAnalysisActions, useAnalysisStore, useIsAnalysisReady } from "@/src/entities/analysis";
-import { handleAIAnalysis } from "@/src/features/analyze-match";
 import { useRouter } from "@/src/navigation";
 import { Button, FullScreenLoader } from "@/src/shared/ui";
 
@@ -28,27 +27,53 @@ export const AnalyzeButton = () => {
     setCurrentStep(t("currentStepLabel"));
 
     try {
-      const stream = await handleAIAnalysis({ resumeText, vacancyText, locale });
+      const response = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resumeText, vacancyText, locale }),
+      });
 
-      const reader = stream.getReader();
+      if (!response.ok) {
+        const data = (await response.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(data?.error || t("errorAnalyzeMessage"));
+      }
+
+      if (!response.body) {
+        throw new Error(t("errorAnalyzeMessage"));
+      }
+
+      const reader = response.body.getReader();
       const decoder = new TextDecoder("utf-8");
-      let done = false;
+      let buffer = "";
+      let completed = false;
 
-      while (!done) {
-        const { value, done: doneReading } = await reader.read();
-        done = doneReading;
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
 
-        if (value) {
-          const stepMarker = decoder.decode(value);
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() ?? "";
+
+        for (const stepMarker of lines) {
+          if (!stepMarker) continue;
+
           if (stepMarker.startsWith("ERROR:")) {
             throw new Error(stepMarker.replace("ERROR:", ""));
           }
+
           if (stepMarker === "Success" || stepMarker === "Успешно") {
+            completed = true;
             router.push("/analysis");
             return;
           }
+
           setCurrentStep(stepMarker);
         }
+      }
+
+      if (!completed) {
+        throw new Error(t("errorAnalyzeMessage"));
       }
     } catch (error) {
       const networkErrorMsg = error instanceof Error ? error.message : t("errorAnalyzeMessage");
