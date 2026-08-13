@@ -10,7 +10,7 @@ import { UploadResumeCard } from "@/src/features/upload-resume";
 import { VacancyInputField } from "@/src/features/vacancy-input-field";
 import { Button, ErrorPage } from "@/src/shared/ui";
 
-export const AccessedWorkSpacePage = () => {
+export const AccessedWorkSpacePage = ({ remainingAnalyses }: { remainingAnalyses?: number }) => {
   const t = useTranslations("WorkSpacePage");
   const error = useAnalysisStore((state) => state.error);
   const { reset } = useAnalysisActions();
@@ -27,7 +27,10 @@ export const AccessedWorkSpacePage = () => {
     </ErrorPage>
   ) : (
     <div className="flex w-full flex-col items-center justify-center pb-14 pt-14">
-      <p className="pb-10 text-primary">{t("title")}</p>
+      <p className="text-primary">{t("title")}</p>
+      <span className="pb-10 text-sm text-green-400">
+        {t("remainingAnalyses")} {remainingAnalyses}
+      </span>
       <UploadResumeCard />
       <VacancyInputField />
       <AnalyzeButton />

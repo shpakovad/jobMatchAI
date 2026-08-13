@@ -50,6 +50,7 @@
   },
   "WorkSpacePage": {
     "title": "Давайте создадим ваш карьерный профиль",
+    "remainingAnalyses": "Доступно попыток: ",
     "analyzeButtonLabel": "Анализировать",
     "errorAnalyzeMessage": "Произошла ошибка. Пожалуйста, попробуйте позже.",
     "errorResetActionLabel": "Попробовать снова",

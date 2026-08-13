@@ -34,11 +34,11 @@ export function withServerAccess<P extends object>(Component: ComponentType<P & 
       );
     }
 
-    if (props.path !== "analysis" && guestSessionId) {
-      const existingAnalysis = await db.anonymousAnalysis.findUnique({
-        where: { id: guestSessionId },
-      });
+    const existingAnalysis = await db.anonymousAnalysis.findUnique({
+      where: { id: guestSessionId },
+    });
 
+    if (props.path !== "analysis" && guestSessionId) {
       if (existingAnalysis && existingAnalysis.attemptsCount >= 3) {
         const errorMessage = isRussianLang
           ? "Вы исчерпали лимит бесплатных анализов (максимум 3). Пожалуйста, попробуйте через 2 часа, чтобы продолжить."
@@ -56,6 +56,11 @@ export function withServerAccess<P extends object>(Component: ComponentType<P & 
       }
     }
 
-    return <Component {...props} sessionId={guestSessionId} />;
+    const remaining =
+      existingAnalysis && existingAnalysis.attemptsCount < 3
+        ? 3 - existingAnalysis.attemptsCount
+        : 3;
+
+    return <Component {...props} sessionId={guestSessionId} remainingAnalyses={remaining} />;
   };
 }
