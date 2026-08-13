@@ -2,12 +2,13 @@
 
 import { Sparkles } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import { useTransition } from "react";
 
 import { useAnalysisActions } from "@/src/entities/analysis";
 import { checkActiveSession } from "@/src/entities/session-guard";
 import { Link, usePathname, useRouter } from "@/src/navigation";
 import { divider } from "@/src/shared/styles";
-import { Button } from "@/src/shared/ui";
+import { Button, FullScreenLoader } from "@/src/shared/ui";
 
 export const Header = () => {
   const router = useRouter();
@@ -15,6 +16,7 @@ export const Header = () => {
   const t = useTranslations("Header");
   const locale = useLocale();
   const { reset } = useAnalysisActions();
+  const [isPending, startTransition] = useTransition();
 
   const isExactRootPath = pathname === "/";
 
@@ -39,14 +41,15 @@ export const Header = () => {
     const hasActiveSession = await checkActiveSession();
 
     if (hasActiveSession) {
-      router.push("/workspace");
+      startTransition(() => router.push("/workspace"));
     } else {
-      router.push("/access");
+      startTransition(() => router.push("/access"));
     }
   };
 
   return (
     <header className={`flex flex-col items-center justify-between pb-4 pt-4 ${divider}`}>
+      {isPending && <FullScreenLoader />}
       <div className="mb-4 flex w-full justify-end">
         <div
           className="flex h-9 items-center overflow-hidden p-1 text-xs font-semibold text-slate-300 shadow-sm"
