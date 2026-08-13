@@ -47,9 +47,8 @@ export const handleAIAnalysis = async (payload: AnalyzePayload): Promise<Readabl
 
         let resultMessage = errorMessage;
         if (
-          errorMessage.includes("Prisma") ||
-          errorMessage.includes("prisma") ||
-          errorMessage.includes("database")
+          errorMessage.includes("prisma".toLowerCase()) ||
+          errorMessage.includes("database".toLowerCase())
         ) {
           resultMessage = isRussianLang
             ? "Не удалось сохранить отчет в базу данных из-за внутренней ошибки сервера. Пожалуйста, попробуйте отправить запрос еще раз."
@@ -57,13 +56,13 @@ export const handleAIAnalysis = async (payload: AnalyzePayload): Promise<Readabl
         } else if (
           rawErrorStatus === 503 ||
           errorMessage.includes("503") ||
-          errorMessage.includes("high demand") ||
-          errorMessage.includes("Service Unavailable")
+          errorMessage.includes("high demand".toLowerCase()) ||
+          errorMessage.includes("Service Unavailable".toLowerCase())
         ) {
           resultMessage = isRussianLang
             ? "Серверы ИИ сейчас перегружены из-за высокого количества запросов. Пожалуйста, подождите пару минут и попробуйте отправить резюме еще раз."
             : "AI servers are currently overloaded due to high demand. Please wait a couple of minutes and try submitting your resume again.";
-        } else if (errorMessage.includes("User location is not supported")) {
+        } else if (errorMessage.includes("User location is not supported".toLowerCase())) {
           resultMessage = isRussianLang
             ? "Сервисы Gemini недоступны в вашем регионе. Пожалуйста, смените страну в вашем VPN."
             : "User location is not supported for the API use. Please check your VPN region.";
