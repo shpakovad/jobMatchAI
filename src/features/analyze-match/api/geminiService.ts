@@ -29,7 +29,7 @@ export const generateMatchAnalysis = async (
   const isUrl =
     finalVacancyContent.startsWith("http://") || finalVacancyContent.startsWith("https://");
   if (isUrl) {
-    finalVacancyContent = await scrapeVacancyText(finalVacancyContent);
+    finalVacancyContent = await scrapeVacancyText(finalVacancyContent, isRussianLang);
   }
 
   const targetLanguage = payload.locale === "ru" ? "русском языке" : "английском языке (English)";
