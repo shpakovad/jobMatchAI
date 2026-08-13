@@ -43,6 +43,11 @@
     "codeLabel": "Demo code",
     "continueLabel": "Continue"
   },
+  "DemoAccessedPage": {
+    "title": "Access Granted",
+    "description": "You have already successfully activated demo access for this browser. The session will automatically expire once you close the tab.",
+    "continueLabel": "Go to Workspace"
+  },
   "WorkSpacePage": {
     "title": "Let's build your career profile",
     "analyzeButtonLabel": "Analyze",
