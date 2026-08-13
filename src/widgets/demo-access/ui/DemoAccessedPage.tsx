@@ -1,3 +1,5 @@
+"use client";
+
 import { CheckCircle2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -16,7 +18,7 @@ export const DemoAccessedPage = () => {
 
         <div className="space-y-2">
           <h1 className="text-xl font-bold tracking-tight text-slate-100">{t("title")}</h1>
-          <p className="text-sm leading-relaxed text-slate-400">{t("description")}</p>
+          <p className="pb-5 text-sm leading-relaxed text-slate-400">{t("description")}</p>
         </div>
         <Link href="/workspace">
           <Button>{t("continueLabel")}</Button>
