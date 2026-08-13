@@ -1,7 +1,7 @@
 import { AnalysisPage } from "@/src/widgets/analysis";
 
 const Analysis = () => {
-  return <AnalysisPage />;
+  return <AnalysisPage isAnalysis />;
 };
 
 export default Analysis;

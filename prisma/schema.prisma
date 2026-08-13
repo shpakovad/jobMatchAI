@@ -24,4 +24,5 @@ model AnonymousAnalysis {
   suggestedResumeBullets        String[]
   interviewPreparationQuestions String[]
   createdAt                     DateTime @default(now())
+  attemptsCount                 Int      @default(1)
 }

@@ -6,12 +6,14 @@ import { db } from "@/src/shared/api/prisma";
 interface SaveAnalysisParams {
   id: string;
   analysis: ValidatedAnalysisResult;
+  attemptsCount: number;
   isRussianLang: boolean;
 }
 
 export const saveAnonymousAnalysis = async ({
   id,
   analysis,
+  attemptsCount,
   isRussianLang,
 }: SaveAnalysisParams) => {
   const vacancyName =
@@ -52,6 +54,7 @@ export const saveAnonymousAnalysis = async ({
         resumeImprovementSuggestions,
         suggestedResumeBullets,
         interviewPreparationQuestions,
+        attemptsCount,
       },
 
       create: {
@@ -64,6 +67,7 @@ export const saveAnonymousAnalysis = async ({
         resumeImprovementSuggestions,
         suggestedResumeBullets,
         interviewPreparationQuestions,
+        attemptsCount,
       },
     });
   } catch (prismaError) {

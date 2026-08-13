@@ -26,7 +26,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
   return (
     <html lang="en">
       <body className="dark flex min-h-screen w-full flex-col items-center justify-center bg-[#0d1117] p-4 font-sans text-slate-100">
-        <div className="animate-in fade-in w-full max-w-md space-y-6 text-center duration-500">
+        <div className="animate-in fade-in flex w-full max-w-md flex-col items-center justify-center space-y-6 text-center duration-500">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full text-destructive">
             <ErrorIcon />
           </div>

@@ -7,6 +7,7 @@ import {
   generateMatchAnalysis,
   saveAnonymousAnalysis,
 } from "@/src/features/analyze-match";
+import { db } from "@/src/shared/api/prisma";
 
 export const handleAIAnalysis = async (payload: AnalyzePayload): Promise<ReadableStream> => {
   const cookieStore = await cookies();
@@ -18,7 +19,12 @@ export const handleAIAnalysis = async (payload: AnalyzePayload): Promise<Readabl
     throw new Error(isRussianLang ? "Страница Анализа не найдена" : "Analysis page not found");
   }
 
+  const existingAnalysis = await db.anonymousAnalysis.findUnique({
+    where: { id: guestSessionId },
+  });
+
   const encoder = new TextEncoder();
+  const nextAttemptNumber = existingAnalysis ? existingAnalysis.attemptsCount + 1 : 1;
 
   return new ReadableStream({
     async start(controller) {
@@ -34,6 +40,7 @@ export const handleAIAnalysis = async (payload: AnalyzePayload): Promise<Readabl
         await saveAnonymousAnalysis({
           id: guestSessionId,
           analysis: aiParsedResult,
+          attemptsCount: nextAttemptNumber,
           isRussianLang,
         });
 
