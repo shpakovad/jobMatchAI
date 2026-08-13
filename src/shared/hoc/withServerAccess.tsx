@@ -34,32 +34,35 @@ export function withServerAccess<P extends object>(Component: ComponentType<P & 
       );
     }
 
-    const existingAnalysis = await db.anonymousAnalysis.findUnique({
-      where: { id: guestSessionId },
-    });
+    let remaining = 3;
 
-    if (props.path !== "analysis" && guestSessionId) {
-      if (existingAnalysis && existingAnalysis.attemptsCount >= 3) {
-        const errorMessage = isRussianLang
-          ? "Вы исчерпали лимит бесплатных анализов (максимум 3). Пожалуйста, попробуйте через 2 часа, чтобы продолжить."
-          : "You have reached the limit of free analyses (maximum 3). Please try again in 2 hours to continue.";
+    if (guestSessionId) {
+      const existingAnalysis = await db.anonymousAnalysis.findUnique({
+        where: { id: guestSessionId },
+      });
 
-        const buttonLabel = isRussianLang ? "На главную" : "Go to main";
+      if (existingAnalysis && existingAnalysis.attemptsCount < 3) {
+        remaining = 3 - existingAnalysis.attemptsCount;
+      }
 
-        return (
-          <ErrorPage message={errorMessage}>
-            <Link href="/">
-              <Button variant="secondary">{buttonLabel}</Button>
-            </Link>
-          </ErrorPage>
-        );
+      if (props.path !== "analysis") {
+        if (existingAnalysis && existingAnalysis.attemptsCount >= 3) {
+          const errorMessage = isRussianLang
+            ? "Вы исчерпали лимит бесплатных анализов (максимум 3). Пожалуйста, попробуйте через 2 часа, чтобы продолжить."
+            : "You have reached the limit of free analyses (maximum 3). Please try again in 2 hours to continue.";
+
+          const buttonLabel = isRussianLang ? "На главную" : "Go to main";
+
+          return (
+            <ErrorPage message={errorMessage}>
+              <Link href="/">
+                <Button variant="secondary">{buttonLabel}</Button>
+              </Link>
+            </ErrorPage>
+          );
+        }
       }
     }
-
-    const remaining =
-      existingAnalysis && existingAnalysis.attemptsCount < 3
-        ? 3 - existingAnalysis.attemptsCount
-        : 3;
 
     return <Component {...props} sessionId={guestSessionId} remainingAnalyses={remaining} />;
   };

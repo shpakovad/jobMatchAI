@@ -2,15 +2,16 @@
 
 import { LockKeyhole } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 
 import { verifyDemoCode } from "@/src/features/demo-access";
 import { useRouter } from "@/src/navigation";
-import { Button, Input, toast, Toaster } from "@/src/shared/ui";
+import { Button, FullScreenLoader, Input, toast, Toaster } from "@/src/shared/ui";
 
 export const DemoAccessPage = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   const t = useTranslations("DemoAccessPage");
   const locale = useLocale();
@@ -26,7 +27,7 @@ export const DemoAccessPage = () => {
       setError(result.error);
       showToast();
     } else {
-      router.push("/workspace");
+      startTransition(() => router.push("/workspace"));
     }
   };
 
@@ -42,6 +43,7 @@ export const DemoAccessPage = () => {
   return (
     <main className="flex flex-1 items-center justify-center px-4 py-16">
       {error && <Toaster />}
+      {isPending && <FullScreenLoader />}
       <section className="flex w-full max-w-md flex-col items-center justify-center rounded-lg px-6 py-7 sm:px-8">
         <div className="mb-6 flex size-11 items-center justify-center rounded-lg border border-blue-400/25 bg-blue-400/10 text-blue-300">
           <LockKeyhole size={22} aria-hidden="true" />
