@@ -32,7 +32,6 @@ export const DemoAccessPage = () => {
   };
 
   const showToast = () => {
-    console.log("show toast");
     toast.add({
       type: "error",
       description: error,

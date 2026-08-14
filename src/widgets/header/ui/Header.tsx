@@ -55,13 +55,13 @@ export const Header = () => {
           className="flex h-9 items-center overflow-hidden p-1 text-xs font-semibold text-slate-300 shadow-sm"
           aria-label="Language switcher"
         >
-          <span onClick={() => onChangeLocale("en")} className={localeClassName("en")}>
+          <button onClick={() => onChangeLocale("en")} className={localeClassName("en")}>
             EN
-          </span>
+          </button>
           <span>/</span>
-          <span onClick={() => onChangeLocale("ru")} className={localeClassName("ru")}>
+          <button onClick={() => onChangeLocale("ru")} className={localeClassName("ru")}>
             RU
-          </span>
+          </button>
         </div>
       </div>
       <div className="flex w-full items-center justify-between">

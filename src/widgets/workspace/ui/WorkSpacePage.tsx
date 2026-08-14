@@ -1,4 +1,4 @@
-import { withServerAccess } from "@/src/shared/hoc";
+import { withServerAccess } from "@/src/entities/session-guard/server";
 import { AccessedWorkSpacePage } from "@/src/widgets/workspace/ui/AccessedWorkSpace";
 
 export const WorkSpacePage = withServerAccess(

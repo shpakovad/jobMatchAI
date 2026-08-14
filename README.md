@@ -39,16 +39,16 @@ Landing → Demo access (code) → Workspace → Analyze → Report
 
 ## Tech stack
 
-| Layer | Technologies |
-|---|---|
-| Framework | Next.js 15 (App Router), React 19, React Compiler |
-| Language | TypeScript (strict) |
-| AI | Google Gemini (`gemini-3.6-flash`), Zod validation |
-| Database | PostgreSQL (Neon), Prisma ORM |
-| State | Zustand (workspace form state, `entities` layer) |
-| UI | Tailwind CSS, Base UI / shadcn-style components |
-| i18n | next-intl |
-| Deploy | Vercel (Cron for session cleanup) |
+| Layer     | Technologies                                       |
+| --------- | -------------------------------------------------- |
+| Framework | Next.js 15 (App Router), React 19, React Compiler  |
+| Language  | TypeScript (strict)                                |
+| AI        | Google Gemini (`gemini-3.6-flash`), Zod validation |
+| Database  | PostgreSQL (Neon), Prisma ORM                      |
+| State     | Zustand (workspace form state, `entities` layer)   |
+| UI        | Tailwind CSS, Base UI / shadcn-style components    |
+| i18n      | next-intl                                          |
+| Deploy    | Vercel (Cron for session cleanup)                  |
 
 **Architecture:** [Feature-Sliced Design (FSD)](https://feature-sliced.design/) — `app` → `widgets` → `features` → `entities` → `shared`.
 
@@ -114,12 +114,12 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ### Scripts
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Development server |
-| `npm run build` | Production build |
-| `npm run lint` | ESLint |
-| `npm run format` | Prettier |
+| Command            | Description         |
+| ------------------ | ------------------- |
+| `npm run dev`      | Development server  |
+| `npm run build`    | Production build    |
+| `npm run lint`     | ESLint              |
+| `npm run format`   | Prettier            |
 | `npm run test:run` | Vitest (unit tests) |
 
 ---

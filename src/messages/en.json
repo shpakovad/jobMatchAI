@@ -41,7 +41,10 @@
     "title": "Private demo access",
     "description": "This demo is available by access code.",
     "codeLabel": "Demo code",
-    "continueLabel": "Continue"
+    "continueLabel": "Continue",
+    "errorOccurredMessage": "Invalid demo access code. Please double-check the characters and ensure you are using the active validation code.",
+    "tryAgainLabel": "Try again",
+    "loadingLabel": "Verifying security gateway..."
   },
   "DemoAccessedPage": {
     "description": "You have already successfully activated demo access for this browser. The session will automatically expire once you close the tab.",
@@ -54,6 +57,9 @@
     "errorAnalyzeMessage": "Unknown error occurred. Please try again later.",
     "errorResetActionLabel": "Try again",
     "currentStepLabel": "Starting",
+    "errorOccurredMessage": "Failed to load the workspace. An internal server error might have occurred. Don't worry, your inputs and uploaded resume are safely cached in the browser memory.",
+    "tryAgainLabel": "Try again",
+    "loadingLabel": "Initializing AI workspace...",
     "UploadResumeSection": {
       "step": "Step 1/2 · Upload your resume",
       "dragFileLabel": "Click or drag to upload",
@@ -80,6 +86,9 @@
     "tryAnotherSessionLabel": "Try again",
     "noDataFoundMessage": "The analysis data was not found in the database or the temporary session has expired.",
     "analyzeAnotherVacancyLabel": "Analyze another vacancy",
+    "errorOccurredMessage": "Failed to load the AI analysis report. The database might be temporarily overloaded, or your guest session has expired.",
+    "tryAgainLabel": "Try again",
+    "loadingLabel": "Building AI intelligence report (Gemini)...",
     "card": {
       "title": "AI Analysis Result",
       "vacancyLabel": "Vacancy",
@@ -98,5 +107,10 @@
   },
   "ErrorPage": {
     "title": "Ooops..."
+  },
+  "GlobalErrorPage": {
+    "title": "Something went wrong...",
+    "description": "There was an unexpected glitch in the app interface. We've already identified the issue and are working on a fix.",
+    "restartAppLabel": "Restart the App"
   }
 }
