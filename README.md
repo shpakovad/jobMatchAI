@@ -91,17 +91,6 @@ src/
 - PostgreSQL database (e.g. [Neon](https://neon.tech))
 - Google Gemini API key
 
-### Environment variables
-
-Create `.env.local`:
-
-```env
-DATABASE_URL="postgresql://..."
-GEMINI_API_KEY="..."
-PROJECT_DEMO_CODE="your-demo-code"
-CRON_SECRET="random-secret-for-cron"
-```
-
 ### Install and run
 
 ```bash
