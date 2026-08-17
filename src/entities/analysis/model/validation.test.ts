@@ -67,4 +67,28 @@ describe("aiAnalysisSchema - zod validation", () => {
     };
     expect(() => aiAnalysisSchema.parse(brokenJson)).toThrow();
   });
+
+  test("must reject matchPercentage below 0 or above 100", () => {
+    const base = {
+      vacancyName: "Frontend Developer",
+      matchedSkills: [],
+      missingSkills: [],
+      recommendation: "Recommend.",
+    };
+
+    expect(() => aiAnalysisSchema.parse({ ...base, matchPercentage: -1 })).toThrow();
+    expect(() => aiAnalysisSchema.parse({ ...base, matchPercentage: 101 })).toThrow();
+  });
+
+  test("must accept matchPercentage at the 0 and 100 bounds", () => {
+    const base = {
+      vacancyName: "Frontend Developer",
+      matchedSkills: [],
+      missingSkills: [],
+      recommendation: "Recommend.",
+    };
+
+    expect(aiAnalysisSchema.parse({ ...base, matchPercentage: 0 }).matchPercentage).toBe(0);
+    expect(aiAnalysisSchema.parse({ ...base, matchPercentage: 100 }).matchPercentage).toBe(100);
+  });
 });

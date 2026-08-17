@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 import { analyzePayloadSchema } from "@/src/features/analyze-match";
-import { createAnalysisStream } from "@/src/features/analyze-match/model/createAnalysisStream";
+import { createAnalysisStream } from "@/src/features/analyze-match/server";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
