@@ -113,35 +113,6 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## Deploy to Vercel
-
-1. Push the repo to GitHub and import into Vercel.
-2. Set environment variables: `DATABASE_URL`, `GEMINI_API_KEY`, `PROJECT_DEMO_CODE`, `CRON_SECRET`.
-3. Add a build step for Prisma — either:
-
-   ```json
-   "postinstall": "prisma generate"
-   ```
-
-   in `package.json`, or run `prisma generate` in the Vercel build command.
-
-4. Run migrations against the production database once: `npx prisma migrate deploy`.
-5. Use Neon's **pooled** connection string for serverless.
-6. Cron is configured in `vercel.json` (`/api/cron/cleanup-sessions`, hourly).
-
----
-
-## Known limitations
-
-- **Demo-only access** — single shared code, not production auth.
-- **Attempt limit** — enforced in page guards; should also be enforced in `/api/analyze` for production hardening.
-- **Scraping** — does not work reliably on SPAs and bot-protected job boards.
-- **Gemini geo-restrictions** — API may be unavailable in some regions (VPN required).
-- **Resume data** — sent to Google Gemini; no formal privacy policy in the demo.
-- **No real-time session cleanup on tab close** — cookie persists until the browser session ends; DB cleanup is time-based (cron).
-
----
-
 ## License
 
 Private / portfolio project.
