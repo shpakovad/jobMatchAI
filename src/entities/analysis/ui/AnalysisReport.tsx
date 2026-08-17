@@ -106,9 +106,9 @@ export const AnalysisReport = ({ data, children }: AnalysisReportProps) => {
               </p>
               <div className="flex flex-wrap gap-2">
                 {Boolean(missingSkills.length) ? (
-                  missingSkills.map((item, index) => (
+                  missingSkills.map((item) => (
                     <span
-                      key={index}
+                      key={item}
                       className="rounded-md border border-red-500/20 bg-red-500/10 px-2.5 py-1 font-mono text-xs text-red-500"
                     >
                       {item}
@@ -125,9 +125,9 @@ export const AnalysisReport = ({ data, children }: AnalysisReportProps) => {
               </p>
               <div className="flex flex-wrap gap-2">
                 {Boolean(matchedSkills.length) ? (
-                  matchedSkills.map((item, index) => (
+                  matchedSkills.map((item) => (
                     <span
-                      key={index}
+                      key={item}
                       className="rounded-md border border-emerald-400/20 bg-emerald-400/10 px-2.5 py-1 font-mono text-xs text-emerald-400"
                     >
                       {item}
