@@ -1,6 +1,6 @@
 "use server";
 
-import { ValidatedAnalysisResult } from "@/src/entities/analysis/model/validation";
+import { ValidatedAnalysisResult } from "@/src/entities/analysis";
 import { db } from "@/src/shared/api/prisma";
 
 interface SaveAnalysisParams {

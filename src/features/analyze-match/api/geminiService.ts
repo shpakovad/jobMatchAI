@@ -2,10 +2,7 @@
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-import {
-  aiAnalysisSchema,
-  ValidatedAnalysisResult,
-} from "@/src/entities/analysis/model/validation";
+import { aiAnalysisSchema, ValidatedAnalysisResult } from "@/src/entities/analysis";
 import { AnalyzePayload, scrapeVacancyText } from "@/src/features/analyze-match";
 import { getSystemPrompt } from "@/src/features/analyze-match/config/gemini";
 
