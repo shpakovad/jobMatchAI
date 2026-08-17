@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { getLocale } from "next-intl/server";
 import { ComponentType } from "react";
 
+import { ATTEMPTS_LIMIT } from "@/src/entities/session-guard";
 import { Link } from "@/src/navigation";
 import { db } from "@/src/shared/api/prisma";
 import { Button, ErrorPage } from "@/src/shared/ui";
@@ -34,22 +35,22 @@ export function withServerAccess<P extends object>(Component: ComponentType<P & 
       );
     }
 
-    let remaining = 3;
+    let remaining = ATTEMPTS_LIMIT;
 
     if (guestSessionId) {
       const existingAnalysis = await db.anonymousAnalysis.findUnique({
         where: { id: guestSessionId },
       });
 
-      if (existingAnalysis && existingAnalysis.attemptsCount < 3) {
-        remaining = 3 - existingAnalysis.attemptsCount;
+      if (existingAnalysis && existingAnalysis.attemptsCount < ATTEMPTS_LIMIT) {
+        remaining = ATTEMPTS_LIMIT - existingAnalysis.attemptsCount;
       }
 
       if (props.path !== "analysis") {
-        if (existingAnalysis && existingAnalysis.attemptsCount >= 3) {
+        if (existingAnalysis && existingAnalysis.attemptsCount >= ATTEMPTS_LIMIT) {
           const errorMessage = isRussianLang
-            ? "Вы исчерпали лимит бесплатных анализов (максимум 3). Пожалуйста, попробуйте через 2 часа, чтобы продолжить."
-            : "You have reached the limit of free analyses (maximum 3). Please try again in 2 hours to continue.";
+            ? `Вы исчерпали лимит бесплатных анализов (максимум ${ATTEMPTS_LIMIT}). Пожалуйста, попробуйте через 2 часа, чтобы продолжить.`
+            : `You have reached the limit of free analyses (maximum ${ATTEMPTS_LIMIT}). Please try again in 2 hours to continue.`;
 
           const buttonLabel = isRussianLang ? "На главную" : "Go to main";
 
