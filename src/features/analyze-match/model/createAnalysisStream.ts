@@ -1,8 +1,5 @@
-import {
-  AnalyzePayload,
-  generateMatchAnalysis,
-  saveAnonymousAnalysis,
-} from "@/src/features/analyze-match";
+import { AnalyzePayload } from "@/src/features/analyze-match";
+import { generateMatchAnalysis, saveAnonymousAnalysis } from "@/src/features/analyze-match/server";
 import { db } from "@/src/shared/api/prisma";
 
 type CreateAnalysisStreamParams = {

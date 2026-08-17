@@ -14,7 +14,7 @@ vi.mock("@/src/shared/api/prisma", () => ({
   },
 }));
 
-vi.mock("@/src/features/analyze-match", () => ({
+vi.mock("@/src/features/analyze-match/server", () => ({
   generateMatchAnalysis: generateMatchAnalysisMock,
   saveAnonymousAnalysis: saveAnonymousAnalysisMock,
 }));

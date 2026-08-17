@@ -3,8 +3,9 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 import { aiAnalysisSchema, ValidatedAnalysisResult } from "@/src/entities/analysis";
-import { AnalyzePayload, scrapeVacancyText } from "@/src/features/analyze-match";
+import { AnalyzePayload } from "@/src/features/analyze-match";
 import { getSystemPrompt } from "@/src/features/analyze-match/config/gemini";
+import { scrapeVacancyText } from "@/src/features/analyze-match/server";
 
 export const generateMatchAnalysis = async (
   payload: AnalyzePayload,
