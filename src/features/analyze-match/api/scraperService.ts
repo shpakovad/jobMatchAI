@@ -65,8 +65,8 @@ export const scrapeVacancyText = async (url: string, isRussianLang: boolean): Pr
     const contentLength = response.headers.get("content-length");
     if (contentLength && parseInt(contentLength, 10) > MAX_HTML_SIZE_BYTES) {
       const message = isRussianLang
-        ? "Веб-страница слишком большая, чтобы скачать уу содержимое безопасно."
-        : "The webpage is too large to download safety.";
+        ? "Веб-страница слишком большая, чтобы скачать содержимое безопасно."
+        : "The webpage is too large to download safely.";
       throw new Error(message);
     }
 
