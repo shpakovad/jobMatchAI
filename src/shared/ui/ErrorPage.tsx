@@ -11,7 +11,7 @@ interface ErrorPageProps {
 export const ErrorPage = ({ message, children }: ErrorPageProps) => {
   const t = useTranslations("ErrorPage");
   return (
-    <div className="absolute flex h-full w-full flex-col items-center justify-center bg-background p-4">
+    <div className="absolute flex flex-col items-center justify-center bg-background p-4 sm:h-[calc(100%-117px)] sm:w-[calc(100%-4rem)]">
       <div className="flex max-w-md flex-col items-center rounded-2xl border border-red-500/20 bg-slate-900/50 p-8 text-center shadow-xl shadow-red-500/5">
         <div className="mb-4 flex h-16 w-16 items-center justify-center">
           <ErrorIcon />

@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircle2, CircleHelp, FilePenLine, Info, ListChecks, Sparkles } from "lucide-react";
+import { CheckCircle2, CircleHelp, FilePenLine, Info, ListChecks } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ReactNode } from "react";
 
@@ -28,20 +28,20 @@ const ReportListSection = ({ title, items, icon, markerClassName }: ReportListSe
         <span className="border-border bg-background/60 flex size-8 shrink-0 items-center justify-center rounded-lg border text-blue-400">
           {icon}
         </span>
-        <h3 className="font-mono text-sm uppercase tracking-wider text-muted-foreground">
+        <h3 className="font-mono text-xs uppercase tracking-wider text-muted-foreground sm:text-sm">
           {title}
         </h3>
       </div>
       {Boolean(items.length) ? (
         <ol className="space-y-2">
           {items.map((item, index) => (
-            <li key={index} className="flex gap-3 text-sm leading-relaxed text-primary">
+            <li key={index} className="flex gap-3 text-xs leading-relaxed text-primary sm:text-sm">
               <span
                 className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md font-mono text-xs ${markerClassName}`}
               >
                 {index + 1}
               </span>
-              <span>{item}</span>
+              <span className="text-xs sm:text-sm">{item}</span>
             </li>
           ))}
         </ol>
@@ -70,27 +70,27 @@ export const AnalysisReport = ({ data, children }: AnalysisReportProps) => {
   const totalCount = matchedCount + missingSkills.length;
 
   return (
-    <div className={`pb-10 pt-20`}>
+    <div className="pb-10 pt-10 sm:pt-20">
       <h2 className="mb-2 text-center text-2xl font-bold text-primary">{t("title")}</h2>
       <p className="mb-12 text-center text-base text-muted-foreground">{t("description")}</p>
 
       <div className={`bg-card ${border} overflow-hidden rounded-2xl`}>
         {children}
 
-        <div className="grid gap-6 p-6">
+        <div className="flex flex-col gap-6 p-4 sm:p-6">
           <div className="md:col-span-1">
-            <p className="mb-2 font-mono text-sm uppercase tracking-wider text-muted-foreground">
+            <p className="mb-2 font-mono text-xs uppercase tracking-wider text-muted-foreground sm:text-sm">
               {t("card.vacancyLabel")}
             </p>
             <p className="font-semibold text-primary">{vacancyName}</p>
             <div className="mt-4">
-              <p className="mb-1 font-mono text-sm uppercase tracking-wider text-muted-foreground">
+              <p className="mb-1 font-mono text-xs uppercase tracking-wider text-muted-foreground sm:text-sm">
                 {t("card.matchLabel")}
               </p>
               <p className="font-mono text-4xl font-bold text-blue-400">{matchPercentage}%</p>
             </div>
             <div className="mt-3">
-              <p className="mb-1 font-mono text-sm uppercase tracking-wider text-muted-foreground">
+              <p className="mb-1 font-mono text-xs uppercase tracking-wider text-muted-foreground sm:text-sm">
                 {t("card.skillsMatchedLabel")}
               </p>
               <p className="font-mono text-xl font-bold text-primary">
@@ -101,7 +101,7 @@ export const AnalysisReport = ({ data, children }: AnalysisReportProps) => {
           </div>
           <div className="space-y-4 md:col-span-2">
             <div>
-              <p className="mb-2 font-mono text-sm uppercase tracking-wider text-muted-foreground">
+              <p className="mb-2 font-mono text-xs uppercase tracking-wider text-muted-foreground sm:text-sm">
                 {t("card.missingSkillsLabel")}
               </p>
               <div className="flex flex-wrap gap-2">
@@ -120,7 +120,7 @@ export const AnalysisReport = ({ data, children }: AnalysisReportProps) => {
               </div>
             </div>
             <div>
-              <p className="mb-2 font-mono text-sm uppercase tracking-wider text-muted-foreground">
+              <p className="mb-2 font-mono text-xs uppercase tracking-wider text-muted-foreground sm:text-sm">
                 {t("card.matchedSkillsLabel")}
               </p>
               <div className="flex flex-wrap gap-2">
@@ -143,7 +143,7 @@ export const AnalysisReport = ({ data, children }: AnalysisReportProps) => {
                 <Info size={18} />
                 {t("card.recommendationLabel")}
               </p>
-              <p className="text-sm leading-relaxed text-primary">{recommendation}</p>
+              <p className="text-xs leading-relaxed text-primary sm:text-sm">{recommendation}</p>
             </div>
 
             <ReportListSection
@@ -167,9 +167,8 @@ export const AnalysisReport = ({ data, children }: AnalysisReportProps) => {
           </div>
         </div>
         <div className="border-border flex items-center gap-2 border-t pb-4 pl-6 pt-4 text-sm text-muted-foreground">
-          <CheckCircle2 size={18} className="text-emerald-400" />
-          <span>{t("card.nextStepsLabel")}</span>
-          <Sparkles size={16} className="text-blue-400" />
+          <CheckCircle2 size={18} className="hidden text-emerald-400 sm:block" />
+          <span className="text-xs sm:text-sm">{t("card.nextStepsLabel")}</span>
         </div>
       </div>
     </div>

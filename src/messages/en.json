@@ -47,6 +47,7 @@
     "loadingLabel": "Verifying security gateway..."
   },
   "DemoAccessedPage": {
+    "title": "Access confirmed",
     "description": "You have already successfully activated demo access for this browser. The session will automatically expire once you close the tab.",
     "continueLabel": "Go to Workspace"
   },

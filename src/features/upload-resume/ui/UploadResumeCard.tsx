@@ -82,7 +82,7 @@ export const UploadResumeCard = () => {
           <Field
             className={`hover:border-primary/40 hover:bg-primary/5 flex cursor-pointer flex-col items-center gap-3 rounded-xl border-2 border-dashed border-white/10 bg-card transition-all hover:cursor-pointer ${
               status === "parsing" ? "pointer-events-none opacity-50" : ""
-            } flex h-[250px] w-[400px] items-center justify-center`}
+            } flex h-[150px] items-center justify-center sm:h-[250px] sm:w-[400px]`}
           >
             <div className="flex w-full items-end justify-end">
               <Button
@@ -100,7 +100,9 @@ export const UploadResumeCard = () => {
                     <Upload size={18} color="white" />
                   </div>
                   <div className="text-center">
-                    <p className="pb-2 text-sm font-medium text-slate-50">{t("dragFileLabel")}</p>
+                    <p className="w-[200px] pb-2 text-xs font-medium text-slate-50 sm:w-auto sm:text-sm">
+                      {t("dragFileLabel")}
+                    </p>
                     <p className="mt-0.5 text-xs text-muted-foreground">{t("format")}</p>
                   </div>
                 </>
@@ -111,7 +113,9 @@ export const UploadResumeCard = () => {
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-800">
                     <Loader2 className="animate-spin text-blue-500" size={18} />
                   </div>
-                  <p className="pb-2 text-sm font-medium text-slate-50">{t("loadingLabel")}</p>
+                  <p className="pb-2 text-xs font-medium text-slate-50 sm:text-sm">
+                    {t("loadingLabel")}
+                  </p>
                   <p className="mt-0.5 max-w-xs truncate text-xs text-muted-foreground">
                     {fileName}
                   </p>
@@ -136,7 +140,9 @@ export const UploadResumeCard = () => {
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-800">
                     <Upload className="text-red-500" size={18} />
                   </div>
-                  <p className="pb-2 text-sm font-medium text-red-500">{t("errorLabel")}</p>
+                  <p className="pb-2 text-xs font-medium text-red-500 sm:text-sm">
+                    {t("errorLabel")}
+                  </p>
                   <p className="mt-0.5 text-xs text-muted-foreground">{t("errorAction")}</p>
                 </>
               )}
@@ -154,7 +160,7 @@ export const UploadResumeCard = () => {
         </div>
       </div>
       {status === "success" && (
-        <div className="mt-4 w-[400px] max-w-full">
+        <div className="mt-4 max-w-full sm:w-[400px]">
           <Textarea
             className="min-h-[260px]"
             aria-label={t("resumeTextAriaLabel")}

@@ -26,8 +26,8 @@ export const AccessedWorkSpacePage = ({ remainingAnalyses }: { remainingAnalyses
       </Button>
     </ErrorPage>
   ) : (
-    <div className="flex w-full flex-col items-center justify-center pb-14 pt-14">
-      <p className="text-primary">{t("title")}</p>
+    <div className="flex w-full flex-col items-center justify-center pb-14 pt-10 sm:pt-14">
+      <p className="text-center text-primary">{t("title")}</p>
       <span className="pb-10 text-sm text-green-400">
         {t("remainingAnalyses")} {remainingAnalyses}
       </span>

@@ -48,8 +48,12 @@ export const DemoAccessPage = () => {
           <LockKeyhole size={22} aria-hidden="true" />
         </div>
 
-        <h1 className="mb-3 text-3xl font-bold leading-tight text-primary">{t("title")}</h1>
-        <p className="mb-7 text-sm leading-6 text-muted-foreground">{t("description")}</p>
+        <h1 className="mb-3 text-center text-2xl font-bold leading-tight text-primary sm:text-3xl">
+          {t("title")}
+        </h1>
+        <p className="mb-7 text-center text-sm leading-6 text-muted-foreground">
+          {t("description")}
+        </p>
 
         <div className="space-y-4">
           <Input

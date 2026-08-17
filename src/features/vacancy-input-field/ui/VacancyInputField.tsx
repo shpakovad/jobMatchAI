@@ -18,7 +18,7 @@ export const VacancyInputField = () => {
     <div className="mb-14">
       <p className="pb-2 text-center text-sm text-slate-400">{t("step")}</p>
       <Textarea
-        className="min-h-[300px] min-w-96"
+        className="h-[200px] sm:min-h-[300px] sm:min-w-96"
         placeholder={`${t("textareaPlaceholder")}`}
         value={vacancyText}
         maxLength={MAX_VACANCY_TEXT_LENGTH}
