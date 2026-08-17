@@ -1,5 +1,8 @@
 import { db } from "@/src/shared/api/prisma";
 
+const getReturnedDataArray = (data: Array<string> | unknown) =>
+  Array.isArray(data) ? (data as string[]) : [];
+
 export const fetchAnalysisById = async (id: string | undefined) => {
   if (!id) return null;
 
@@ -13,12 +16,14 @@ export const fetchAnalysisById = async (id: string | undefined) => {
     return {
       vacancyName: analysisData.vacancyName,
       matchPercentage: analysisData.matchPercentage,
-      matchedSkills: (analysisData.matchedSkills as string[]) || [],
-      missingSkills: (analysisData.missingSkills as string[]) || [],
+      matchedSkills: getReturnedDataArray(analysisData.matchedSkills),
+      missingSkills: getReturnedDataArray(analysisData.missingSkills),
       recommendation: analysisData.recommendation,
-      resumeImprovementSuggestions: (analysisData.resumeImprovementSuggestions as string[]) || [],
-      suggestedResumeBullets: (analysisData.suggestedResumeBullets as string[]) || [],
-      interviewPreparationQuestions: (analysisData.interviewPreparationQuestions as string[]) || [],
+      resumeImprovementSuggestions: getReturnedDataArray(analysisData.resumeImprovementSuggestions),
+      suggestedResumeBullets: getReturnedDataArray(analysisData.suggestedResumeBullets),
+      interviewPreparationQuestions: getReturnedDataArray(
+        analysisData.interviewPreparationQuestions,
+      ),
     };
   } catch (error) {
     console.error(error);
