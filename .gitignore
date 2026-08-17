@@ -78,3 +78,5 @@ next-env.d.ts
 
 # AI agent metadata
 .agents/
+AGENTS.md
+CLAUDE.md
