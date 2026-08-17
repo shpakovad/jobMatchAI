@@ -23,7 +23,7 @@ function isSafeUrl(urlInput: string): boolean {
     }
 
     const privateIpRegex =
-      /^(10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+)$/;
+      /^(10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+|172\.(1[6-9]|2\d|3)\.\d+\.\d+|169\.254\.\d+\.\d+)$/;
     if (privateIpRegex.test(hostname)) return false;
 
     return true;

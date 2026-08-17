@@ -76,7 +76,8 @@
       "textareaPlaceholder": "Job URL or description",
       "textareaLimitInfo": "{currentLength}/{maxLength} characters (max {maxLength})",
       "textareaWarning": "Some websites are protected from automated bot reading.If the AI returns an error, please copy the job posting text manually and paste it here.",
-      "regionWarning": "AI analysis is powered by Google Gemini. Google Gemini may be unavailable in some regions."
+      "regionWarning": "AI analysis is powered by Google Gemini. Google Gemini may be unavailable in some regions.",
+      "privacyDisclaimer": "Privacy Notice: By clicking \"Analyze\", you agree to the processing of your data. Your resume text is processed via Google Gemini API solely for report generation and is not stored externally"
     }
   },
   "AnalysisPage": {

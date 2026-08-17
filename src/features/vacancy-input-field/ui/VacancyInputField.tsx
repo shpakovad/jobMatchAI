@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, Info } from "lucide-react";
+import { AlertTriangle, Info, LockKeyhole } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
@@ -30,6 +30,10 @@ export const VacancyInputField = () => {
           maxLength: MAX_VACANCY_TEXT_LENGTH,
         })}
       </p>
+      <div className="flex items-start gap-3 text-xs text-slate-400/90">
+        <LockKeyhole size={15} className="mt-0.5 shrink-0 text-slate-500" />
+        <p className="leading-relaxed">{t("privacyDisclaimer")}</p>
+      </div>
       <div className="flex items-start gap-3 text-xs text-slate-400/90">
         <Info size={15} className="mt-0.5 shrink-0 text-slate-500" />
         <p className="leading-relaxed">{t("textareaWarning")}</p>
