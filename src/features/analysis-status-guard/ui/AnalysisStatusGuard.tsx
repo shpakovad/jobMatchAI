@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode } from "react";
 
 import { Link } from "@/src/navigation";
 import { Button, ErrorPage } from "@/src/shared/ui";
@@ -13,15 +13,6 @@ interface AnalysisStatusGuardProps {
 
 export const AnalysisStatusGuard = ({ isError, children }: AnalysisStatusGuardProps) => {
   const t = useTranslations("AnalysisPage");
-  const mounted = useRef(false);
-
-  useEffect(() => {
-    mounted.current = true;
-
-    return () => {
-      mounted.current = false;
-    };
-  }, []);
 
   if (children && !isError) {
     return (
