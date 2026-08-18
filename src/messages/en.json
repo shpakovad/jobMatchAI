@@ -109,10 +109,5 @@
   },
   "ErrorPage": {
     "title": "Ooops..."
-  },
-  "GlobalErrorPage": {
-    "title": "Something went wrong...",
-    "description": "There was an unexpected glitch in the app interface. We've already identified the issue and are working on a fix.",
-    "restartAppLabel": "Restart the App"
   }
 }
