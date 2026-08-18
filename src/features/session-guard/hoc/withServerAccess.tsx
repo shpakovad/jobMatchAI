@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { getLocale } from "next-intl/server";
 import { ComponentType } from "react";
 
-import { ATTEMPTS_LIMIT } from "@/src/entities/session-guard";
+import { ATTEMPTS_LIMIT } from "@/src/features/session-guard";
 import { Link } from "@/src/navigation";
 import { db } from "@/src/shared/api/prisma";
 import { Button, ErrorPage } from "@/src/shared/ui";
@@ -56,7 +56,7 @@ export function withServerAccess<P extends object>(Component: ComponentType<P & 
 
           return (
             <ErrorPage message={errorMessage}>
-              <Link href="/">
+              <Link href="/public">
                 <Button variant="secondary">{buttonLabel}</Button>
               </Link>
             </ErrorPage>

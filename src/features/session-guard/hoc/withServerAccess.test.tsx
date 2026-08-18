@@ -16,7 +16,9 @@ vi.mock("next-intl/server", () => ({
 }));
 
 vi.mock("@/src/navigation", () => ({
-  Link: ({ href, children }: { href: string; children: ReactNode }) => <a href={href}>{children}</a>,
+  Link: ({ href, children }: { href: string; children: ReactNode }) => (
+    <a href={href}>{children}</a>
+  ),
 }));
 
 vi.mock("@/src/shared/api/prisma", () => ({
@@ -37,7 +39,7 @@ vi.mock("@/src/shared/ui", () => ({
   ),
 }));
 
-import {ReactNode} from "react";
+import { ReactNode } from "react";
 
 import { withServerAccess } from "./withServerAccess";
 

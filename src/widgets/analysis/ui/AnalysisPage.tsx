@@ -1,8 +1,8 @@
 import { AnalysisReport } from "@/src/entities/analysis";
 import { fetchAnalysisById } from "@/src/entities/analysis/api/analysisApi";
-import { WithServerAccessType } from "@/src/entities/session-guard";
-import { withServerAccess } from "@/src/entities/session-guard/server";
 import { AnalysisStatusGuard } from "@/src/features/analysis-status-guard";
+import { WithServerAccessType } from "@/src/features/session-guard";
+import { withServerAccess } from "@/src/features/session-guard/server";
 
 export const AnalysisPage = withServerAccess(async ({ sessionId }: WithServerAccessType) => {
   const analysisData = await fetchAnalysisById(sessionId);
