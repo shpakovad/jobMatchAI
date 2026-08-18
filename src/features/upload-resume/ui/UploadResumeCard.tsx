@@ -159,17 +159,15 @@ export const UploadResumeCard = () => {
           </Field>
         </div>
       </div>
-      {status === "success" && (
-        <div className="mt-4 max-w-full sm:w-[400px]">
-          <Textarea
-            className="min-h-[260px]"
-            aria-label={t("resumeTextAriaLabel")}
-            placeholder={t("resumeTextPlaceholder")}
-            value={resumeText}
-            onChange={handleResumeTextChange}
-          />
-        </div>
-      )}
+      <div className="mt-4 max-w-full sm:w-[400px]">
+        <Textarea
+          className="min-h-[260px]"
+          aria-label={t("resumeTextAriaLabel")}
+          placeholder={t("resumeTextPlaceholder")}
+          value={resumeText}
+          onChange={handleResumeTextChange}
+        />
+      </div>
     </div>
   );
 };

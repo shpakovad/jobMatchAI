@@ -56,7 +56,7 @@ export function withServerAccess<P extends object>(Component: ComponentType<P & 
 
           return (
             <ErrorPage message={errorMessage}>
-              <Link href="/public">
+              <Link href="/">
                 <Button variant="secondary">{buttonLabel}</Button>
               </Link>
             </ErrorPage>

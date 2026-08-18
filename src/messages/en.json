@@ -62,7 +62,7 @@
     "tryAgainLabel": "Try again",
     "loadingLabel": "Initializing AI workspace...",
     "UploadResumeSection": {
-      "step": "Step 1/2 · Upload your resume",
+      "step": "Step 1/2 · Upload your resume or paste text",
       "dragFileLabel": "Click or drag to upload",
       "format": "PDF · up to 4 MB",
       "loadingLabel": "Extracting text from a resume...",
