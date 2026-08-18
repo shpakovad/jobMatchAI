@@ -1,6 +1,7 @@
 "use server";
 
 import { ValidatedAnalysisResult } from "@/src/entities/analysis";
+import { aiAnalysisReportSchema } from "@/src/features/analyze-match";
 import { db } from "@/src/shared/api/prisma";
 
 interface SaveAnalysisParams {
@@ -16,30 +17,23 @@ export const saveAnonymousAnalysis = async ({
   attemptsCount,
   isRussianLang,
 }: SaveAnalysisParams) => {
+  const parsedReport = aiAnalysisReportSchema.parse(analysis);
+
+  const {
+    matchPercentage,
+    matchedSkills,
+    missingSkills,
+    resumeImprovementSuggestions,
+    suggestedResumeBullets,
+    interviewPreparationQuestions,
+  } = parsedReport;
+
   const vacancyName =
-    analysis.vacancyName && analysis.vacancyName !== "undefined"
-      ? String(analysis.vacancyName)
-      : isRussianLang
-        ? "Неизвестная вакансия"
-        : "Unknown vacancy";
+    parsedReport.vacancyName || (isRussianLang ? "Неизвестная вакансия" : "Unknown vacancy");
 
-  const matchPercentage = Number(analysis.matchPercentage) || 0;
-
-  const recommendation = String(
-    analysis.recommendation || (isRussianLang ? "Рекомендация отсутствует" : "No recommendation"),
-  );
-
-  const matchedSkills = Array.isArray(analysis.matchedSkills) ? analysis.matchedSkills : [];
-  const missingSkills = Array.isArray(analysis.missingSkills) ? analysis.missingSkills : [];
-  const resumeImprovementSuggestions = Array.isArray(analysis.resumeImprovementSuggestions)
-    ? analysis.resumeImprovementSuggestions
-    : [];
-  const suggestedResumeBullets = Array.isArray(analysis.suggestedResumeBullets)
-    ? analysis.suggestedResumeBullets
-    : [];
-  const interviewPreparationQuestions = Array.isArray(analysis.interviewPreparationQuestions)
-    ? analysis.interviewPreparationQuestions
-    : [];
+  const recommendation =
+    parsedReport.recommendation ||
+    (isRussianLang ? "Рекомендация отсутствует" : "No recommendation");
 
   try {
     await db.anonymousAnalysis.upsert({
