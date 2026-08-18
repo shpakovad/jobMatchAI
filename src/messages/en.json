@@ -26,7 +26,7 @@
             "result1": "Match score",
             "result2": "Missing skills",
             "result3": "Recommendation",
-            "result4": "Tips for Improving your CV",
+            "result4": "Resume Improvement Suggestions",
             "result5": "Questions for preparation"
           }
         }
@@ -68,7 +68,7 @@
       "loadingLabel": "Extracting text from a resume...",
       "successLabel": "Resume successfully processed!",
       "errorLabel": "File processing error",
-      "errorAction": "Try to download another PDF",
+      "errorAction": "Upload another PDF",
       "resumeTextPlaceholder": "Resume text",
       "resumeTextAriaLabel": "Editable resume text"
     },
@@ -76,7 +76,7 @@
       "step": "Step 2/2 · Paste a job URL or description",
       "textareaPlaceholder": "Job URL or description",
       "textareaLimitInfo": "{currentLength}/{maxLength} characters (max {maxLength})",
-      "textareaWarning": "Some websites are protected from automated bot reading.If the AI returns an error, please copy the job posting text manually and paste it here.",
+      "textareaWarning": "Some websites are protected from automated bot reading. If the AI returns an error, please copy the job posting text manually and paste it here.",
       "regionWarning": "AI analysis is powered by Google Gemini. Google Gemini may be unavailable in some regions.",
       "privacyDisclaimer": "Privacy Notice: By clicking \"Analyze\", you agree to the processing of your data. Your resume text is processed via Google Gemini API solely for report generation and is not stored externally"
     }
