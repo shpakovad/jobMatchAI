@@ -13,7 +13,6 @@ interface GlobalErrorProps {
 }
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
-
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -36,8 +35,14 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
 
           <div className="space-y-2">
             <h1 className="text-xl font-bold tracking-tight text-slate-100">Ooops...</h1>
-            <p className="text-sm leading-relaxed text-slate-400">Возникла неожиданная ошибка в работе приложения. Мы уже выявили проблему и работаем над её исправлением.</p>
-            <p className="text-sm leading-relaxed text-slate-400">There was an unexpected glitch in the app interface. We've already identified the issue and are working on a fix.</p>
+            <p className="text-sm leading-relaxed text-slate-400">
+              Возникла неожиданная ошибка в работе приложения. Мы уже выявили проблему и работаем
+              над её исправлением.
+            </p>
+            <p className="text-sm leading-relaxed text-slate-400">
+              There was an unexpected glitch in the app interface. We've already identified the
+              issue and are working on a fix.
+            </p>
           </div>
 
           <Button variant="secondary" onClick={handleAppReset}>

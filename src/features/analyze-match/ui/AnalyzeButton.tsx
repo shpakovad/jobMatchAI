@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useAnalysisActions, useAnalysisStore, useIsAnalysisReady } from "@/src/entities/analysis";
 import { useRouter } from "@/src/navigation";
@@ -9,6 +9,7 @@ import { Button, FullScreenLoader } from "@/src/shared/ui";
 
 export const AnalyzeButton = () => {
   const [currentStep, setCurrentStep] = useState<string>("");
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const resumeText = useAnalysisStore((state) => state.resumeText);
   const vacancyText = useAnalysisStore((state) => state.vacancyText);
@@ -26,11 +27,15 @@ export const AnalyzeButton = () => {
     setError(null);
     setCurrentStep(t("currentStepLabel"));
 
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     try {
       const response = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ resumeText, vacancyText, locale }),
+        signal: controller.signal,
       });
 
       if (!response.ok) {
@@ -48,6 +53,11 @@ export const AnalyzeButton = () => {
       let completed = false;
 
       while (true) {
+        if (controller.signal.aborted) {
+          await reader.cancel();
+          break;
+        }
+
         const { value, done } = await reader.read();
         if (done) break;
 
@@ -76,11 +86,22 @@ export const AnalyzeButton = () => {
         throw new Error(t("errorAnalyzeMessage"));
       }
     } catch (error) {
+      if (error instanceof Error && error.name === "AbortError") {
+        return;
+      }
       const networkErrorMsg = error instanceof Error ? error.message : t("errorAnalyzeMessage");
       setError(networkErrorMsg);
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, []);
 
   return (
     <>
