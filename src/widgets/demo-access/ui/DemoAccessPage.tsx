@@ -10,7 +10,6 @@ import { Button, FullScreenLoader, Input, toast, Toaster } from "@/src/shared/ui
 
 export const DemoAccessPage = () => {
   const [inputValue, setInputValue] = useState<string>("");
-  const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const t = useTranslations("DemoAccessPage");
@@ -23,24 +22,23 @@ export const DemoAccessPage = () => {
     const result = await verifyDemoCode(inputValue);
 
     if (!result.success) {
-      setError(result.error);
-      showToast();
+      showToast(result.error);
     } else {
       startTransition(() => router.push("/workspace"));
     }
   };
 
-  const showToast = () => {
-    toast.add({
+  const showToast = (errorMessage: string) => {
+    return toast.add({
       type: "error",
-      description: error,
+      description: errorMessage,
       priority: "high",
     });
   };
 
   return (
     <main className="flex flex-1 items-center justify-center px-4 py-16">
-      {error && <Toaster />}
+      <Toaster />
       {isPending && <FullScreenLoader />}
       <section className="flex w-full max-w-md flex-col items-center justify-center rounded-lg px-6 py-7 sm:px-8">
         <div className="mb-6 flex size-11 items-center justify-center rounded-lg border border-blue-400/25 bg-blue-400/10 text-blue-300">
