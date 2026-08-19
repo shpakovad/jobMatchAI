@@ -2,7 +2,7 @@
 
 import { CheckCircle2, FileText, Loader2, Upload, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, DragEvent, useRef, useState } from "react";
 
 import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
 import { parsePdfToText } from "@/src/features/upload-resume/lib/parsePdf";
@@ -13,6 +13,7 @@ const MAX_RESUME_FILE_SIZE_BYTES = 4 * 1024 * 1024;
 export const UploadResumeCard = () => {
   const [fileName, setFileName] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "parsing" | "success" | "error">("idle");
+  const [isDragActive, setIsDragActive] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const t = useTranslations("WorkSpacePage.UploadResumeSection");
@@ -20,10 +21,7 @@ export const UploadResumeCard = () => {
   const resumeText = useAnalysisStore((state) => state.resumeText);
   const { setResumeText } = useAnalysisActions();
 
-  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
+  const processFile = async (file: File) => {
     if (file.type !== "application/pdf") {
       setResumeText("");
       setStatus("error");
@@ -42,10 +40,7 @@ export const UploadResumeCard = () => {
 
     try {
       const text = await parsePdfToText(file);
-
-      if (!text) {
-        throw new Error("Error loading PDF text");
-      }
+      if (!text) throw new Error("Error loading PDF text");
 
       setResumeText(text);
       setStatus("success");
@@ -53,6 +48,35 @@ export const UploadResumeCard = () => {
       console.error(error);
       setResumeText("");
       setStatus("error");
+    }
+  };
+
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    return await processFile(file);
+  };
+
+  const handleDrag = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setIsDragActive(true);
+    } else if (e.type === "dragleave") {
+      setIsDragActive(false);
+    }
+  };
+
+  const handleDrop = async (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragActive(false);
+
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      await processFile(file);
     }
   };
 
@@ -78,7 +102,18 @@ export const UploadResumeCard = () => {
     <div className="mb-14">
       <div>
         <p className="text-center text-sm text-slate-400">{t("step")}</p>
-        <div className="mt-2">
+
+        <div
+          onDragEnter={handleDrag}
+          onDragOver={handleDrag}
+          onDragLeave={handleDrag}
+          onDrop={handleDrop}
+          className={`mt-2 text-center transition-all duration-200 ${
+            isDragActive
+              ? "scale-[1.01] border-blue-500 bg-blue-500/5" // Стильно подсвечиваем, когда файл висит над карточкой
+              : "border-white/10 bg-slate-900/40"
+          }`}
+        >
           <Field
             className={`hover:border-primary/40 hover:bg-primary/5 flex cursor-pointer flex-col items-center gap-3 rounded-xl border-2 border-dashed border-white/10 bg-card transition-all hover:cursor-pointer ${
               status === "parsing" ? "pointer-events-none opacity-50" : ""
