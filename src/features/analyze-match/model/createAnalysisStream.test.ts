@@ -6,6 +6,10 @@ const { findUniqueMock, generateMatchAnalysisMock, saveAnonymousAnalysisMock } =
   saveAnonymousAnalysisMock: vi.fn(),
 }));
 
+vi.mock("next-intl/server", () => ({
+  getTranslations: vi.fn().mockResolvedValue((key: string) => key),
+}));
+
 vi.mock("@/src/shared/api/prisma", () => ({
   db: {
     anonymousAnalysis: {
@@ -24,7 +28,6 @@ import { createAnalysisStream } from "./createAnalysisStream";
 const payload = {
   resumeText: "Frontend developer with React and TypeScript experience.",
   vacancyText: "Looking for a React engineer.",
-  locale: "en" as const,
 };
 
 const analysisResult = {
@@ -62,21 +65,22 @@ describe("createAnalysisStream attempt tracking", () => {
   test("must save the first analysis as attempt 1", async () => {
     findUniqueMock.mockResolvedValue(null);
 
-    const output = await readStream(createAnalysisStream({ payload, guestSessionId: "session-1" }));
+    const output = await readStream(
+      await createAnalysisStream({ payload, guestSessionId: "session-1" }),
+    );
 
     expect(saveAnonymousAnalysisMock).toHaveBeenCalledWith({
       id: "session-1",
       analysis: analysisResult,
       attemptsCount: 1,
-      isRussianLang: false,
     });
-    expect(output).toContain("Success");
+    expect(output).toContain("step4");
   });
 
   test("must increment attemptsCount from the existing session record", async () => {
     findUniqueMock.mockResolvedValue({ attemptsCount: 2 });
 
-    await readStream(createAnalysisStream({ payload, guestSessionId: "session-1" }));
+    await readStream(await createAnalysisStream({ payload, guestSessionId: "session-1" }));
 
     expect(saveAnonymousAnalysisMock).toHaveBeenCalledWith(
       expect.objectContaining({ attemptsCount: 3 }),
@@ -87,7 +91,9 @@ describe("createAnalysisStream attempt tracking", () => {
     findUniqueMock.mockResolvedValue({ attemptsCount: 0 });
     generateMatchAnalysisMock.mockRejectedValue(new Error("AI failed"));
 
-    const output = await readStream(createAnalysisStream({ payload, guestSessionId: "session-1" }));
+    const output = await readStream(
+      await createAnalysisStream({ payload, guestSessionId: "session-1" }),
+    );
 
     expect(output).toContain("ERROR:AI failed");
     expect(saveAnonymousAnalysisMock).not.toHaveBeenCalled();

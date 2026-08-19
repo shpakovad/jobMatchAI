@@ -1,7 +1,7 @@
 "use client";
 
 import { LockKeyhole } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 
 import { verifyDemoCode } from "@/src/features/demo-access";
@@ -14,14 +14,13 @@ export const DemoAccessPage = () => {
   const [isPending, startTransition] = useTransition();
 
   const t = useTranslations("DemoAccessPage");
-  const locale = useLocale();
   const router = useRouter();
 
   const handleContinue = async () => {
     if (inputValue.length === 0) {
       return;
     }
-    const result = await verifyDemoCode(inputValue, locale);
+    const result = await verifyDemoCode(inputValue);
 
     if (!result.success) {
       setError(result.error);

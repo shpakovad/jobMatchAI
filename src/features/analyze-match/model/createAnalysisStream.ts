@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 import { AnalyzePayload } from "@/src/features/analyze-match";
 import { generateMatchAnalysis, saveAnonymousAnalysis } from "@/src/features/analyze-match/server";
 import { db } from "@/src/shared/api/prisma";
@@ -7,11 +9,11 @@ type CreateAnalysisStreamParams = {
   guestSessionId: string;
 };
 
-export const createAnalysisStream = ({
+export const createAnalysisStream = async ({
   payload,
   guestSessionId,
-}: CreateAnalysisStreamParams): ReadableStream<Uint8Array> => {
-  const isRussianLang = payload.locale === "ru";
+}: CreateAnalysisStreamParams): Promise<ReadableStream<Uint8Array>> => {
+  const t = await getTranslations("Errors.AnalysisStream");
   const encoder = new TextEncoder();
 
   return new ReadableStream({
@@ -26,20 +28,19 @@ export const createAnalysisStream = ({
         });
         const nextAttemptNumber = existingAnalysis ? existingAnalysis.attemptsCount + 1 : 1;
 
-        sendStep(isRussianLang ? "Извлечение данных" : "Extracting data");
-        sendStep(isRussianLang ? "Выполнение анализа ИИ" : "Running AI analysis");
+        sendStep(t("step1"));
+        sendStep(t("step2"));
 
         const aiParsedResult = await generateMatchAnalysis(payload);
 
-        sendStep(isRussianLang ? "Сохранение результата" : "Saving result");
+        sendStep(t("step3"));
         await saveAnonymousAnalysis({
           id: guestSessionId,
           analysis: aiParsedResult,
           attemptsCount: nextAttemptNumber,
-          isRussianLang,
         });
 
-        sendStep(isRussianLang ? "Успешно" : "Success");
+        sendStep(t("step4"));
         controller.close();
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : String(error);
@@ -51,22 +52,16 @@ export const createAnalysisStream = ({
           errorMessage.toLowerCase().includes("prisma") ||
           errorMessage.toLowerCase().includes("database")
         ) {
-          resultMessage = isRussianLang
-            ? "Не удалось сохранить отчет в базу данных из-за внутренней ошибки сервера. Пожалуйста, попробуйте отправить запрос еще раз."
-            : "Failed to save the report to the database due to an internal server error. Please try submitting your request again.";
+          resultMessage = t("databaseError");
         } else if (
           rawErrorStatus === 503 ||
           errorMessage.includes("503") ||
           errorMessage.toLowerCase().includes("high demand") ||
           errorMessage.toLowerCase().includes("service unavailable")
         ) {
-          resultMessage = isRussianLang
-            ? "Серверы ИИ сейчас перегружены из-за высокого количества запросов. Пожалуйста, подождите пару минут и попробуйте отправить резюме еще раз."
-            : "AI servers are currently overloaded due to high demand. Please wait a couple of minutes and try submitting your resume again.";
+          resultMessage = t("overloadedServer");
         } else if (errorMessage.toLowerCase().includes("user location is not supported")) {
-          resultMessage = isRussianLang
-            ? "Сервисы Gemini недоступны в вашем регионе. Пожалуйста, смените страну в вашем VPN."
-            : "User location is not supported for the API use. Please check your VPN region.";
+          resultMessage = t("notSupportedError");
         }
 
         controller.enqueue(encoder.encode(`ERROR:${resultMessage}\n`));

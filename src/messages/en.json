@@ -109,5 +109,44 @@
   },
   "ErrorPage": {
     "title": "Ooops..."
+  },
+  "SystemPrompt": {
+    "targetLanguageInstruction": "английском языке (English)"
+  },
+  "Errors": {
+    "AnalysisStream": {
+      "step1": "Extracting data",
+      "step2": "Running AI analysis",
+      "step3": "Saving result",
+      "step4": "Success",
+      "databaseError": "Failed to save the report to the database due to an internal server error. Please try submitting your request again.",
+      "overloadedServer": "AI servers are currently overloaded due to high demand. Please wait a couple of minutes and try submitting your resume again.",
+      "notSupportedError": "User location is not supported for the API use. Please check your VPN region."
+    },
+    "SaveAnonymousAnalysis": {
+      "vacancyError": "Unknown vacancy",
+      "recommendationError": "No recommendation",
+      "errorText": "Critical PRISMA error:"
+    },
+    "SendAnonymousAnalysis": {
+      "noIdError": "Analysis page not found",
+      "noTextOrVacancyError": "Resume or vacancy text is missing"
+    },
+    "GenerateMatchAnalysis": {
+      "noApiKeyError": "API key does not exist. Please set it in the .env file.",
+      "emptyKeyError": "AI returned empty response."
+    },
+    "ScrapeVacancyText": {
+      "noSafeUrl": "The provided URL is unsafe or invalid. Please copy the job description as text.",
+      "linkError": "Failed to open link. Status:",
+      "largePageError": "The webpage is too large to download safely.",
+      "textSizeError": "The webpage text size exceeds the security limit.",
+      "notReadableTextError": "Could not extract readable text content from this webpage.",
+      "abortError": "The connection timed out while loading the link. The site might be too slow. Please copy the job description as text.",
+      "notReadableLinkError": "The text at the provided link could not be read (the site may be protected or down). Please copy the job description as text."
+    },
+    "VerifyDemoCode": {
+      "noCodeError": "Invalid demo access code."
+    }
   }
 }

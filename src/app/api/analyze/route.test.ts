@@ -13,6 +13,10 @@ vi.mock("@/src/features/analyze-match/server", () => ({
   createAnalysisStream: createAnalysisStreamMock,
 }));
 
+vi.mock("next-intl/server", () => ({
+  getTranslations: vi.fn().mockResolvedValue((key: string) => key),
+}));
+
 vi.mock("@/src/shared/api/prisma", () => ({
   db: {
     anonymousAnalysis: {
@@ -27,7 +31,6 @@ import { POST } from "./route";
 const validPayload = {
   resumeText: "Frontend developer with React and TypeScript experience.",
   vacancyText: "Looking for a React engineer.",
-  locale: "en" as const,
 };
 
 const makeRequest = (body: unknown) =>
@@ -63,18 +66,18 @@ describe("POST /api/analyze", () => {
     const data = await response.json();
 
     expect(response.status).toBe(401);
-    expect(data.error).toBe("Analysis page not found");
+    expect(data.error).toBe("noIdError");
     expect(createAnalysisStreamMock).not.toHaveBeenCalled();
   });
 
-  test("must return a Russian 401 message when locale is ru", async () => {
+  test("must return a 401 translated message when session is missing", async () => {
     mockSessionCookie();
 
-    const response = await POST(makeRequest({ ...validPayload, locale: "ru" }));
+    const response = await POST(makeRequest({ ...validPayload }));
     const data = await response.json();
 
     expect(response.status).toBe(401);
-    expect(data.error).toBe("Страница Анализа не найдена");
+    expect(data.error).toBe("noIdError");
   });
 
   test("must return 400 when resume or vacancy text fails zod validation", async () => {
@@ -84,13 +87,12 @@ describe("POST /api/analyze", () => {
       makeRequest({
         resumeText: "short",
         vacancyText: "x",
-        locale: "en",
       }),
     );
     const data = await response.json();
 
     expect(response.status).toBe(400);
-    expect(data.error).toBe("Resume or vacancy text is missing");
+    expect(data.error).toBe("noTextOrVacancyError");
     expect(data.details).toBeDefined();
     expect(createAnalysisStreamMock).not.toHaveBeenCalled();
   });
@@ -102,7 +104,7 @@ describe("POST /api/analyze", () => {
     const data = await response.json();
 
     expect(response.status).toBe(400);
-    expect(data.error).toBe("Resume or vacancy text is missing");
+    expect(data.error).toBe("noTextOrVacancyError");
   });
 
   test("must stream the analysis when the cookie and payload are valid", async () => {
@@ -128,7 +130,6 @@ describe("POST /api/analyze", () => {
       makeRequest({
         resumeText: "   Experienced React developer   ",
         vacancyText: "  Senior frontend role  ",
-        locale: "en",
       }),
     );
 
@@ -136,7 +137,6 @@ describe("POST /api/analyze", () => {
       payload: {
         resumeText: "Experienced React developer",
         vacancyText: "Senior frontend role",
-        locale: "en",
       },
       guestSessionId: "session-1",
     });

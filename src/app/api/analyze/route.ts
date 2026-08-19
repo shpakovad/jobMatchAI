@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { getTranslations } from "next-intl/server";
 
 import { analyzePayloadSchema } from "@/src/features/analyze-match";
 import { createAnalysisStream } from "@/src/features/analyze-match/server";
@@ -21,12 +22,12 @@ export async function POST(req: Request) {
 
   const validation = analyzePayloadSchema.safeParse(rawBody);
 
-  const isRussianLang = rawBody?.locale === "ru";
+  const t = await getTranslations("Errors.SendAnonymousAnalysis");
 
   if (!guestSessionId) {
     return NextResponse.json(
       {
-        error: isRussianLang ? "Страница Анализа не найдена" : "Analysis page not found",
+        error: t("noIdError"),
       },
       { status: 401 },
     );
@@ -35,9 +36,7 @@ export async function POST(req: Request) {
   if (!validation.success) {
     return NextResponse.json(
       {
-        error: isRussianLang
-          ? "Не хватает текста резюме или вакансии"
-          : "Resume or vacancy text is missing",
+        error: t("noTextOrVacancyError"),
         details: validation.error.format(),
       },
       { status: 400 },
@@ -46,7 +45,7 @@ export async function POST(req: Request) {
 
   const payload = validation.data;
 
-  const stream = createAnalysisStream({ payload, guestSessionId });
+  const stream = await createAnalysisStream({ payload, guestSessionId });
 
   return new Response(stream, {
     headers: {

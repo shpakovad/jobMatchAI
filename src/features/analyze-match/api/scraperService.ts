@@ -1,6 +1,7 @@
 "use server";
 
 import * as cheerio from "cheerio";
+import { getTranslations } from "next-intl/server";
 
 const MAX_HTML_SIZE_BYTES = 2 * 1024 * 1024;
 const FETCH_TIMEOUT_MS = 6000;
@@ -32,13 +33,11 @@ function isSafeUrl(urlInput: string): boolean {
   }
 }
 
-export const scrapeVacancyText = async (url: string, isRussianLang: boolean): Promise<string> => {
+export const scrapeVacancyText = async (url: string): Promise<string> => {
+  const t = await getTranslations("Errors.ScrapeVacancyText");
+
   if (!isSafeUrl(url)) {
-    throw new Error(
-      isRussianLang
-        ? "Предоставленный URL-адрес небезопасен или недействителен. Пожалуйста, скопируйте описание вакансии в виде текста."
-        : "The provided URL is unsafe or invalid. Please copy the job description as text.",
-    );
+    throw new Error(t("noSafeUrl"));
   }
 
   const controller = new AbortController();
@@ -56,28 +55,20 @@ export const scrapeVacancyText = async (url: string, isRussianLang: boolean): Pr
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      const message = isRussianLang
-        ? "Не удалось открыть ссылку. Статус:"
-        : "Failed to open link. Status:";
+      const message = t("linkError");
       throw new Error(`${message} ${response.status}`);
     }
 
     const contentLength = response.headers.get("content-length");
     if (contentLength && parseInt(contentLength, 10) > MAX_HTML_SIZE_BYTES) {
-      const message = isRussianLang
-        ? "Веб-страница слишком большая, чтобы скачать содержимое безопасно."
-        : "The webpage is too large to download safely.";
+      const message = t("largePageError");
       throw new Error(message);
     }
 
     const html = await response.text();
 
     if (html.length > MAX_HTML_SIZE_BYTES) {
-      throw new Error(
-        isRussianLang
-          ? "Размер текста на веб-странице превышает безопасный лимит"
-          : "The webpage text size exceeds the security limit.",
-      );
+      throw new Error(t("textSizeError"));
     }
 
     const $ = cheerio.load(html);
@@ -88,11 +79,7 @@ export const scrapeVacancyText = async (url: string, isRussianLang: boolean): Pr
     const cleanText = pageText.replace(/\s+/g, " ").trim();
 
     if (!cleanText || cleanText.length < 20) {
-      throw new Error(
-        isRussianLang
-          ? "Невозможно извлечь текст с этой страницы."
-          : "Could not extract readable text content from this webpage.",
-      );
+      throw new Error(t("notReadableTextError"));
     }
 
     return cleanText;
@@ -100,17 +87,9 @@ export const scrapeVacancyText = async (url: string, isRussianLang: boolean): Pr
     clearTimeout(timeoutId);
 
     if (error instanceof Error && error.name === "AbortError") {
-      throw new Error(
-        isRussianLang
-          ? "Время подключения истекло. Возможно, сайт слишком медленный. Пожалуйста, скопируйте описание вакансии в виде текста."
-          : "The connection timed out while loading the link. The site might be too slow. Please copy the job description as text.",
-      );
+      throw new Error(t("abortError"));
     }
 
-    throw new Error(
-      isRussianLang
-        ? "Невозможно прочитать текст по предоставленной ссылке (сайт может быть защищён или закрыт). Пожалуйста, скопируйте описание вакансии в виде текста."
-        : "The text at the provided link could not be read (the site may be protected or down). Please copy the job description as text.",
-    );
+    throw new Error(t("notReadableLinkError"));
   }
 };

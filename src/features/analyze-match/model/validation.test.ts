@@ -5,7 +5,6 @@ import { analyzePayloadSchema } from "./validation";
 const validPayload = {
   resumeText: "Frontend developer with React and TypeScript experience.",
   vacancyText: "Looking for a React engineer.",
-  locale: "en" as const,
 };
 
 describe("analyzePayloadSchema", () => {
@@ -14,27 +13,16 @@ describe("analyzePayloadSchema", () => {
 
     expect(result.resumeText).toContain("React");
     expect(result.vacancyText).toContain("React engineer");
-    expect(result.locale).toBe("en");
   });
 
   test("must trim resume and vacancy text", () => {
     const result = analyzePayloadSchema.parse({
       resumeText: "   Experienced React developer   ",
       vacancyText: "  Senior frontend role  ",
-      locale: "ru",
     });
 
     expect(result.resumeText).toBe("Experienced React developer");
     expect(result.vacancyText).toBe("Senior frontend role");
-  });
-
-  test("must default locale to ru when it is omitted", () => {
-    const result = analyzePayloadSchema.parse({
-      resumeText: validPayload.resumeText,
-      vacancyText: validPayload.vacancyText,
-    });
-
-    expect(result.locale).toBe("ru");
   });
 
   test("must reject resume text shorter than 10 characters", () => {
@@ -60,7 +48,6 @@ describe("analyzePayloadSchema", () => {
       analyzePayloadSchema.safeParse({
         resumeText: "          ",
         vacancyText: validPayload.vacancyText,
-        locale: "en",
       }).success,
     ).toBe(false);
 
@@ -68,17 +55,7 @@ describe("analyzePayloadSchema", () => {
       analyzePayloadSchema.safeParse({
         resumeText: validPayload.resumeText,
         vacancyText: "   ",
-        locale: "en",
       }).success,
     ).toBe(false);
-  });
-
-  test("must reject an unsupported locale", () => {
-    const result = analyzePayloadSchema.safeParse({
-      ...validPayload,
-      locale: "de",
-    });
-
-    expect(result.success).toBe(false);
   });
 });

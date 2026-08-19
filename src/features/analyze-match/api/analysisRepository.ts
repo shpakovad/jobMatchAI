@@ -1,5 +1,7 @@
 "use server";
 
+import { getTranslations } from "next-intl/server";
+
 import { ValidatedAnalysisResult } from "@/src/entities/analysis";
 import { aiAnalysisReportSchema } from "@/src/features/analyze-match";
 import { db } from "@/src/shared/api/prisma";
@@ -8,16 +10,16 @@ interface SaveAnalysisParams {
   id: string;
   analysis: ValidatedAnalysisResult;
   attemptsCount: number;
-  isRussianLang: boolean;
 }
 
 export const saveAnonymousAnalysis = async ({
   id,
   analysis,
   attemptsCount,
-  isRussianLang,
 }: SaveAnalysisParams) => {
   const parsedReport = aiAnalysisReportSchema.parse(analysis);
+
+  const t = await getTranslations("Errors.SaveAnonymousAnalysis");
 
   const {
     matchPercentage,
@@ -28,12 +30,9 @@ export const saveAnonymousAnalysis = async ({
     interviewPreparationQuestions,
   } = parsedReport;
 
-  const vacancyName =
-    parsedReport.vacancyName || (isRussianLang ? "Неизвестная вакансия" : "Unknown vacancy");
+  const vacancyName = parsedReport.vacancyName || t("vacancyError");
 
-  const recommendation =
-    parsedReport.recommendation ||
-    (isRussianLang ? "Рекомендация отсутствует" : "No recommendation");
+  const recommendation = parsedReport.recommendation || t("recommendationError");
 
   try {
     await db.anonymousAnalysis.upsert({
@@ -65,9 +64,7 @@ export const saveAnonymousAnalysis = async ({
       },
     });
   } catch (prismaError) {
-    const errorMessage = isRussianLang
-      ? "Критическая ошибка внутри PRISMA:"
-      : "Critical PRISMA error:";
+    const errorMessage = t("errorText");
     console.error(errorMessage, prismaError);
     throw prismaError;
   }

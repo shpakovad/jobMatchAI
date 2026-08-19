@@ -1,6 +1,7 @@
 "use server";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { getTranslations } from "next-intl/server";
 
 import { aiAnalysisSchema, ValidatedAnalysisResult } from "@/src/entities/analysis";
 import { AnalyzePayload } from "@/src/features/analyze-match";
@@ -10,15 +11,12 @@ import { scrapeVacancyText } from "@/src/features/analyze-match/server";
 export const generateMatchAnalysis = async (
   payload: AnalyzePayload,
 ): Promise<ValidatedAnalysisResult> => {
-  const isRussianLang = payload.locale === "ru";
+  const t = await getTranslations("Errors.GenerateMatchAnalysis");
+  const prompt = await getTranslations("SystemPrompt");
 
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    throw new Error(
-      isRussianLang
-        ? "Ключ API не существует. Пожалуйста, укажите его в файле .env."
-        : "API key does not exist. Please set it in the .env file.",
-    );
+    throw new Error(t("noApiKeyError"));
   }
 
   const ai = new GoogleGenerativeAI(apiKey);
@@ -27,10 +25,10 @@ export const generateMatchAnalysis = async (
   const isUrl =
     finalVacancyContent.startsWith("http://") || finalVacancyContent.startsWith("https://");
   if (isUrl) {
-    finalVacancyContent = await scrapeVacancyText(finalVacancyContent, isRussianLang);
+    finalVacancyContent = await scrapeVacancyText(finalVacancyContent);
   }
 
-  const targetLanguage = payload.locale === "ru" ? "русском языке" : "английском языке (English)";
+  const targetLanguage = prompt("targetLanguageInstruction");
   const systemPrompt = getSystemPrompt(targetLanguage);
 
   const model = ai.getGenerativeModel({
@@ -57,7 +55,7 @@ export const generateMatchAnalysis = async (
 
   const rawText = response.response.text();
   if (!rawText) {
-    throw new Error(isRussianLang ? "AI вернул пустой ответ" : "AI returned empty response.");
+    throw new Error(t("emptyKeyError"));
   }
 
   const rawJson = JSON.parse(rawText);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
 import { useAnalysisActions, useAnalysisStore, useIsAnalysisReady } from "@/src/entities/analysis";
@@ -19,7 +19,6 @@ export const AnalyzeButton = () => {
   const isReady = useIsAnalysisReady();
 
   const t = useTranslations("WorkSpacePage");
-  const locale = useLocale();
   const router = useRouter();
 
   const handleAnalyze = async () => {
@@ -34,7 +33,7 @@ export const AnalyzeButton = () => {
       const response = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ resumeText, vacancyText, locale }),
+        body: JSON.stringify({ resumeText, vacancyText }),
         signal: controller.signal,
       });
 
