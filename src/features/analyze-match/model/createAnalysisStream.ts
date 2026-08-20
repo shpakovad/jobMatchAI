@@ -3,15 +3,18 @@ import { getTranslations } from "next-intl/server";
 import { AnalyzePayload } from "@/src/features/analyze-match";
 import { generateMatchAnalysis, saveAnonymousAnalysis } from "@/src/features/analyze-match/server";
 import { db } from "@/src/shared/api/prisma";
+import { incrementIpLimit } from "@/src/shared/lib/ratelimit/server";
 
 type CreateAnalysisStreamParams = {
   payload: AnalyzePayload;
   guestSessionId: string;
+  ip: string;
 };
 
 export const createAnalysisStream = async ({
   payload,
   guestSessionId,
+  ip,
 }: CreateAnalysisStreamParams): Promise<ReadableStream<Uint8Array>> => {
   const t = await getTranslations("Errors.AnalysisStream");
   const encoder = new TextEncoder();
@@ -39,6 +42,8 @@ export const createAnalysisStream = async ({
           analysis: aiParsedResult,
           attemptsCount: nextAttemptNumber,
         });
+
+        await incrementIpLimit(ip);
 
         sendStep(t("step4"));
         controller.close();

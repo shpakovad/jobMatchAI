@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { db } from "@/src/shared/api/prisma";
+import { WINDOW_SECONDS } from "@/src/shared/constants";
 
 export const dynamic = "force-dynamic";
 
@@ -12,7 +13,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const twoHoursAgo = new Date(Date.now() - 2 * 60 * 60 * 1000);
+    const twoHoursAgo = new Date(Date.now() - WINDOW_SECONDS * 1000);
 
     const deleted = await db.anonymousAnalysis.deleteMany({
       where: {

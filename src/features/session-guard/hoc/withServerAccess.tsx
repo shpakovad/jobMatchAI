@@ -1,10 +1,12 @@
 import { cookies } from "next/headers";
-import { getLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { ComponentType } from "react";
 
-import { ATTEMPTS_LIMIT } from "@/src/features/session-guard";
 import { Link } from "@/src/navigation";
 import { db } from "@/src/shared/api/prisma";
+import { MAX_ATTEMPTS } from "@/src/shared/constants";
+import { isPageIpRateLimited } from "@/src/shared/lib/ratelimit/withRateLimit";
+import { parseSession } from "@/src/shared/lib/session/server";
 import { Button, ErrorPage } from "@/src/shared/ui";
 
 interface AccessProps {
@@ -13,18 +15,25 @@ interface AccessProps {
 
 export function withServerAccess<P extends object>(Component: ComponentType<P & AccessProps>) {
   return async (props: P & AccessProps) => {
+    const isRateLimit = await isPageIpRateLimited();
+    const t = await getTranslations("WithServerAccess");
+    if (isRateLimit) {
+      return (
+        <ErrorPage message={isRateLimit.errorMessage}>
+          <Link href="/">
+            <Button variant="secondary">{t("goToMainPage")}</Button>
+          </Link>
+        </ErrorPage>
+      );
+    }
+
     const cookieStore = await cookies();
-    const guestSessionId = cookieStore.get("guest_session_id")?.value;
-    const locale = await getLocale();
-    const isRussianLang = locale === "ru";
+    const rawCookie = cookieStore.get("guest_session_id")?.value;
+    const guestSessionId = parseSession(rawCookie);
 
     if (props.path !== "access" && !guestSessionId) {
-      const errorMessage = isRussianLang
-        ? "Для просмотра этой страницы необходим демо-код доступа"
-        : "A demo access code is required to view this page";
-      const buttonLabel = isRussianLang
-        ? "Перейти на страницу доступа к демо"
-        : "Go to demo access page";
+      const errorMessage = t("noSessionError");
+      const buttonLabel = t("goToDemoAccessPage");
 
       return (
         <ErrorPage message={errorMessage}>
@@ -35,24 +44,21 @@ export function withServerAccess<P extends object>(Component: ComponentType<P & 
       );
     }
 
-    let remaining = ATTEMPTS_LIMIT;
+    let remaining = MAX_ATTEMPTS;
 
     if (guestSessionId) {
       const existingAnalysis = await db.anonymousAnalysis.findUnique({
         where: { id: guestSessionId },
       });
 
-      if (existingAnalysis && existingAnalysis.attemptsCount < ATTEMPTS_LIMIT) {
-        remaining = ATTEMPTS_LIMIT - existingAnalysis.attemptsCount;
+      if (existingAnalysis && existingAnalysis.attemptsCount < MAX_ATTEMPTS) {
+        remaining = MAX_ATTEMPTS - existingAnalysis.attemptsCount;
       }
 
       if (props.path !== "analysis") {
-        if (existingAnalysis && existingAnalysis.attemptsCount >= ATTEMPTS_LIMIT) {
-          const errorMessage = isRussianLang
-            ? `Вы исчерпали лимит бесплатных анализов (максимум ${ATTEMPTS_LIMIT}). Пожалуйста, попробуйте через 2 часа, чтобы продолжить.`
-            : `You have reached the limit of free analyses (maximum ${ATTEMPTS_LIMIT}). Please try again in 2 hours to continue.`;
-
-          const buttonLabel = isRussianLang ? "На главную" : "Go to main";
+        if (existingAnalysis && existingAnalysis.attemptsCount >= MAX_ATTEMPTS) {
+          const errorMessage = t("freeAnalysesLimitReached", { limit: MAX_ATTEMPTS });
+          const buttonLabel = t("goToMainPage");
 
           return (
             <ErrorPage message={errorMessage}>

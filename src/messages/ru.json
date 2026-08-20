@@ -113,6 +113,13 @@
   "SystemPrompt": {
     "targetLanguageInstruction": "русском языке"
   },
+  "WithServerAccess": {
+    "noSessionError": "Для просмотра этой страницы необходим демо-код доступа",
+    "goToDemoAccessPage": "Перейти на страницу доступа к демо",
+    "freeAnalysesLimitReached": "Вы исчерпали лимит бесплатных анализов (максимум ${limit}). Пожалуйста, попробуйте через 2 часа, чтобы продолжить.",
+    "goToMainPage": "На главную"
+  },
+
   "Errors": {
     "AnalysisStream": {
       "step1": "Извлечение данных",
@@ -130,7 +137,9 @@
     },
     "SendAnonymousAnalysis": {
       "noIdError": "Страница Анализа не найдена",
-      "noTextOrVacancyError": "Не хватает текста резюме или вакансии"
+      "noTextOrVacancyError": "Не хватает текста резюме или вакансии",
+      "requiredError": "Доступ запрещён. Требуется действительная демо-сессия",
+      "rateLimitError": "Превышен лимит запросов для вашего IP-адреса. Пожалуйста, попробуйте через 2 часа, чтобы продолжить."
     },
     "GenerateMatchAnalysis": {
       "noApiKeyError": "Ключ API не существует. Пожалуйста, укажите его в файле .env.",
@@ -146,7 +155,11 @@
       "notReadableLinkError": "Невозможно прочитать текст по предоставленной ссылке (сайт может быть защищён или закрыт). Пожалуйста, скопируйте описание вакансии в виде текста."
     },
     "VerifyDemoCode": {
-      "noCodeError": "Неверный демо-код доступа"
+      "noCodeError": "Неверный демо-код доступа",
+      "noSessionCodeError": "Неверный сессионный код"
+    },
+    "SecretCode": {
+      "noSecretError": "Критическая ошибка конфигурации: SESSION_SECRET не задан в .env"
     }
   }
 }

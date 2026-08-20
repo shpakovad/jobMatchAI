@@ -113,6 +113,12 @@
   "SystemPrompt": {
     "targetLanguageInstruction": "английском языке (English)"
   },
+  "WithServerAccess": {
+    "noSessionError": "A demo access code is required to view this page",
+    "goToDemoAccessPage": "Go to demo access page",
+    "freeAnalysesLimitReached": "You have reached the limit of free analyses (maximum ${limit}). Please try again in 2 hours to continue.",
+    "goToMainPage": "Go to main"
+  },
   "Errors": {
     "AnalysisStream": {
       "step1": "Extracting data",
@@ -130,7 +136,9 @@
     },
     "SendAnonymousAnalysis": {
       "noIdError": "Analysis page not found",
-      "noTextOrVacancyError": "Resume or vacancy text is missing"
+      "noTextOrVacancyError": "Resume or vacancy text is missing",
+      "requiredError": "Access denied. Valid demo session is required.",
+      "rateLimitError": "Request limit exceeded for your IP address. Please try again in 2 hours to continue."
     },
     "GenerateMatchAnalysis": {
       "noApiKeyError": "API key does not exist. Please set it in the .env file.",
@@ -146,7 +154,11 @@
       "notReadableLinkError": "The text at the provided link could not be read (the site may be protected or down). Please copy the job description as text."
     },
     "VerifyDemoCode": {
-      "noCodeError": "Invalid demo access code."
+      "noCodeError": "Invalid demo access code",
+      "noSessionCodeError": "Invalid session code"
+    },
+    "SecretCode": {
+      "noSecretError": "Critical configuration error: SESSION_SECRET not specified in . env"
     }
   }
 }
