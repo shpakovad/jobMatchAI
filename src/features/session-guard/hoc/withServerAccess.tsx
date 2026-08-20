@@ -26,9 +26,9 @@ export function withServerAccess<P extends object>(Component: ComponentType<P & 
       );
     }
 
-    const { hasActiveSession, sessionId } = await checkActiveSession();
+    const sessionId = await checkActiveSession();
 
-    if (props.path !== "access" && !hasActiveSession) {
+    if (props.path !== "access" && !sessionId) {
       const errorMessage = t("noSessionError");
       const buttonLabel = t("goToDemoAccessPage");
 

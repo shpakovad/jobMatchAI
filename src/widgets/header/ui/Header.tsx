@@ -38,9 +38,9 @@ export const Header = () => {
   };
 
   const handleStartRedirect = async () => {
-    const { hasActiveSession } = await checkActiveSession();
+    const sessionId = await checkActiveSession();
 
-    if (hasActiveSession) {
+    if (sessionId) {
       startTransition(() => router.push("/workspace"));
     } else {
       startTransition(() => router.push("/access"));

@@ -13,7 +13,7 @@ export async function POST(req: Request) {
   const rateLimitResponse = await validateIpRateLimit(req);
   if (rateLimitResponse) return rateLimitResponse;
 
-  const { sessionId } = await checkActiveSession();
+  const sessionId = await checkActiveSession();
 
   const t = await getTranslations("Errors.SendAnonymousAnalysis");
 
