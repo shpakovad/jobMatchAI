@@ -1,4 +1,4 @@
-"use server";
+import "server-only";
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { getTranslations } from "next-intl/server";
