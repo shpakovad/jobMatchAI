@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { AnalyzePayload } from "@/src/features/analyze-match";
 import { generateMatchAnalysis, saveAnonymousAnalysis } from "@/src/features/analyze-match/server";
 import { db } from "@/src/shared/api/prisma";
+import { MAX_ATTEMPTS } from "@/src/shared/constants";
 import { incrementIpLimit } from "@/src/shared/lib/ratelimit/server";
 
 type CreateAnalysisStreamParams = {
@@ -29,6 +30,11 @@ export const createAnalysisStream = async ({
         const existingAnalysis = await db.anonymousAnalysis.findUnique({
           where: { id: guestSessionId },
         });
+
+        if (existingAnalysis && existingAnalysis.attemptsCount >= MAX_ATTEMPTS) {
+          throw new Error(t("limitReached"));
+        }
+
         const nextAttemptNumber = existingAnalysis ? existingAnalysis.attemptsCount + 1 : 1;
 
         sendStep(t("step1"));
