@@ -146,6 +146,10 @@
       "emptyKeyError": "AI returned empty response."
     },
     "ScrapeVacancyText": {
+      "invalidProtocol": "Invalid protocol",
+      "disallowedPort": "Disallowed port",
+      "blockedIp": "Private IP blocked",
+      "dnsFailed": "DNS lookup failed",
       "noSafeUrl": "The provided URL is unsafe or invalid. Please copy the job description as text.",
       "linkError": "Failed to open link. Status:",
       "largePageError": "The webpage is too large to download safely.",
