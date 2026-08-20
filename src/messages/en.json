@@ -128,7 +128,7 @@
       "databaseError": "Failed to save the report to the database due to an internal server error. Please try submitting your request again.",
       "overloadedServer": "AI servers are currently overloaded due to high demand. Please wait a couple of minutes and try submitting your resume again.",
       "notSupportedError": "User location is not supported for the API use. Please check your VPN region.",
-      "limitReached": "Server limit reached"
+      "limitReached": "You have reached the limit of free analyses (maximum ${limit}). Please try again in 2 hours to continue."
     },
     "SaveAnonymousAnalysis": {
       "vacancyError": "Unknown vacancy",

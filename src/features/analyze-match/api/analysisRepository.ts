@@ -9,7 +9,7 @@ import { db } from "@/src/shared/api/prisma";
 interface SaveAnalysisParams {
   id: string;
   analysis: ValidatedAnalysisResult;
-  attemptsCount: number;
+  attemptsCount?: number;
 }
 
 export const saveAnonymousAnalysis = async ({
