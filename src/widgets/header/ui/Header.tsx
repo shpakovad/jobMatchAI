@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
 
 import { useAnalysisActions } from "@/src/entities/analysis";
-import { checkActiveSession } from "@/src/features/session-guard";
+import { checkActiveSession } from "@/src/entities/session";
 import { Link, usePathname, useRouter } from "@/src/navigation";
 import { divider } from "@/src/shared/styles";
 import { Button, FullScreenLoader } from "@/src/shared/ui";
@@ -38,7 +38,7 @@ export const Header = () => {
   };
 
   const handleStartRedirect = async () => {
-    const hasActiveSession = await checkActiveSession();
+    const { hasActiveSession } = await checkActiveSession();
 
     if (hasActiveSession) {
       startTransition(() => router.push("/workspace"));

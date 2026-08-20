@@ -1,12 +1,11 @@
-import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
 import { ComponentType } from "react";
 
+import { checkActiveSession } from "@/src/entities/session";
 import { Link } from "@/src/navigation";
 import { db } from "@/src/shared/api/prisma";
 import { MAX_ATTEMPTS } from "@/src/shared/constants";
 import { isPageIpRateLimited } from "@/src/shared/lib/ratelimit/withRateLimit";
-import { parseSession } from "@/src/shared/lib/session/server";
 import { Button, ErrorPage } from "@/src/shared/ui";
 
 interface AccessProps {
@@ -27,11 +26,9 @@ export function withServerAccess<P extends object>(Component: ComponentType<P & 
       );
     }
 
-    const cookieStore = await cookies();
-    const rawCookie = cookieStore.get("guest_session_id")?.value;
-    const guestSessionId = parseSession(rawCookie);
+    const { hasActiveSession, sessionId } = await checkActiveSession();
 
-    if (props.path !== "access" && !guestSessionId) {
+    if (props.path !== "access" && !hasActiveSession) {
       const errorMessage = t("noSessionError");
       const buttonLabel = t("goToDemoAccessPage");
 
@@ -46,9 +43,9 @@ export function withServerAccess<P extends object>(Component: ComponentType<P & 
 
     let remaining = MAX_ATTEMPTS;
 
-    if (guestSessionId) {
+    if (sessionId) {
       const existingAnalysis = await db.anonymousAnalysis.findUnique({
-        where: { id: guestSessionId },
+        where: { id: sessionId },
       });
 
       if (existingAnalysis && existingAnalysis.attemptsCount < MAX_ATTEMPTS) {
@@ -71,6 +68,6 @@ export function withServerAccess<P extends object>(Component: ComponentType<P & 
       }
     }
 
-    return <Component {...props} sessionId={guestSessionId} remainingAnalyses={remaining} />;
+    return <Component {...props} sessionId={sessionId} remainingAnalyses={remaining} />;
   };
 }
