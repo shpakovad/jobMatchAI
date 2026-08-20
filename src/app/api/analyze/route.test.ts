@@ -1,9 +1,12 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
-const { cookiesMock, createAnalysisStreamMock } = vi.hoisted(() => ({
-  cookiesMock: vi.fn(),
-  createAnalysisStreamMock: vi.fn(),
-}));
+const { cookiesMock, createAnalysisStreamMock, parseSessionMock, validateIpRateLimitMock } =
+  vi.hoisted(() => ({
+    cookiesMock: vi.fn(),
+    createAnalysisStreamMock: vi.fn(),
+    parseSessionMock: vi.fn(),
+    validateIpRateLimitMock: vi.fn(),
+  }));
 
 vi.mock("next/headers", () => ({
   cookies: cookiesMock,
@@ -15,6 +18,14 @@ vi.mock("@/src/features/analyze-match/server", () => ({
 
 vi.mock("next-intl/server", () => ({
   getTranslations: vi.fn().mockResolvedValue((key: string) => key),
+}));
+
+vi.mock("@/src/shared/lib/session/server", () => ({
+  parseSession: parseSessionMock,
+}));
+
+vi.mock("@/src/shared/lib/ratelimit/withRateLimit", () => ({
+  validateIpRateLimit: validateIpRateLimitMock,
 }));
 
 vi.mock("@/src/shared/api/prisma", () => ({
@@ -44,11 +55,15 @@ const mockSessionCookie = (value?: string) => {
   cookiesMock.mockResolvedValue({
     get: (name: string) => (name === "guest_session_id" && value ? { value } : undefined),
   });
+
+  parseSessionMock.mockReturnValue(value || null);
 };
 
 describe("POST /api/analyze", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    validateIpRateLimitMock.mockResolvedValue(null);
+
     createAnalysisStreamMock.mockReturnValue(
       new ReadableStream({
         start(controller) {
@@ -66,18 +81,8 @@ describe("POST /api/analyze", () => {
     const data = await response.json();
 
     expect(response.status).toBe(401);
-    expect(data.error).toBe("noIdError");
+    expect(data.error).toBe("requiredError");
     expect(createAnalysisStreamMock).not.toHaveBeenCalled();
-  });
-
-  test("must return a 401 translated message when session is missing", async () => {
-    mockSessionCookie();
-
-    const response = await POST(makeRequest({ ...validPayload }));
-    const data = await response.json();
-
-    expect(response.status).toBe(401);
-    expect(data.error).toBe("noIdError");
   });
 
   test("must return 400 when resume or vacancy text fails zod validation", async () => {
@@ -114,9 +119,11 @@ describe("POST /api/analyze", () => {
 
     expect(response.status).toBe(200);
     expect(response.headers.get("Content-Type")).toContain("text/plain");
+
     expect(createAnalysisStreamMock).toHaveBeenCalledWith({
       payload: validPayload,
       guestSessionId: "session-1",
+      ip: "127.0.0.1",
     });
 
     const body = await response.text();
@@ -139,6 +146,7 @@ describe("POST /api/analyze", () => {
         vacancyText: "Senior frontend role",
       },
       guestSessionId: "session-1",
+      ip: "127.0.0.1",
     });
   });
 });
