@@ -33,8 +33,6 @@ vi.mock("@/src/shared/lib/ratelimit/server", () => ({
   incrementIpLimit: incrementIpLimitMock,
 }));
 
-import { MAX_ATTEMPTS } from "@/src/shared/constants";
-
 import { createAnalysisStream } from "./createAnalysisStream";
 
 const payload = {
