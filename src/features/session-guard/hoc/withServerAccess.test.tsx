@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, test, vi } from "vitest";
 
+process.env.SESSION_SECRET = "super_secret_string_32_characters";
+
 const { cookiesMock, getLocaleMock, findUniqueMock } = vi.hoisted(() => ({
   cookiesMock: vi.fn(),
   getLocaleMock: vi.fn(),
