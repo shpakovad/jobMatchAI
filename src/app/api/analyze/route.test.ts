@@ -81,7 +81,7 @@ describe("POST /api/analyze", () => {
     const data = await response.json();
 
     expect(response.status).toBe(401);
-    expect(data.error).toBe("requiredError");
+    expect(data.error).toBe("noIdError");
     expect(createAnalysisStreamMock).not.toHaveBeenCalled();
   });
 

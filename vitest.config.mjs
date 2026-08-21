@@ -18,6 +18,10 @@ export default defineConfig({
         inline: ["next-intl", "next"],
       },
     },
+    alias: {
+      "server-only": path.resolve(__dirname, "./vitest.server-only-mock.js"),
+      "@": path.resolve(__dirname, "./"),
+    },
   },
   resolve: {
     alias: {

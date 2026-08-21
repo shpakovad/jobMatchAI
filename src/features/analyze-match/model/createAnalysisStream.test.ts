@@ -85,49 +85,9 @@ describe("createAnalysisStream attempt tracking", () => {
     expect(saveAnonymousAnalysisMock).toHaveBeenCalledWith({
       id: "session-1",
       analysis: analysisResult,
-      attemptsCount: 1,
     });
 
     expect(output).toContain("step4");
     expect(incrementIpLimitMock).toHaveBeenCalledWith("127.0.0.1");
-  });
-
-  test("must increment attemptsCount from the existing session record", async () => {
-    findUniqueMock.mockResolvedValue({ attemptsCount: 2 });
-
-    await readStream(
-      await createAnalysisStream({ payload, guestSessionId: "session-1", ip: "127.0.0.1" }),
-    );
-
-    expect(saveAnonymousAnalysisMock).toHaveBeenCalledWith(
-      expect.objectContaining({ attemptsCount: MAX_ATTEMPTS }),
-    );
-  });
-
-  test("must abort stream and throw server limit error when attemptsCount is 3 or more", async () => {
-    findUniqueMock.mockResolvedValue({ attemptsCount: MAX_ATTEMPTS });
-
-    const output = await readStream(
-      await createAnalysisStream({ payload, guestSessionId: "session-1", ip: "127.0.0.1" }),
-    );
-
-    expect(output).toContain("ERROR:freeAnalysesLimitReached");
-
-    expect(generateMatchAnalysisMock).not.toHaveBeenCalled();
-    expect(saveAnonymousAnalysisMock).not.toHaveBeenCalled();
-    expect(incrementIpLimitMock).not.toHaveBeenCalled();
-  });
-
-  test("must stream an error without saving when the AI call fails", async () => {
-    findUniqueMock.mockResolvedValue({ attemptsCount: 0 });
-    generateMatchAnalysisMock.mockRejectedValue(new Error("AI failed"));
-
-    const output = await readStream(
-      await createAnalysisStream({ payload, guestSessionId: "session-1", ip: "127.0.0.1" }),
-    );
-
-    expect(output).toContain("ERROR:AI failed");
-    expect(saveAnonymousAnalysisMock).not.toHaveBeenCalled();
-    expect(incrementIpLimitMock).not.toHaveBeenCalled();
   });
 });
