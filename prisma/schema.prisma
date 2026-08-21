@@ -14,15 +14,15 @@ datasource db {
 }
 
 model AnonymousAnalysis {
-  id                            String   @id
+  id                            String   @id @default(uuid())
   vacancyName                   String
   matchPercentage               Int
-  matchedSkills                 Json
-  missingSkills                 Json
+  matchedSkills                 String[]
+  missingSkills                 String[]
   recommendation                String   @db.Text
   resumeImprovementSuggestions  String[]
   suggestedResumeBullets        String[]
   interviewPreparationQuestions String[]
   createdAt                     DateTime @default(now())
-  attemptsCount                 Int      @default(1)
+  attemptsCount                 Int      @default(0)
 }
