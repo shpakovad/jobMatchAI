@@ -124,7 +124,7 @@ describe("POST /api/analyze", () => {
       payload: validPayload,
       guestSessionId: "session-1",
       ip: "127.0.0.1",
-      locale: "en",
+      locale: "ru",
     });
 
     const body = await response.text();
@@ -148,7 +148,7 @@ describe("POST /api/analyze", () => {
       },
       guestSessionId: "session-1",
       ip: "127.0.0.1",
-      locale: "en",
+      locale: "ru",
     });
   });
 });
