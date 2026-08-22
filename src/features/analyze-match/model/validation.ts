@@ -4,7 +4,6 @@ export const analyzePayloadSchema = z.object({
   resumeText: z.string().trim().min(10, { message: "Resume text is too short" }),
 
   vacancyText: z.string().trim().min(5, { message: "Vacancy text is too short" }),
-  locale: z.string().default("ru"),
 });
 
 export const aiAnalysisReportSchema = z.object({

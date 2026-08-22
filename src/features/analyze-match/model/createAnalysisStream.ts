@@ -34,7 +34,7 @@ export const createAnalysisStream = async ({
         sendStep(t("step1"));
         sendStep(t("step2"));
 
-        const aiParsedResult = await generateMatchAnalysis({ ...payload, locale });
+        const aiParsedResult = await generateMatchAnalysis(payload, locale);
 
         sendStep(t("step3"));
         await saveAnonymousAnalysis({

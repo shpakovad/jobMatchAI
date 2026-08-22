@@ -10,14 +10,15 @@ import { scrapeVacancyText } from "@/src/features/analyze-match/server";
 
 export const generateMatchAnalysis = async (
   payload: AnalyzePayload,
+  locale: string,
 ): Promise<ValidatedAnalysisResult> => {
   const t = await getTranslations({
-    locale: payload.locale,
+    locale,
     namespace: "Errors.GenerateMatchAnalysis",
   });
 
   const prompt = await getTranslations({
-    locale: payload.locale,
+    locale,
     namespace: "SystemPrompt",
   });
 

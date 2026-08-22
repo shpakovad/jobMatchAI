@@ -77,7 +77,12 @@ describe("createAnalysisStream attempt tracking", () => {
     findUniqueMock.mockResolvedValue(null);
 
     const output = await readStream(
-      await createAnalysisStream({ payload, guestSessionId: "session-1", ip: "127.0.0.1" }),
+      await createAnalysisStream({
+        payload,
+        guestSessionId: "session-1",
+        ip: "127.0.0.1",
+        locale: "ru",
+      }),
     );
 
     expect(saveAnonymousAnalysisMock).toHaveBeenCalledWith({
