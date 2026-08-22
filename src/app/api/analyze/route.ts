@@ -17,7 +17,13 @@ export async function POST(req: Request) {
 
   const sessionId = await checkActiveSession();
 
-  const t = await getTranslations("Errors.SendAnonymousAnalysis");
+  const rawLocale = req.headers.get("accept-language")?.split(",") || ["ru"];
+  const locale = rawLocale[0].trim().slice(0, 2);
+
+  const t = await getTranslations({
+    locale,
+    namespace: "Errors.SendAnonymousAnalysis",
+  });
 
   if (!sessionId) {
     return NextResponse.json({ error: t("noIdError") }, { status: 401 });
@@ -28,7 +34,7 @@ export async function POST(req: Request) {
   });
   if (existingAnalysis && existingAnalysis.attemptsCount >= MAX_ATTEMPTS) {
     return NextResponse.json(
-      { error: "Вы исчерпали лимит бесплатных анализов (максимум 3)." },
+      { error: t("limitReached", { limit: MAX_ATTEMPTS }) },
       { status: 429 },
     );
   }
@@ -72,7 +78,7 @@ export async function POST(req: Request) {
 
   const payload = validation.data;
   const ip = req.headers.get("x-forwarded-for") || "127.0.0.1";
-  const stream = await createAnalysisStream({ payload, guestSessionId: sessionId, ip });
+  const stream = await createAnalysisStream({ payload, guestSessionId: sessionId, ip, locale });
 
   return new Response(stream, {
     headers: {

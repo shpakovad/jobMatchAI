@@ -11,7 +11,7 @@ export async function checkIpLimit(ip: string): Promise<{ isBlocked: boolean; re
 
   const currentAttempts = await redisClient.get<number>(key);
 
-  if (currentAttempts && currentAttempts >= MAX_ATTEMPTS) {
+  if (currentAttempts && currentAttempts > MAX_ATTEMPTS) {
     return { isBlocked: true, remaining: 0 };
   }
 

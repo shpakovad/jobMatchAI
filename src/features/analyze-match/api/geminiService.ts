@@ -11,8 +11,15 @@ import { scrapeVacancyText } from "@/src/features/analyze-match/server";
 export const generateMatchAnalysis = async (
   payload: AnalyzePayload,
 ): Promise<ValidatedAnalysisResult> => {
-  const t = await getTranslations("Errors.GenerateMatchAnalysis");
-  const prompt = await getTranslations("SystemPrompt");
+  const t = await getTranslations({
+    locale: payload.locale,
+    namespace: "Errors.GenerateMatchAnalysis",
+  });
+
+  const prompt = await getTranslations({
+    locale: payload.locale,
+    namespace: "SystemPrompt",
+  });
 
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {

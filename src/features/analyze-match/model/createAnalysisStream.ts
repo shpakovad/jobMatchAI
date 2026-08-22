@@ -8,14 +8,20 @@ type CreateAnalysisStreamParams = {
   payload: AnalyzePayload;
   guestSessionId: string;
   ip: string;
+  locale: string;
 };
 
 export const createAnalysisStream = async ({
   payload,
   guestSessionId,
   ip,
+  locale,
 }: CreateAnalysisStreamParams): Promise<ReadableStream<Uint8Array>> => {
-  const t = await getTranslations("Errors.AnalysisStream");
+  const t = await getTranslations({
+    locale,
+    namespace: "Errors.AnalysisStream",
+  });
+
   const encoder = new TextEncoder();
 
   return new ReadableStream({
@@ -28,7 +34,7 @@ export const createAnalysisStream = async ({
         sendStep(t("step1"));
         sendStep(t("step2"));
 
-        const aiParsedResult = await generateMatchAnalysis(payload);
+        const aiParsedResult = await generateMatchAnalysis({ ...payload, locale });
 
         sendStep(t("step3"));
         await saveAnonymousAnalysis({
