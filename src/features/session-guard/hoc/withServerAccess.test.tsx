@@ -1,9 +1,12 @@
-import { render, screen } from "@testing-library/react";
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { vi } from "vitest";
 
 vi.hoisted(() => {
   process.env.SESSION_SECRET = "super_secret_string_32_characters";
 });
+
+
+import { render, screen } from "@testing-library/react";
+import { beforeEach, describe, expect, test } from "vitest";
 
 const { cookiesMock, getLocaleMock, findUniqueMock } = vi.hoisted(() => ({
   cookiesMock: vi.fn(),
