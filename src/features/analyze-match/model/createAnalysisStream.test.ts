@@ -12,7 +12,6 @@ const {
   incrementIpLimitMock: vi.fn(),
 }));
 
-// 🌟 1. Мокаем все варианты вызовов next-intl [📡]
 vi.mock("next-intl/server", () => ({
   getTranslations: vi.fn().mockImplementation(async () => {
     return (key: string) => {
@@ -30,8 +29,6 @@ vi.mock("@/src/shared/api/prisma", () => ({
   },
 }));
 
-// 🌟 2. СЕНЬОР-ФИКС МОКОВ: Перехватываем функции по их реальным физическим путям файлов!
-// Теперь Vitest намертво подменит методы, и живой код ИИ не запустится в тестах [📡].
 vi.mock("../api/geminiService", () => ({
   generateMatchAnalysis: generateMatchAnalysisMock,
 }));
@@ -50,7 +47,6 @@ vi.mock("@/src/shared/lib/ratelimit/server", () => ({
 
 import { createAnalysisStream } from "./createAnalysisStream";
 
-// Вспомогательный хелпер чтения стрима
 const readStream = async (stream: ReadableStream<Uint8Array>) => {
   const reader = stream.getReader();
   const decoder = new TextDecoder();
@@ -63,7 +59,6 @@ const readStream = async (stream: ReadableStream<Uint8Array>) => {
   return result;
 };
 
-// Твой чистый payload и объект отчета
 const payload = {
   resumeText: "Frontend developer with React and TypeScript experience.",
   vacancyText: "Looking for a React engineer.",
@@ -104,7 +99,6 @@ describe("createAnalysisStream attempt tracking", () => {
       }),
     );
 
-    // Теперь мок перехвачен идеально, и вызовы сработают со 100% успехом [📡]!
     expect(saveAnonymousAnalysisMock).toHaveBeenCalledWith({
       id: "session-1",
       analysis: analysisResult,
