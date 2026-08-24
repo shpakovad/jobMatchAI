@@ -14,7 +14,10 @@ const {
 
 vi.mock("next-intl/server", () => ({
   getTranslations: vi.fn().mockImplementation(async () => {
-    return (key: string) => key;
+    return (key: string) => {
+      if (key === "targetLanguageInstruction") return "ru";
+      return key;
+    };
   }),
 }));
 
