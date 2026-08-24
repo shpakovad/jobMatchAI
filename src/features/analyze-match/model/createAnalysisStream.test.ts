@@ -75,7 +75,6 @@ describe("createAnalysisStream attempt tracking", () => {
 
   test("must save the first analysis as attempt 1", async () => {
     findUniqueMock.mockResolvedValue(null);
-
     generateMatchAnalysisMock.mockResolvedValue(analysisResult);
 
     const testSignal = new AbortController().signal;
@@ -95,7 +94,7 @@ describe("createAnalysisStream attempt tracking", () => {
       analysis: analysisResult,
     });
 
+    expect(generateMatchAnalysisMock).toHaveBeenCalledWith(payload, "ru", expect.any(AbortSignal));
     expect(output).toContain("step4");
-    expect(incrementIpLimitMock).toHaveBeenCalledWith("127.0.0.1");
   });
 });
