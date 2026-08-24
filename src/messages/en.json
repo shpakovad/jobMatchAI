@@ -119,6 +119,11 @@
     "freeAnalysesLimitReached": "You have reached the limit of free analyses (maximum ${limit}). Please try again in 2 hours to continue.",
     "goToMainPage": "Go to main"
   },
+  "NotFoundPage": {
+    "title": "Page Not Found",
+    "message": "Sorry, the page you are looking for does not exist or has been moved",
+    "buttonText": "Go to Main Page"
+  },
   "Errors": {
     "AnalysisStream": {
       "step1": "Extracting data",
