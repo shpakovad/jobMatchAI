@@ -78,7 +78,13 @@ export async function POST(req: Request) {
 
   const payload = validation.data;
   const ip = req.headers.get("x-forwarded-for") || "127.0.0.1";
-  const stream = await createAnalysisStream({ payload, guestSessionId: sessionId, ip, locale });
+  const stream = await createAnalysisStream({
+    payload,
+    guestSessionId: sessionId,
+    ip,
+    locale,
+    signal: req.signal,
+  });
 
   return new Response(stream, {
     headers: {

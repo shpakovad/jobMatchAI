@@ -1,7 +1,11 @@
 import { getTranslations } from "next-intl/server";
 
 import { AnalyzePayload } from "@/src/features/analyze-match";
-import { generateMatchAnalysis, saveAnonymousAnalysis } from "@/src/features/analyze-match/server";
+import {
+  generateMatchAnalysis,
+  releaseAttempt,
+  saveAnonymousAnalysis,
+} from "@/src/features/analyze-match/server";
 import { incrementIpLimit } from "@/src/shared/lib/ratelimit/server";
 
 type CreateAnalysisStreamParams = {
@@ -9,6 +13,7 @@ type CreateAnalysisStreamParams = {
   guestSessionId: string;
   ip: string;
   locale: string;
+  signal: AbortSignal;
 };
 
 export const createAnalysisStream = async ({
@@ -16,6 +21,7 @@ export const createAnalysisStream = async ({
   guestSessionId,
   ip,
   locale,
+  signal,
 }: CreateAnalysisStreamParams): Promise<ReadableStream<Uint8Array>> => {
   const t = await getTranslations({
     locale,
@@ -24,17 +30,35 @@ export const createAnalysisStream = async ({
 
   const encoder = new TextEncoder();
 
+  const serverAbortController = new AbortController();
+  signal.addEventListener("abort", () => serverAbortController.abort(), { once: true });
+
   return new ReadableStream({
     async start(controller) {
       const sendStep = (step: string) => {
-        controller.enqueue(encoder.encode(`${step}\n`));
+        if (serverAbortController.signal.aborted) return;
+        try {
+          controller.enqueue(encoder.encode(`${step}\n`));
+        } catch {
+          serverAbortController.abort();
+        }
       };
 
       try {
         sendStep(t("step1"));
         sendStep(t("step2"));
 
-        const aiParsedResult = await generateMatchAnalysis(payload, locale);
+        if (serverAbortController.signal.aborted) return;
+
+        const abort = serverAbortController.signal;
+
+        const aiParsedResult = await generateMatchAnalysis(payload, locale, abort);
+
+        if (serverAbortController.signal.aborted) {
+          const message = t("attemptsError");
+          await releaseAttempt(guestSessionId, message);
+          return;
+        }
 
         sendStep(t("step3"));
         await saveAnonymousAnalysis({
@@ -47,6 +71,14 @@ export const createAnalysisStream = async ({
         sendStep(t("step4"));
         controller.close();
       } catch (error) {
+        if (
+          error instanceof Error &&
+          (serverAbortController.signal.aborted || error?.name === "AbortError")
+        ) {
+          const message = t("attemptsError");
+          await releaseAttempt(guestSessionId, message);
+          return;
+        }
         const errorMessage = error instanceof Error ? error.message : String(error);
         const errorObj = error as Record<string, unknown>;
         const rawErrorStatus = Number(errorObj?.status || errorObj?.code || 0);
@@ -68,9 +100,16 @@ export const createAnalysisStream = async ({
           resultMessage = t("notSupportedError");
         }
 
-        controller.enqueue(encoder.encode(`ERROR:${resultMessage}\n`));
+        if (!serverAbortController.signal.aborted) {
+          try {
+            controller.enqueue(encoder.encode(`ERROR:${resultMessage}\n`));
+          } catch {}
+        }
         controller.close();
       }
+    },
+    cancel() {
+      serverAbortController.abort();
     },
   });
 };

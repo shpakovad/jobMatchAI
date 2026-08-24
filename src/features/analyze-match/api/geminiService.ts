@@ -11,6 +11,7 @@ import { scrapeVacancyText } from "@/src/features/analyze-match/server";
 export const generateMatchAnalysis = async (
   payload: AnalyzePayload,
   locale: string,
+  signal: AbortSignal,
 ): Promise<ValidatedAnalysisResult> => {
   const t = await getTranslations({
     locale,
@@ -53,13 +54,16 @@ export const generateMatchAnalysis = async (
       ${finalVacancyContent}
     `;
 
-  const response = await model.generateContent({
-    contents: [{ role: "user", parts: [{ text: userContent }] }],
-    generationConfig: {
-      responseMimeType: "application/json",
-      temperature: 0.2,
+  const response = await model.generateContent(
+    {
+      contents: [{ role: "user", parts: [{ text: userContent }] }],
+      generationConfig: {
+        responseMimeType: "application/json",
+        temperature: 0.2,
+      },
     },
-  });
+    { signal },
+  );
 
   const rawText = response.response.text();
   if (!rawText) {
