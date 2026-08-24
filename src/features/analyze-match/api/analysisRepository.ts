@@ -2,8 +2,7 @@ import "server-only";
 
 import { getTranslations } from "next-intl/server";
 
-import { ValidatedAnalysisResult } from "@/src/entities/analysis";
-import { aiAnalysisReportSchema } from "@/src/features/analyze-match";
+import { llmAnalysisResponseSchema, ValidatedAnalysisResult } from "@/src/entities/analysis";
 import { db } from "@/src/shared/api/prisma";
 
 interface SaveAnalysisParams {
@@ -17,7 +16,7 @@ export const saveAnonymousAnalysis = async ({
   analysis,
   attemptsCount,
 }: SaveAnalysisParams) => {
-  const parsedReport = aiAnalysisReportSchema.parse(analysis);
+  const parsedReport = llmAnalysisResponseSchema.parse(analysis);
 
   const t = await getTranslations("Errors.SaveAnonymousAnalysis");
 
