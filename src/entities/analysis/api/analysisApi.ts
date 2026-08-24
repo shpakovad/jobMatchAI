@@ -1,5 +1,6 @@
-import { aiAnalysisSchema } from "@/src/entities/analysis";
 import { db } from "@/src/shared/api/prisma";
+
+import { aiAnalysisSchema } from "../model/validation";
 
 export const fetchAnalysisById = async (id: string | undefined) => {
   if (!id) return null;
