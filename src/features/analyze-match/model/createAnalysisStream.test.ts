@@ -76,12 +76,15 @@ describe("createAnalysisStream attempt tracking", () => {
   test("must save the first analysis as attempt 1", async () => {
     findUniqueMock.mockResolvedValue(null);
 
+    const testSignal = new AbortController().signal;
+
     const output = await readStream(
       await createAnalysisStream({
         payload,
         guestSessionId: "session-1",
         ip: "127.0.0.1",
         locale: "ru",
+        signal: testSignal,
       }),
     );
 
