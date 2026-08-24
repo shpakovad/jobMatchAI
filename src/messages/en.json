@@ -39,7 +39,7 @@
   },
   "DemoAccessPage": {
     "title": "Private demo access",
-    "description": "This demo is available by access code.",
+    "description": "This demo is available by access code",
     "codeLabel": "Demo code",
     "continueLabel": "Continue",
     "errorOccurredMessage": "Invalid demo access code. Please double-check the characters and ensure you are using the active validation code.",
@@ -78,7 +78,7 @@
       "textareaLimitInfo": "{currentLength}/{maxLength} characters (max {maxLength})",
       "textareaWarning": "Some websites are protected from automated bot reading. If the AI returns an error, please copy the job posting text manually and paste it here.",
       "regionWarning": "AI analysis is powered by Google Gemini. Google Gemini may be unavailable in some regions.",
-      "privacyDisclaimer": "Privacy Notice: By clicking \"Analyze\", you agree to the processing of your data. Your resume text is processed via Google Gemini API solely for report generation and is not stored externally"
+      "privacyDisclaimer": "Privacy Notice: By clicking \"Analyze\", you agree to the processing of your data. Your resume text is processed via Google Gemini API solely for report generation and is not stored externally."
     }
   },
   "AnalysisPage": {
@@ -86,7 +86,7 @@
     "description": "AI comparison of your resume and the vacancy",
     "noSessionMessage": "Analysis page not found",
     "tryAnotherSessionLabel": "Try again",
-    "noDataFoundMessage": "The analysis data was not found in the database or the temporary session has expired.",
+    "noDataFoundMessage": "The analysis data was not found in the database or the temporary session has expired",
     "analyzeAnotherVacancyLabel": "Analyze another vacancy",
     "errorOccurredMessage": "Failed to load the AI analysis report. The database might be temporarily overloaded, or your guest session has expired.",
     "tryAgainLabel": "Try again",
@@ -102,9 +102,9 @@
       "resumeImprovementSuggestionsLabel": "Resume improvements",
       "suggestedResumeBulletsLabel": "Suggested resume bullets",
       "interviewPreparationQuestionsLabel": "Interview prep questions",
-      "nextStepsLabel": "Use the recommendations, update your resume, and prepare answers around the missing skills.",
+      "nextStepsLabel": "Use the recommendations, update your resume, and prepare answers around the missing skills",
       "emptyListLabel": "No additional items",
-      "recommendationText": "Improve backend knowledge — focus on cloud infrastructure (AWS/GCP) and containerization. A portfolio project using Docker would significantly boost your score."
+      "recommendationText": "Improve backend knowledge - focus on cloud infrastructure (AWS/GCP) and containerization. A portfolio project using Docker would significantly boost your score."
     }
   },
   "ErrorPage": {
@@ -144,7 +144,7 @@
     },
     "GenerateMatchAnalysis": {
       "noApiKeyError": "API key does not exist. Please set it in the .env file.",
-      "emptyKeyError": "AI returned empty response."
+      "emptyKeyError": "AI returned empty response"
     },
     "ScrapeVacancyText": {
       "invalidProtocol": "Invalid protocol",
@@ -153,9 +153,9 @@
       "dnsFailed": "DNS lookup failed",
       "noSafeUrl": "The provided URL is unsafe or invalid. Please copy the job description as text.",
       "linkError": "Failed to open link. Status:",
-      "largePageError": "The webpage is too large to download safely.",
-      "textSizeError": "The webpage text size exceeds the security limit.",
-      "notReadableTextError": "Could not extract readable text content from this webpage.",
+      "largePageError": "The webpage is too large to download safely",
+      "textSizeError": "The webpage text size exceeds the security limit",
+      "notReadableTextError": "Could not extract readable text content from this webpage",
       "abortError": "The connection timed out while loading the link. The site might be too slow. Please copy the job description as text.",
       "notReadableLinkError": "The text at the provided link could not be read (the site may be protected or down). Please copy the job description as text."
     },
