@@ -2,7 +2,7 @@
 
 import "./[locale]/globals.css";
 
-import { startTransition, useEffect } from "react";
+import { useEffect } from "react";
 
 import { ErrorIcon } from "@/src/shared/icons/ErrorIcon";
 import { Button } from "@/src/shared/ui";
@@ -12,16 +12,12 @@ interface GlobalErrorProps {
   reset: () => void;
 }
 
-export default function GlobalError({ error, reset }: GlobalErrorProps) {
+export default function GlobalError({ error }: GlobalErrorProps) {
   useEffect(() => {
     console.error(error);
   }, [error]);
 
   const handleAppReset = () => {
-    startTransition(() => {
-      reset();
-    });
-
     window.location.reload();
   };
 

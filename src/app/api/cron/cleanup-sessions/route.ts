@@ -1,3 +1,4 @@
+import { timingSafeEqual } from "crypto";
 import { NextResponse } from "next/server";
 
 import { db } from "@/src/shared/api/prisma";
@@ -8,8 +9,16 @@ export const dynamic = "force-dynamic";
 export async function GET(req: Request) {
   try {
     const authHeader = req.headers.get("authorization");
+    const receivedSecret = authHeader?.replace("Bearer ", "") || "";
 
-    if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    const expectedSecret = process.env.CRON_SECRET || "";
+
+    if (
+      authHeader !== `Bearer ${process.env.CRON_SECRET}` ||
+      receivedSecret.length !== expectedSecret.length ||
+      expectedSecret.length === 0 ||
+      !timingSafeEqual(Buffer.from(receivedSecret), Buffer.from(expectedSecret))
+    ) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -17,7 +26,7 @@ export async function GET(req: Request) {
 
     const deleted = await db.anonymousAnalysis.deleteMany({
       where: {
-        createdAt: {
+        updatedAt: {
           lt: twoHoursAgo,
         },
       },
