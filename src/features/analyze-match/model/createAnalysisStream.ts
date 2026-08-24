@@ -90,6 +90,7 @@ export const createAnalysisStream = async ({
           resultMessage = t("databaseError");
         } else if (
           rawErrorStatus === 503 ||
+          rawErrorStatus === 429 ||
           errorMessage.includes("503") ||
           errorMessage.toLowerCase().includes("high demand") ||
           errorMessage.toLowerCase().includes("service unavailable")
