@@ -70,7 +70,11 @@ export const generateMatchAnalysis = async (
     throw new Error(t("emptyKeyError"));
   }
 
-  const rawJson = JSON.parse(rawText);
+  const cleanJsonText = rawText
+    .replace(/```json/g, "")
+    .replace(/```/g, "")
+    .trim();
+  const rawJson = JSON.parse(cleanJsonText);
 
   return aiAnalysisSchema.parse(rawJson);
 };
