@@ -17,8 +17,7 @@ export async function POST(req: Request) {
 
   const sessionId = await checkActiveSession();
 
-  const rawLocale = req.headers.get("accept-language")?.split(",") || ["ru"];
-  const locale = rawLocale[0].trim().slice(0, 2);
+  const locale = req.headers.get("x-user-locale") || "ru";
 
   const t = await getTranslations({
     locale,
