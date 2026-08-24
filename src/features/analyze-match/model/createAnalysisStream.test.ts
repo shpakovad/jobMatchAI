@@ -76,6 +76,8 @@ describe("createAnalysisStream attempt tracking", () => {
   test("must save the first analysis as attempt 1", async () => {
     findUniqueMock.mockResolvedValue(null);
 
+    generateMatchAnalysisMock.mockResolvedValue(analysisResult);
+
     const testSignal = new AbortController().signal;
 
     const output = await readStream(
