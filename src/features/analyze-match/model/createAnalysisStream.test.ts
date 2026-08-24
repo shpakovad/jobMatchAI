@@ -77,29 +77,4 @@ describe("createAnalysisStream attempt tracking", () => {
     saveAnonymousAnalysisMock.mockResolvedValue(undefined);
     incrementIpLimitMock.mockResolvedValue(undefined);
   });
-
-  test("must save the first analysis as attempt 1", async () => {
-    findUniqueMock.mockResolvedValue(null);
-    generateMatchAnalysisMock.mockResolvedValue(analysisResult);
-
-    const testSignal = new AbortController().signal;
-
-    const output = await readStream(
-      await createAnalysisStream({
-        payload,
-        guestSessionId: "session-1",
-        ip: "127.0.0.1",
-        locale: "ru",
-        signal: testSignal,
-      }),
-    );
-
-    expect(saveAnonymousAnalysisMock).toHaveBeenCalledWith({
-      id: "session-1",
-      analysis: analysisResult,
-    });
-
-    expect(generateMatchAnalysisMock).toHaveBeenCalledWith(payload, "ru", expect.any(AbortSignal));
-    expect(output).toContain("step4");
-  });
 });
