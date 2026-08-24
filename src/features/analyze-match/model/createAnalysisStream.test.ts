@@ -13,7 +13,9 @@ const {
 }));
 
 vi.mock("next-intl/server", () => ({
-  getTranslations: vi.fn().mockResolvedValue((key: string) => key),
+  getTranslations: vi.fn().mockImplementation(async () => {
+    return (key: string) => key;
+  }),
 }));
 
 vi.mock("@/src/shared/api/prisma", () => ({
