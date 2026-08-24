@@ -1,12 +1,11 @@
 import { getTranslations } from "next-intl/server";
 
-import { AnalyzePayload } from "@/src/features/analyze-match";
-import {
-  generateMatchAnalysis,
-  releaseAttempt,
-  saveAnonymousAnalysis,
-} from "@/src/features/analyze-match/server";
 import { incrementIpLimit } from "@/src/shared/lib/ratelimit/server";
+
+import { saveAnonymousAnalysis } from "../api/analysisRepository";
+import { generateMatchAnalysis } from "../api/geminiService";
+import { releaseAttempt } from "../model/quotaService";
+import { AnalyzePayload } from "./validation";
 
 type CreateAnalysisStreamParams = {
   payload: AnalyzePayload;

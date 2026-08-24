@@ -4,9 +4,10 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { getTranslations } from "next-intl/server";
 
 import { aiAnalysisSchema, ValidatedAnalysisResult } from "@/src/entities/analysis";
-import { AnalyzePayload } from "@/src/features/analyze-match";
-import { getSystemPrompt } from "@/src/features/analyze-match/config/gemini";
-import { scrapeVacancyText } from "@/src/features/analyze-match/server";
+
+import { getSystemPrompt } from "../config/gemini";
+import { AnalyzePayload } from "../model/validation";
+import { scrapeVacancyText } from "./scraperService";
 
 export const generateMatchAnalysis = async (
   payload: AnalyzePayload,

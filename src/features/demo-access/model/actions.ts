@@ -8,6 +8,7 @@ import { getTranslations } from "next-intl/server";
 
 import { WINDOW_SECONDS } from "@/src/shared/constants";
 import { serializeSession } from "@/src/shared/lib/session/server";
+
 type AccessResponse = { success: true } | { success: false; error: string };
 
 export const verifyDemoCode = async (code: string): Promise<AccessResponse> => {
