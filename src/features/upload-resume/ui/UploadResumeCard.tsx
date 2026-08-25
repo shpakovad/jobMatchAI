@@ -23,7 +23,6 @@ export const UploadResumeCard = () => {
   const { setResumeText } = useAnalysisActions();
 
   const processFile = async (file: File) => {
-    // 🌟 ПЕРВЫМ ДЕЛОМ: Если прошлый файл еще парсится — намертво отменяем его! [📡]
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
     }
@@ -38,7 +37,6 @@ export const UploadResumeCard = () => {
       return;
     }
 
-    // Создаем свежий контроллер отмены для текущего файла [📡]
     const controller = new AbortController();
     abortControllerRef.current = controller;
 
@@ -47,10 +45,8 @@ export const UploadResumeCard = () => {
     setStatus("parsing");
 
     try {
-      // Передаем signal вторым аргументом в наш обновленный парсер [📡]
       const text = await parsePdfToText(file, controller.signal);
 
-      // Двойная проверка безопасности: если компонент передумал, не пишем стейт [📡]
       if (controller.signal.aborted) return;
 
       if (!text) throw new Error("Error loading PDF text");
@@ -58,7 +54,6 @@ export const UploadResumeCard = () => {
       setResumeText(text);
       setStatus("success");
     } catch (error) {
-      // Если это была запланированная отмена — молча выходим, не пугая юзера ошибками [📡]
       if (error instanceof Error && error?.name === "AbortError") {
         return;
       }
@@ -76,7 +71,7 @@ export const UploadResumeCard = () => {
 
   const handleResetFile = () => {
     if (abortControllerRef.current) {
-      abortControllerRef.current.abort(); // Гасим фоновый парсинг, если он еще шел! [📡]
+      abortControllerRef.current.abort();
     }
     setFileName("");
     setResumeText("");
