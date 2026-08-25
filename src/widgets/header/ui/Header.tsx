@@ -55,11 +55,23 @@ export const Header = () => {
           className="flex h-9 items-center overflow-hidden p-1 text-xs font-semibold text-slate-300 shadow-sm"
           aria-label="Language switcher"
         >
-          <button onClick={() => onChangeLocale("en")} className={localeClassName("en")}>
+          <button
+            onClick={() => onChangeLocale("en")}
+            className={localeClassName("en")}
+            lang="en"
+            aria-label="Switch to English language"
+            aria-pressed={isActiveLocale("en")}
+          >
             EN
           </button>
           <span>/</span>
-          <button onClick={() => onChangeLocale("ru")} className={localeClassName("ru")}>
+          <button
+            onClick={() => onChangeLocale("ru")}
+            className={localeClassName("ru")}
+            lang="ru"
+            aria-label="Переключить на русский язык"
+            aria-pressed={isActiveLocale("ru")}
+          >
             RU
           </button>
         </div>

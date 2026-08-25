@@ -40,7 +40,7 @@ export const HowItWorksSection = () => {
                       return (
                         <div
                           key={result.id}
-                          className="flex flex-col items-center gap-2 rounded-lg border-b border-l border-r border-t border-white/20 bg-slate-950 p-20 px-3 py-2.5 text-xs text-blue-300 sm:flex-row sm:text-sm"
+                          className="flex flex-col items-center gap-2 rounded-lg border border-white/20 bg-slate-950 p-20 px-3 py-2.5 text-xs text-blue-300 sm:flex-row sm:text-sm"
                         >
                           {result.img}
                           <span className="text-center text-primary sm:text-start">

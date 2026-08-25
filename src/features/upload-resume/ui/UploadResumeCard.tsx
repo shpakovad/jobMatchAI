@@ -134,7 +134,7 @@ export const UploadResumeCard = () => {
           onDrop={handleDrop}
           className={`mt-2 text-center transition-all duration-200 ${
             isDragActive
-              ? "scale-[1.01] border-blue-500 bg-blue-500/5" // Стильно подсвечиваем, когда файл висит над карточкой
+              ? "scale-[1.01] border-blue-500 bg-blue-500/5"
               : "border-white/10 bg-slate-900/40"
           }`}
         >

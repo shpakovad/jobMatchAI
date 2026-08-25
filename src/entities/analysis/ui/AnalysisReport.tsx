@@ -35,7 +35,10 @@ const ReportListSection = ({ title, items, icon, markerClassName }: ReportListSe
       {Boolean(items.length) ? (
         <ol className="space-y-2">
           {items.map((item, index) => (
-            <li key={index} className="flex gap-3 text-xs leading-relaxed text-primary sm:text-sm">
+            <li
+              key={`${item}-${index}`}
+              className="flex gap-3 text-xs leading-relaxed text-primary sm:text-sm"
+            >
               <span
                 className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md font-mono text-xs ${markerClassName}`}
               >
@@ -106,9 +109,9 @@ export const AnalysisReport = ({ data, children }: AnalysisReportProps) => {
               </p>
               <div className="flex flex-wrap gap-2">
                 {Boolean(missingSkills.length) ? (
-                  missingSkills.map((item) => (
+                  missingSkills.map((item, index) => (
                     <span
-                      key={item}
+                      key={`${item}-${index}`}
                       className="rounded-md border border-red-500/20 bg-red-500/10 px-2.5 py-1 font-mono text-xs text-red-500"
                     >
                       {item}
