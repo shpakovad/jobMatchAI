@@ -117,6 +117,23 @@ export const UploadResumeCard = () => {
     };
   }, []);
 
+  const wrapperDragClass = [
+    "mt-2 text-center transition-all duration-200",
+    isDragActive && "scale-[1.01]",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const fileFieldClass = [
+    "hover:border-primary/40 hover:bg-primary/5 flex cursor-pointer flex-col items-center gap-3",
+    "rounded-xl border-2 border-dashed border-white/10 bg-card transition-all hover:cursor-pointer",
+    "flex h-[150px] items-center justify-center sm:h-[250px] sm:w-[400px]",
+    status === "parsing" && "pointer-events-none opacity-50",
+    isDragActive && "border-blue-500 bg-blue-500/5",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <div className="mb-14">
       <div>
@@ -127,17 +144,9 @@ export const UploadResumeCard = () => {
           onDragOver={handleDrag}
           onDragLeave={handleDrag}
           onDrop={handleDrop}
-          className={`mt-2 text-center transition-all duration-200 ${
-            isDragActive
-              ? "scale-[1.01] border-blue-500 bg-blue-500/5"
-              : "border-white/10 bg-slate-900/40"
-          }`}
+          className={wrapperDragClass}
         >
-          <Field
-            className={`hover:border-primary/40 hover:bg-primary/5 flex cursor-pointer flex-col items-center gap-3 rounded-xl border-2 border-dashed border-white/10 bg-card transition-all hover:cursor-pointer ${
-              status === "parsing" ? "pointer-events-none opacity-50" : ""
-            } flex h-[150px] items-center justify-center sm:h-[250px] sm:w-[400px]`}
-          >
+          <Field className={fileFieldClass}>
             <div className="flex w-full items-end justify-end">
               <Button
                 variant="secondary"
