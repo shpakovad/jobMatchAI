@@ -2,7 +2,7 @@
 
 import { CheckCircle2, FileText, Loader2, Upload, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { ChangeEvent, DragEvent, useRef, useState } from "react";
+import { ChangeEvent, DragEvent, useEffect, useRef, useState } from "react";
 
 import { useAnalysisActions, useAnalysisStore } from "@/src/entities/analysis";
 import { parsePdfToText } from "@/src/features/upload-resume/lib/parsePdf";
@@ -15,6 +15,7 @@ export const UploadResumeCard = () => {
   const [status, setStatus] = useState<"idle" | "parsing" | "success" | "error">("idle");
   const [isDragActive, setIsDragActive] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const t = useTranslations("WorkSpacePage.UploadResumeSection");
 
@@ -22,29 +23,45 @@ export const UploadResumeCard = () => {
   const { setResumeText } = useAnalysisActions();
 
   const processFile = async (file: File) => {
+    // 🌟 ПЕРВЫМ ДЕЛОМ: Если прошлый файл еще парсится — намертво отменяем его! [📡]
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+
     if (file.type !== "application/pdf") {
-      setResumeText("");
       setStatus("error");
       return;
     }
 
     if (file.size > MAX_RESUME_FILE_SIZE_BYTES) {
-      setResumeText("");
       setStatus("error");
       return;
     }
+
+    // Создаем свежий контроллер отмены для текущего файла [📡]
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
 
     setFileName(file.name);
     setResumeText("");
     setStatus("parsing");
 
     try {
-      const text = await parsePdfToText(file);
+      // Передаем signal вторым аргументом в наш обновленный парсер [📡]
+      const text = await parsePdfToText(file, controller.signal);
+
+      // Двойная проверка безопасности: если компонент передумал, не пишем стейт [📡]
+      if (controller.signal.aborted) return;
+
       if (!text) throw new Error("Error loading PDF text");
 
       setResumeText(text);
       setStatus("success");
     } catch (error) {
+      // Если это была запланированная отмена — молча выходим, не пугая юзера ошибками [📡]
+      if (error instanceof Error && error?.name === "AbortError") {
+        return;
+      }
       console.error(error);
       setResumeText("");
       setStatus("error");
@@ -53,10 +70,21 @@ export const UploadResumeCard = () => {
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-
     if (!file) return;
+    await processFile(file);
+  };
 
-    return await processFile(file);
+  const handleResetFile = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort(); // Гасим фоновый парсинг, если он еще шел! [📡]
+    }
+    setFileName("");
+    setResumeText("");
+    setStatus("idle");
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const handleDrag = (e: DragEvent<HTMLDivElement>) => {
@@ -80,16 +108,6 @@ export const UploadResumeCard = () => {
     }
   };
 
-  const handleResetFile = () => {
-    setFileName(null);
-    setStatus("idle");
-    setResumeText("");
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
-
   const handleResumeTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target.value;
     if (text.length === 0) {
@@ -97,6 +115,12 @@ export const UploadResumeCard = () => {
     }
     setResumeText(text);
   };
+
+  useEffect(() => {
+    return () => {
+      if (abortControllerRef.current) abortControllerRef.current.abort();
+    };
+  }, []);
 
   return (
     <div className="mb-14">
