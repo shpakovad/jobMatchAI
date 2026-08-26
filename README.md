@@ -1,5 +1,7 @@
 # Job Match AI
 
+**Live Demo:** https://job-match-ai-delta.vercel.app
+
 Fullstack demo app for AI-powered resume and job description matching. Built with **Next.js 15**, **React 19**, and **Google Gemini**.
 
 Upload a resume (PDF or text), paste a vacancy URL or description, and get a structured report: match score, skills gap, recommendations, resume tips, and interview questions.
