@@ -24,7 +24,7 @@ const nextConfig = {
   reactCompiler: true,
 
   outputFileTracingIncludes: {
-    "/**/*": ["./src/generated/prisma/**/*.node"],
+    "/**/*": ["./src/generated/prisma/**/*"]
   },
 
   async headers() {
