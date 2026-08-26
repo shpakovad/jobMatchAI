@@ -23,6 +23,10 @@ const nextConfig = {
   poweredByHeader: false,
   reactCompiler: true,
 
+  outputFileTracingIncludes: {
+    "/**/*": ["./src/generated/prisma/**/*"]
+  },
+
   async headers() {
     return [
       {
