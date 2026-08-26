@@ -5,7 +5,14 @@ import simpleImportSort from "eslint-plugin-simple-import-sort";
 
 export default [
   {
-    ignores: [".next/**", "out/**", "build/**", "next-env.d.ts"],
+    ignores: [
+      ".next/**",
+      "out/**",
+      "build/**",
+      "next-env.d.ts",
+      "src/generated/**",
+      "src/generated/prisma/**",
+    ],
   },
   {
     files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
