@@ -76,19 +76,19 @@ export const Header = () => {
           </button>
         </div>
       </div>
-      <div className="flex w-full flex-col items-center justify-between sm:flex-row">
+      <div className="flex w-full items-center justify-between">
         <div className="flex items-end">
           <Sparkles color="oklch(70.7% 0.165 254.624)" />
           <span className="pl-3 text-sm font-semibold text-primary">JobMatch AI</span>
         </div>
         {!isExactRootPath ? (
-          <Link href="/" className="mt-5 sm:mt-0">
+          <Link href="/" className="h-[25px] sm:mt-0 md:mt-5 md:h-auto">
             <Button className="text-xs sm:text-sm" onClick={reset} variant="secondary">
               {t("backToMain")}
             </Button>
           </Link>
         ) : (
-          <Button className="mt-5 text-xs sm:mt-0 sm:text-sm" onClick={handleStartRedirect}>
+          <Button className="text-xs sm:text-sm" onClick={handleStartRedirect}>
             {t("startLabel")}
           </Button>
         )}
