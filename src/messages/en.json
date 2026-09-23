@@ -127,7 +127,7 @@
   "WithServerAccess": {
     "noSessionError": "A demo access code is required to view this page",
     "goToDemoAccessPage": "Go to demo access page",
-    "freeAnalysesLimitReached": "You have reached the limit of free analyses (maximum ${limit}). Please try again in 2 hours to continue.",
+    "freeAnalysesLimitReached": "You have reached the limit of free analyses (maximum {limit}). Please try again in 2 hours to continue.",
     "goToMainPage": "Go to main"
   },
   "NotFoundPage": {
@@ -144,7 +144,7 @@
       "databaseError": "Failed to save the report to the database due to an internal server error. Please try submitting your request again.",
       "overloadedServer": "AI servers are currently overloaded due to high demand. Please wait a couple of minutes and try submitting your resume again.",
       "notSupportedError": "User location is not supported for the API use. Please check your VPN region.",
-      "limitReached": "You have reached the limit of free analyses (maximum ${limit}). Please try again in 2 hours to continue.",
+      "limitReached": "You have reached the limit of free analyses (maximum {limit}). Please try again in 2 hours to continue.",
       "attemptsError": "Failed to return attempt in database"
     },
     "SaveAnonymousAnalysis": {
@@ -153,7 +153,7 @@
       "errorText": "Critical PRISMA error:"
     },
     "SendAnonymousAnalysis": {
-      "limitReached": "You have reached the limit of free analyses (maximum ${limit}). Please try again in 2 hours to continue.",
+      "limitReached": "You have reached the limit of free analyses (maximum {limit}). Please try again in 2 hours to continue.",
       "noIdError": "Analysis page not found",
       "noTextOrVacancyError": "Resume or vacancy text is missing",
       "requiredError": "Access denied. Valid demo session is required.",
